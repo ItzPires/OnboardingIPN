@@ -1,0 +1,14 @@
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\bin\Debug\net6.0\Api.Classes.deps.json
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\bin\Debug\net6.0\Api.Classes.dll
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\bin\Debug\net6.0\Api.Classes.pdb
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.csproj.AssemblyReference.cache
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.AssemblyInfoInputs.cache
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.AssemblyInfo.cs
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.csproj.CoreCompileInputs.cache
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.dll
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\refint\Api.Classes.dll
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.pdb
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\ref\Api.Classes.dll
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\bin\Debug\net6.0\Api.Classes.runtimeconfig.json
+C:\Users\Pires\Desktop\Api.Module\Api.Classes\obj\Debug\net6.0\Api.Classes.genruntimeconfig.cache
