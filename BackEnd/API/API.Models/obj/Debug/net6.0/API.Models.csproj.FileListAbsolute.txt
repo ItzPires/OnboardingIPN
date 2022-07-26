@@ -1,0 +1,14 @@
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\bin\Debug\net6.0\API.Models.deps.json
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\bin\Debug\net6.0\API.Models.runtimeconfig.json
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\bin\Debug\net6.0\API.Models.dll
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\bin\Debug\net6.0\API.Models.pdb
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.csproj.AssemblyReference.cache
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.AssemblyInfoInputs.cache
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.AssemblyInfo.cs
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.csproj.CoreCompileInputs.cache
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.dll
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\refint\API.Models.dll
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.pdb
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\API.Models.genruntimeconfig.cache
+C:\Users\Pires\Desktop\Nova pasta (2)\API\API.Models\obj\Debug\net6.0\ref\API.Models.dll
