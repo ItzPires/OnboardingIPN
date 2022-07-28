@@ -1,5 +1,6 @@
 ﻿using API.Models.DataModels;
 using API.Models.Models;
+using TaskModel = API.Models.Models.Task;
 using AutoMapper;
 
 
@@ -10,6 +11,7 @@ namespace API.Models
         public Mapper()
         {
             CreateMap<Project, ProjectForm>().ReverseMap();
+            CreateMap<TaskModel, TaskForm>().ReverseMap();
         }
     }
 }

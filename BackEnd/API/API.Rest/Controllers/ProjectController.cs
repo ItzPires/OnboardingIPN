@@ -1,5 +1,4 @@
 ﻿using API.Database;
-using API.Database.Interfaces;
 using API.Models.DataModels;
 using API.Models.Models;
 using API.Models.Types;
@@ -29,14 +28,22 @@ namespace API.Rest.Controllers
             //_toolsDb = toolsDb;
         }
 
-        [HttpGet]
+        [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public List<Project> GetProjects()
         {
             return _context.Projects.ToList();
         }
 
-        [HttpPost("new")]
+        [HttpGet("GetManagerProjects")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public List<Project> GetProjectsPerManager()
+        {
+            string username = User.Identity.Name;
+            return _context.Projects.Where(x => x.Manager.UserName == username).ToList();
+        }
+
+        [HttpPost("Add")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> AddProject([FromBody] ProjectForm model)
         {
@@ -52,7 +59,7 @@ namespace API.Rest.Controllers
                 var project = _mapper.Map<Project>(model);
                 project.Manager = user;
 
-                await _context.AddAsync(project);
+                _context.Add(project);
 
                 _context.SaveChanges();
 

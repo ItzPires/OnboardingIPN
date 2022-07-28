@@ -1,12 +1,10 @@
 using API.Database;
 using API.Models;
 using API.Models.Models;
-using API.Rest.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
