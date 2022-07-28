@@ -1,8 +1,12 @@
+using API.Database;
+using API.Models;
+using API.Models.Models;
 using API.Rest.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +15,15 @@ ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
 // For Entity Framework
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr")));
+builder.Services.AddDbContext<ApiContext>(options => options.UseSqlServer(configuration.GetConnectionString("ConnStr"), b => b.MigrationsAssembly("API.Rest")));
 
 // For Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, IdentityRole>(cfg =>
+{
+    cfg.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<ApiContext>();
+
+
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
@@ -46,6 +53,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(typeof(Mapper).Assembly);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,5 +70,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

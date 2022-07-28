@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AutoMapper/11.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.dll": {}
+        }
+      },
       "EntityFramework/6.4.4": {
         "type": "package",
         "dependencies": {
@@ -24,6 +36,28 @@
           "buildTransitive/netcoreapp3.0/EntityFramework.targets": {}
         }
       },
+      "Microsoft.AspNet.Identity.Core/2.2.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Identity.EntityFramework/2.2.3": {
+        "type": "package",
+        "dependencies": {
+          "EntityFramework": "6.1.0",
+          "Microsoft.AspNet.Identity.Core": "2.2.3"
+        },
+        "compile": {
+          "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/6.0.7": {
         "type": "package",
         "compile": {
@@ -43,6 +77,19 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore/6.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.7",
+          "Microsoft.Extensions.Identity.Stores": "6.0.7"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {}
         }
       },
       "Microsoft.CSharp/4.7.0": {
@@ -93,6 +140,19 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll": {}
+        }
+      },
       "Microsoft.Extensions.Caching.Abstractions/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -119,6 +179,18 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "6.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/6.0.0": {
@@ -526,6 +598,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "11.0.1",
           "EntityFramework": "6.4.4",
           "Microsoft.EntityFrameworkCore": "6.0.7",
           "Microsoft.Extensions.Identity.Stores": "6.0.7"
@@ -540,6 +613,21 @@
     }
   },
   "libraries": {
+    "AutoMapper/11.0.1": {
+      "sha512": "WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
+      "type": "package",
+      "path": "automapper/11.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.11.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/netstandard2.1/AutoMapper.dll",
+        "lib/netstandard2.1/AutoMapper.xml"
+      ]
+    },
     "EntityFramework/6.4.4": {
       "sha512": "yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ==",
       "type": "package",
@@ -597,6 +685,32 @@
         "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
       ]
     },
+    "Microsoft.AspNet.Identity.Core/2.2.3": {
+      "sha512": "Mv5FpoaxspE8hlWLE4r1IdZtovg/OyFgVRhxQbx47J4sqdLImN1hnM1lnwCj+/wLmqtqFk/RYMoZ5GAcwm/00g==",
+      "type": "package",
+      "path": "microsoft.aspnet.identity.core/2.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.AspNet.Identity.Core.dll",
+        "lib/net45/Microsoft.AspNet.Identity.Core.xml",
+        "microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
+        "microsoft.aspnet.identity.core.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Identity.EntityFramework/2.2.3": {
+      "sha512": "dt4XZChjw3a6jE66Yd6LkF9omspxi0A9lJpwBZz8Wl1sabOS6dlLP1OOTVuUjtPaoAshjoIzvS6DFRQdPyq55g==",
+      "type": "package",
+      "path": "microsoft.aspnet.identity.entityframework/2.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll",
+        "lib/net45/Microsoft.AspNet.Identity.EntityFramework.xml",
+        "microsoft.aspnet.identity.entityframework.2.2.3.nupkg.sha512",
+        "microsoft.aspnet.identity.entityframework.nuspec"
+      ]
+    },
     "Microsoft.AspNetCore.Cryptography.Internal/6.0.7": {
       "sha512": "BYqRUiLXtOfKNUj2Pt5kdvrKkVTgUAZvEL4kuBPMrczNtLq7z4zZH2nXXYD/h353ZHV0r1+jkl1PXrlxfIPYyg==",
       "type": "package",
@@ -633,6 +747,21 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
         "microsoft.aspnetcore.cryptography.keyderivation.6.0.7.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore/6.0.7": {
+      "sha512": "Q5szSgXmOCgKXDFxxYGY3RHrOvNf4j60uVLrlMd98jP6lNii/3K2jeRuKn4UKEm/j94I4GjJyB+tmie/Bb0e9A==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.identity.entityframeworkcore/6.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll",
+        "lib/net6.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml",
+        "microsoft.aspnetcore.identity.entityframeworkcore.6.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.identity.entityframeworkcore.nuspec"
       ]
     },
     "Microsoft.CSharp/4.7.0": {
@@ -747,6 +876,20 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
+    "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
+      "sha512": "0uo4fPDHutMbd9AJJEKl2q/2fYuFGA8tEBE2fQeQFaNDd+F/aUjaXc1FUD84J7Wcax8WP40rZo1E0u9A0yPPZw==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.relational/6.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.dll",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.Relational.xml",
+        "microsoft.entityframeworkcore.relational.6.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.nuspec"
+      ]
+    },
     "Microsoft.Extensions.Caching.Abstractions/6.0.0": {
       "sha512": "bcz5sSFJbganH0+YrfvIjJDIcKNW7TL07C4d1eTmXy/wOt52iz4LVogJb6pazs7W0+74j0YpXFErvp++Aq5Bsw==",
       "type": "package",
@@ -782,6 +925,25 @@
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.xml",
         "microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",
         "microsoft.extensions.caching.memory.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
+      "sha512": "qWzV9o+ZRWq+pGm+1dF+R7qTgTYoXvbyowRoBxQJGfqTpqDun2eteerjRQhq5PQ/14S+lqto3Ft4gYaRyl4rdQ==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.abstractions/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/net461/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
@@ -1683,7 +1845,10 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "API.Models >= 1.0.0",
-      "EntityFramework >= 6.4.4"
+      "AutoMapper >= 11.0.1",
+      "EntityFramework >= 6.4.4",
+      "Microsoft.AspNet.Identity.EntityFramework >= 2.2.3",
+      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.7"
     ]
   },
   "packageFolders": {
@@ -1692,11 +1857,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj",
+      "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj",
       "projectName": "API.Database",
-      "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj",
+      "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj",
       "packagesPath": "C:\\Users\\Pires\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\obj\\",
+      "outputPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pires\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1713,8 +1878,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj": {
-              "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj"
+            "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj": {
+              "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj"
             }
           }
         }
@@ -1729,9 +1894,21 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[11.0.1, )"
+          },
           "EntityFramework": {
             "target": "Package",
             "version": "[6.4.4, )"
+          },
+          "Microsoft.AspNet.Identity.EntityFramework": {
+            "target": "Package",
+            "version": "[2.2.3, )"
+          },
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[6.0.7, )"
           }
         },
         "imports": [
@@ -1752,5 +1929,27 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'Microsoft.AspNet.Identity.Core 2.2.3' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "Microsoft.AspNet.Identity.Core",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'Microsoft.AspNet.Identity.EntityFramework 2.2.3' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "Microsoft.AspNet.Identity.EntityFramework",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

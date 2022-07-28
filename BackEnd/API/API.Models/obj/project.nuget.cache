@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8NfDCt5Itcb0Gx+GkXZadfUR8Y0DOfn4o9MA5d3qy8amJW0EEKRCU4W5zmhdH7RCfi1Af50J7PnyOweJerpNfA==",
+  "dgSpecHash": "bj0iMx33qXDEBvHzf4lVa6HOZXnTay++o66UeG07TQV0BGYCpt0eD1byp5S+xXNPwl9uk3jiAsg+c7OaXkIPeA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj",
+  "projectFilePath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Pires\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Pires\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Pires\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.7\\microsoft.aspnetcore.cryptography.internal.6.0.7.nupkg.sha512",
     "C:\\Users\\Pires\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.7\\microsoft.aspnetcore.cryptography.keyderivation.6.0.7.nupkg.sha512",

@@ -1,4 +1,4 @@
-using API.Rest.Auth;
+using API.Models.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

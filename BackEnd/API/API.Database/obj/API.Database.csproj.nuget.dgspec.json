@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj": {}
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj": {
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj",
+        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj",
         "projectName": "API.Database",
-        "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\API.Database.csproj",
+        "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\API.Database.csproj",
         "packagesPath": "C:\\Users\\Pires\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Database\\obj\\",
+        "outputPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Database\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pires\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj": {
-                "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj"
+              "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj": {
+                "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj"
               }
             }
           }
@@ -44,9 +44,21 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
+            },
+            "Microsoft.AspNet.Identity.EntityFramework": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.7, )"
             }
           },
           "imports": [
@@ -68,14 +80,14 @@
         }
       }
     },
-    "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj": {
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj",
+        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj",
         "projectName": "API.Models",
-        "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj",
+        "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj",
         "packagesPath": "C:\\Users\\Pires\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\obj\\",
+        "outputPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pires\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -104,6 +116,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"

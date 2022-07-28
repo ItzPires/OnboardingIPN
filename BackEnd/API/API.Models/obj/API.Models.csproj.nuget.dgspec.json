@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj": {}
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj": {
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj",
+        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj",
         "projectName": "API.Models",
-        "projectPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\API.Models.csproj",
+        "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\API.Models.csproj",
         "packagesPath": "C:\\Users\\Pires\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pires\\Desktop\\Nova pasta (2)\\API\\API.Models\\obj\\",
+        "outputPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pires\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
             "EntityFramework": {
               "target": "Package",
               "version": "[6.4.4, )"
