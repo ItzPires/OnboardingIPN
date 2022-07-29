@@ -26,14 +26,14 @@ namespace API.Rest.Controllers
 
         [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<TaskModel> GetProjects()
+        public List<TaskModel> GetTasks()
         {
             return _context.Tasks.ToList();
         }
 
         [HttpGet("GetProgrammerTasks")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Programmer)]
-        public List<TaskModel> GetProjectsPerManager()
+        public List<TaskModel> GetTasksPerProgrammer()
         {
             string username = User.Identity.Name;
             return _context.Tasks.Where(x => x.Programmer.UserName == username).ToList();
@@ -41,7 +41,7 @@ namespace API.Rest.Controllers
 
         [HttpPost("Add")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public async Task<IActionResult> AddProject([FromBody] TaskForm model)
+        public async Task<IActionResult> AddTask([FromBody] TaskForm model)
         {
             try
             {
@@ -54,10 +54,50 @@ namespace API.Rest.Controllers
                 var project = _context.Projects.Find(model.IdProject);
                 var programmer = _context.Users.SingleOrDefault(x => x.UserName == model.UsernameProgrammer);
 
+                if(project == null) return BadRequest("Is null");
+                if(programmer == null) return BadRequest("Is null");
+
                 newTask.Project = project;
                 newTask.Programmer = programmer;
 
+                //todo - ver se ficou ou não
                 _context.Add(newTask);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut("Update/{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<IActionResult> UpdateTasks([FromBody] TaskFormUpdate model, int id)
+        {
+            try
+            {
+                _context.Database.BeginTransaction();
+
+                //verificacoes
+                if (model == null) return BadRequest("Is null");
+
+                var oldTask = _context.Tasks.Find(id);
+                if (oldTask == null) return BadRequest("Is null");
+
+                var newTask = _mapper.Map<TaskModel>(model);
+
+                //var project = _context.Projects.Find(model.IdProject);
+                //var programmer = _context.Users.SingleOrDefault(x => x.UserName == model.UsernameProgrammer);
+
+                //newTask.Project = project;
+                //newTask.Programmer = programmer;
+
+                _context.Tasks.Update(oldTask);
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
