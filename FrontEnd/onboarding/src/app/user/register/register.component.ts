@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
 import { IUserRegister } from './IUserRegister';
-import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,9 @@ import { RegisterService } from './register.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private registerService: RegisterService) { }
+  constructor(private userService: UserService) { }
+
+
   newUser: IUserRegister = {
     username: '',
     password: '',
@@ -24,17 +26,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.registerService.postUserSettingsForm(this.newUser).subscribe(
-        {
-          error: (error) => this.onHttpError(this.newUser),
-          complete: () => console.log('complete')
-        }
-      );
+      this.userService.registerUser(this.newUser);
      }
-  }
-
-  onHttpError(errorResponse: any) {
-    console.log('error: ', errorResponse);
   }
 
 }
