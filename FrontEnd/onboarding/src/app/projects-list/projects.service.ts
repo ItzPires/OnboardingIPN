@@ -14,7 +14,11 @@ export class ProjectsService {
   constructor(private http: HttpClient) { }
 
   getProjects(token: string | null | undefined): Observable<IProjects[]> {
-    return this.http.get<IProjects[]>(this.projectsUrl + 'GetManagerProjects', { headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token }) });
-
+    return this.http.get<IProjects[]>(
+      this.projectsUrl + 'GetManagerProjects',
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+      }
+    );
   }
 }

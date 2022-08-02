@@ -42,16 +42,17 @@ namespace API.Rest.Controllers
 
         [HttpPost("Add")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public async Task<IActionResult> AddProject([FromBody] ProjectForm model)
+        public IActionResult AddProject([FromBody] ProjectForm model)
         {
-            try {
+            try
+            {
                 _context.Database.BeginTransaction();
 
-                if(model == null) return BadRequest("Project object is null");
+                if (model == null) return BadRequest("Project object is null");
 
                 string username = User.Identity.Name;
                 var user = _context.Users.SingleOrDefault(x => x.UserName == username);
-                if(user == null) return BadRequest("Is null");
+                if (user == null) return BadRequest("Is null");
 
                 var project = _mapper.Map<Project>(model);
                 project.Manager = user;

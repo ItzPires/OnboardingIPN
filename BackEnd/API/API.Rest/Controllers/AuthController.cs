@@ -91,8 +91,6 @@ namespace API.Rest.Auth
             else
                 await _userManager.AddToRoleAsync(newUser, Roles.Programmer);
 
-            await _userManager.AddToRoleAsync(newUser, Roles.Programmer);
-
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 

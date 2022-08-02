@@ -10,6 +10,7 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProjectsListComponent } from './projects-list/projects-list.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ProjectsListComponent } from './projects-list/projects-list.component';
       { path: '', component: WelcomeComponent }
     ]),
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

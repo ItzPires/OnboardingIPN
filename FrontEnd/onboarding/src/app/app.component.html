@@ -5,16 +5,19 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-2 link-dark">Home</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+      <li *ngIf="userRole == ('Programmer' || 'Manager')" ><a href="dashboard" class="nav-link px-2 link-dark">Dashboard</a></li>
+      <li *ngIf="userRole == 'Manager'" ><a href="/projects" class="nav-link px-2 link-dark">Projects</a></li>
+      <li *ngIf="userRole == 'Programmer'" ><a href="/tasks" class="nav-link px-2 link-dark">Tasks</a></li>
+      <li *ngIf="userRole != ('Programmer' || 'Manager')"><a href="#" class="nav-link px-2 link-dark">Home</a></li>
+      <li *ngIf="userRole != ('Programmer' || 'Manager')" ><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
+      <li *ngIf="userRole != ('Programmer' || 'Manager')" ><a href="#" class="nav-link px-2 link-dark">About</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
-      <button *ngIf="userRole == 'Manager | Progammer'" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">Logout</button>
-      <button *ngIf="userRole != 'Manager | Progammer'" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">Login</button>
-      <button *ngIf="userRole != 'Manager | Progammer'" type="button" class="btn btn-primary" [routerLink]="'/register'">Sign-up</button>
-      <button *ngIf="userRole != 'Manager | Progammer'" type="button" class="btn btn-primary" [routerLink]="'/register'">PT</button>
+      <button *ngIf="userRole == ('Programmer' || 'Manager')" type="button" class="btn btn-outline-primary me-2" (click)="logout()" [routerLink]="'/'">Logout</button>
+      <button *ngIf="userRole != ('Programmer' || 'Manager')" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">Login</button>
+      <button *ngIf="userRole != ('Programmer' || 'Manager')" type="button" class="btn btn-primary" [routerLink]="'/register'">Sign-up</button>
+      <button type="button" class="btn btn-primary" [routerLink]="'/register'">PT</button>
 
     </div>
   </header>

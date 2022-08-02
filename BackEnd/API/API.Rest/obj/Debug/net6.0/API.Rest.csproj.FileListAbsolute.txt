@@ -213,5 +213,3 @@ C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\obj\Debug\net6.0\AP
 C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\obj\Debug\net6.0\ref\API.Rest.dll
 C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
-C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
-C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API.Rest\bin\Debug\net6.0\Microsoft.AspNet.Identity.EntityFramework.dll

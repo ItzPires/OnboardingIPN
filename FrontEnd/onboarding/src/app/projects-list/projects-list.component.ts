@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { IProjects } from './IProjects';
 import { ProjectsService } from './projects.service';
 
@@ -11,10 +12,10 @@ export class ProjectsListComponent implements OnInit {
   token: string | null | undefined;
   projects: IProjects[] = [];
 
-  constructor(private projectsService : ProjectsService) { }
+  constructor(private projectsService : ProjectsService, private cookies : CookieService) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token');
+    this.token = this.cookies.get('token');
 
     this.projectsService.getProjects(this.token).subscribe({
       next: (dataProjects: IProjects[]) => {

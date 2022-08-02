@@ -4,21 +4,29 @@ import { HttpClient } from '@angular/common/http';
 import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private cookie: CookieService) { }
 
   getSubscriptionTypes(): Observable<string[]> {
     return of(['Monthly', 'Annual', 'Lifetime']);
   }
 
   private setSession(token: string): void {
+    this.cookie.set('token', token);
+  }
 
-    localStorage.setItem('token', token);
+  public logout(): void {
+    this.cookie.delete('token');
+  }
+
+  public getToken(): string | null | undefined {
+    return this.cookie.get('token');
   }
 
   private registerPost(registerForm: IUserRegister) : Observable<any> {
