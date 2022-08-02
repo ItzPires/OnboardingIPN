@@ -1,7 +1,6 @@
 .form-container{
   background-color: #fff;
   font-family: 'Titillium Web', sans-serif;
-  font-size: 0;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
@@ -30,7 +29,6 @@
   text-transform: uppercase;
   margin: 0 0 20px;
 }
-.form-container .form-horizontal{ font-size: 0; }
 .form-container .form-horizontal .form-group{
   margin: 0 0 15px;
 }
@@ -40,7 +38,7 @@
   font-weight: 600;
 }
 .form-container .form-horizontal .form-control{
-  color: #888;
+  color: #000;
   background: #fff;
   font-weight: 400;
   letter-spacing: 1px;

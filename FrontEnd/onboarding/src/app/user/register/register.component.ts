@@ -6,7 +6,7 @@ import { IUserRegister } from './IUserRegister';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['../common/form.component.css']
+  styleUrls: ['../../common/styles.css']
 })
 export class RegisterComponent implements OnInit {
 

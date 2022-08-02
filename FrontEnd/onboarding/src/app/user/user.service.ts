@@ -3,19 +3,16 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private router: Router, private cookie: CookieService) { }
-
-  getSubscriptionTypes(): Observable<string[]> {
-    return of(['Monthly', 'Annual', 'Lifetime']);
-  }
+  constructor(private http: HttpClient, private router: Router, private cookie: CookieService, private route: ActivatedRoute) { }
 
   private setSession(token: string): void {
     this.cookie.set('token', token);
@@ -27,6 +24,21 @@ export class UserService {
 
   public getToken(): string | null | undefined {
     return this.cookie.get('token');
+  }
+
+  public getRole(): string {
+    const token = this.getToken() || '';
+    const helper = new JwtHelperService();
+
+    const decodedToken = helper.decodeToken(token);
+
+    if(helper.isTokenExpired(token))
+    {
+      this.logout();
+      return '';
+    }
+
+    return decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   }
 
   private registerPost(registerForm: IUserRegister) : Observable<any> {
@@ -56,14 +68,25 @@ export class UserService {
     this.loginPost(user).subscribe(
       {
         next: (value) => {this.setSession(value.token);
-          this.router.navigate(['']);},
+          this.resetPage();},
         error: (error) => this.onHttpError(error),
         complete: () => console.log('complete')
       }
     );
   }
 
+
   onHttpError(errorResponse: any) {
     console.log('error: ', errorResponse);
   }
+
+  private resetPage() {
+    const prevConfiguration = this.router.routeReuseStrategy.shouldReuseRoute;
+     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+     this.router.onSameUrlNavigation = "reload";
+     this.router.navigate(["./dashboard"], { relativeTo: this.route }).then(() => {
+         this.router.routeReuseStrategy.shouldReuseRoute = prevConfiguration;
+         this.router.onSameUrlNavigation = "ignore";
+     });
+   }
 }

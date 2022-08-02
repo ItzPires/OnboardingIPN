@@ -16,18 +16,7 @@ export class AppComponent {
 
   ngOnInit()
   {
-    const token = this.userService.getToken() || '';
-    const helper = new JwtHelperService();
-
-    const decodedToken = helper.decodeToken(token);
-
-    if(helper.isTokenExpired(token))
-    {
-      this.logout();
-      return;
-    }
-
-    this.userRole =  decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    this.userRole =  this.userService.getRole();
   }
 
   logout()

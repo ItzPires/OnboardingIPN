@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../common/form.component.css']
+  styleUrls: ['../../common/styles.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.userService.loginUser(this.user);;
+      this.userService.loginUser(this.user);
      }
   }
 }

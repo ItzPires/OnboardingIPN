@@ -100,5 +100,12 @@ namespace API.Rest.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public Project? GetProject(int id)
+        {
+            return _context.Projects.SingleOrDefault(x => x.Id == id);
+        }
     }
 }

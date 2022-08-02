@@ -1,7 +1,6 @@
 ﻿using API.Models.DataModels;
 using API.Models.Models;
 using API.Models.Types;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -84,7 +83,7 @@ namespace API.Rest.Auth
                 await _roleManager.CreateAsync(new IdentityRole(Roles.Manager));
             if (!await _roleManager.RoleExistsAsync(Roles.Programmer))
                 await _roleManager.CreateAsync(new IdentityRole(Roles.Programmer));
-
+         
 
             if (model.isManager)
                 await _userManager.AddToRoleAsync(newUser, Roles.Manager);

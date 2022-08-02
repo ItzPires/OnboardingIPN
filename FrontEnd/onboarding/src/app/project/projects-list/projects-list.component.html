@@ -1,0 +1,53 @@
+<div class="form-bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-50">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-body">
+              <div class="table-responsive">
+                <div class="row">
+                  <div class="col-sm-10"><h2>Projects</h2></div>
+                  <div class="col">
+                      <button type="button" class="btn btn-info add-new" [routerLink]="'/newProjects'">Add New</button>
+                  </div>
+              </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Budget</th>
+                      <th>State</th>
+                      <th>Options</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let project of projects">
+                      <td>
+                        <a [routerLink]="['/projects', project.id]">
+                          {{ project.id }}
+                        </a>
+                      </td>
+                      <td>
+                        <a [routerLink]="['/projects', project.id]">
+                          {{ project.name }}
+                        </a>
+                      </td>
+                      <td>{{ project.budget }}</td>
+                      <td><span class="badge bg-warning text-dark">{{ states[project.state] }}</span></td>
+                      <td><a [routerLink]="['/projects', project.id]"><button type="button" class="btn btn-outline-success me-2">Edit</button></a></td>
+                      <td><button type="button" class="btn btn-outline-danger" (click)="projectsService.deleteProject(project.id)">Delete</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

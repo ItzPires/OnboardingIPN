@@ -9,8 +9,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { ProjectsListComponent } from './projects-list/projects-list.component';
+import { ProjectsListComponent } from './project/projects-list/projects-list.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ProjectComponent } from './project/project/project.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProjectDetailsComponent } from './project/project-details/project-details.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
-    ProjectsListComponent
+    ProjectsListComponent,
+    ProjectComponent,
+    DashboardComponent,
+    ProjectDetailsComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +37,10 @@ import { CookieService } from 'ngx-cookie-service';
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'projects', component: ProjectsListComponent },
+      { path: 'tasks', component: TasksComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'projects/:id', component: ProjectDetailsComponent },
+      { path: 'newProjects', component: ProjectComponent },
       { path: '', component: WelcomeComponent }
     ]),
   ],

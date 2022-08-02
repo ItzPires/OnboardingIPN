@@ -1,0 +1,142 @@
+<div class="form-bg">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col">
+        <div class="form-container">
+          <h3 class="title">Projects</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>State</th>
+                    <th>Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let project of projects">
+                    <td>
+                      <a [routerLink]="['/projects', project.id]">
+                        {{ project.id }}
+                      </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', project.id]">
+                        {{ project.name }}
+                      </a>
+                    </td>
+                    <td>{{ project.budget }}€</td>
+                    <td>
+                      <span class="badge bg-warning text-dark">{{
+                        states[project.state]
+                      }}</span>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', project.id]"
+                        ><button
+                          type="button"
+                          class="btn btn-outline-success me-2"
+                        >
+                          View
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-container">
+          <h3 class="title">Tasks</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>State</th>
+                    <th>Options</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-4 mt-4">
+        <div class="form-container">
+          <h3 class="title">Programmers</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>State</th>
+                    <th>Options</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <div class="form-container">
+          <h3 class="title">Programmers</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>State</th>
+                    <th>Options</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4 mt-4">
+        <div class="form-container">
+          <h3 class="title">Stats</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Budget</th>
+                    <th>State</th>
+                    <th>Options</th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
