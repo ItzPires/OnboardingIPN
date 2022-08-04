@@ -1,8 +1,10 @@
+<app-navbar></app-navbar>
+
 <div class="form-bg">
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-5">
-            <div class="alert alert-danger text-center" role="alert">
+            <div class="alert alert-danger text-center" role="alert" *ngIf="errorLogin ==true">
               Login Invalid
             </div>
               <div class="form-container">
@@ -10,14 +12,19 @@
                   <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit(form)">
                       <div class="form-group">
                           <label>Username</label>
-                          <input name="username" type="text" class="form-control" placeholder="User Name" [(ngModel)]="user.username">
-                      </div>
+                          <input name="username" type="text" required #username="ngModel" class="form-control" placeholder="Username" [(ngModel)]="user.username">
+                          <small class="text-danger" [class.d-none]="username.valid || username.untouched">Username Invalido</small>
+                        </div>
                       <div class="form-group">
                           <label>Password</label>
                           <input name="password" type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password">
                       </div>
                       <span class="signin-link">Don't have an account? Click here to <a [routerLink]="'/register'">Register</a></span>
-                      <button class="btn signup">Sign In</button>
+                      <button *ngIf="!loading" class="btn signup">Sign In</button>
+                      <button *ngIf="loading" class="btn signup" type="button" disabled>
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Sign In
+                      </button>
                   </form>
               </div>
           </div>

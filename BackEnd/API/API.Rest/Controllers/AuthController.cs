@@ -1,4 +1,5 @@
-﻿using API.Models.DataModels;
+﻿using API.Database;
+using API.Models.DataModels;
 using API.Models.Models;
 using API.Models.Types;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,13 @@ namespace API.Rest.Auth
     [ApiController]
     public class AuthController : ControllerBase
     {
+        public ApiContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
         public AuthController(
+            ApiContext context,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
@@ -26,6 +29,7 @@ namespace API.Rest.Auth
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpPost]
@@ -76,8 +80,6 @@ namespace API.Rest.Auth
             var result = await _userManager.CreateAsync(newUser, model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = result.Errors.ToString() });
-
-
             
             if (!await _roleManager.RoleExistsAsync(Roles.Manager))
                 await _roleManager.CreateAsync(new IdentityRole(Roles.Manager));
@@ -89,6 +91,8 @@ namespace API.Rest.Auth
                 await _userManager.AddToRoleAsync(newUser, Roles.Manager);
             else
                 await _userManager.AddToRoleAsync(newUser, Roles.Programmer);
+
+            _context.Add(newUser);
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }

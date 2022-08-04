@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using API.Models.DataModels;
+using System.Data.Entity;
 
 namespace API.Rest.Controllers
 {
@@ -26,9 +27,10 @@ namespace API.Rest.Controllers
 
         [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<TaskModel> GetTasks()
+        public List<TaskForm> GetTasks()
         {
-            return _context.Tasks.ToList();
+            var tasks =  _context.Tasks.Include(t => t.Programmer).ToList();
+            return _mapper.Map<List<TaskForm>>(tasks);
         }
 
         [HttpGet("GetProgrammerTasks")]

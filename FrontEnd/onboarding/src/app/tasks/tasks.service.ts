@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { UserService } from "../user/user.service";
+import { UserService } from "../user/guards/user.service";
 import { ITask } from "./ITask";
 import { ITaskV } from "./ITaskV";
 
@@ -22,11 +22,11 @@ export class TasksService {
   }
 
   */
-  public getTasksGet(token: string | null | undefined): Observable<ITaskV[]> {
-    return this.http.get<ITaskV[]>(
+  public getTasksGet(): Observable<ITask[]> {
+    return this.http.get<ITask[]>(
       this.tasksUrl + 'All',
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
       }
     );
   }
@@ -73,7 +73,7 @@ export class TasksService {
     this.deleteProjectDelete(this.userService.getToken(), projectId).subscribe(
       {
         error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.resetPage()
+        complete: () => this.
       }
     );
   }
@@ -88,13 +88,4 @@ export class TasksService {
     console.log('error: ', errorResponse);
   }
 
-  private resetPage() {
-    const prevConfiguration = this.router.routeReuseStrategy.shouldReuseRoute;
-     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-     this.router.onSameUrlNavigation = "reload";
-     this.router.navigate(["./projects"], { relativeTo: this.route }).then(() => {
-         this.router.routeReuseStrategy.shouldReuseRoute = prevConfiguration;
-         this.router.onSameUrlNavigation = "ignore";
-     });
-   }
 }

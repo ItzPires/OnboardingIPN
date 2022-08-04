@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { UserService } from "../user/user.service";
+import { UserService } from "../user/guards/user.service";
 import { IProjects } from "./common/IProjects";
 import { IProjectsID } from "./projects-list/IProjectsID";
 
@@ -81,7 +81,7 @@ export class ProjectsService {
     this.deleteProjectDelete(this.userService.getToken(), projectId).subscribe(
       {
         error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.resetPage()
+        complete: () => this.router.navigate(['projects'])
       }
     );
   }
@@ -96,13 +96,4 @@ export class ProjectsService {
     console.log('error: ', errorResponse);
   }
 
-  private resetPage() {
-    const prevConfiguration = this.router.routeReuseStrategy.shouldReuseRoute;
-     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-     this.router.onSameUrlNavigation = "reload";
-     this.router.navigate(["./projects"], { relativeTo: this.route }).then(() => {
-         this.router.routeReuseStrategy.shouldReuseRoute = prevConfiguration;
-         this.router.onSameUrlNavigation = "ignore";
-     });
-   }
 }

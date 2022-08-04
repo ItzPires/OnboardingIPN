@@ -5,7 +5,7 @@ import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
 import { ITaskV } from '../tasks/ITaskV';
 import { TasksService } from '../tasks/tasks.service';
-import { UserService } from '../user/user.service';
+import { UserService } from '../user/guards/user.service';
 import { IUsers } from './IUsers';
 
 @Component({
@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
   programmers: IUsers[] = [];
   managers: IUsers[] = [];
   tasks: ITask[] = [];
-  tasksV:ITaskV[] = [];
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService) { }
 
@@ -48,9 +47,9 @@ export class DashboardComponent implements OnInit {
         },
       });
 
-      this.taskService.getTasksGet(this.token).subscribe({
-        next: (dataTasks: ITaskV[]) => {
-          this.tasksV = dataTasks;
+      this.taskService.getTasksGet().subscribe({
+        next: (dataTasks: ITask[]) => {
+          this.tasks = dataTasks;
         },
       });
     }

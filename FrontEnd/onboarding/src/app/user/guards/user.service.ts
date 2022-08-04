@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IUserRegister } from './register/IUserRegister';
-import { IUser } from './common/IUser';
+import { IUserRegister } from '../register/IUserRegister';
+import { IUser } from '../common/IUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { IUsers } from '../dashboard/IUsers';
+import { IUsers } from '../../dashboard/IUsers';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router, private cookie: CookieService, private route: ActivatedRoute) { }
 
-  private setSession(token: string): void {
+  public setSession(token: string): void {
     this.cookie.set('token', token);
   }
 
@@ -52,46 +52,37 @@ export class UserService {
     return this.http.post('http://localhost:5000/api/Auth/register', newUser);
   }
 
-  public registerUser(registerForm: IUserRegister): void {
+  public async registerUser(registerForm: IUserRegister): Promise<boolean> {
     this.registerPost(registerForm).subscribe(
       {
-        error: (error) => this.onHttpError("Error: " + error),
+        error: () => {return true;},
         complete: () => this.router.navigate(['login'])
       }
     );
+
+    return false;
   }
 
-  private loginPost(loginForm: IUser) : Observable<any> {
+  public loginPost(loginForm: IUser) : Observable<any> {
     return this.http.post('http://localhost:5000/api/Auth/login', loginForm);
   }
 
-  public loginUser(user: IUser): Observable<any> {
+  public loginUser(user: IUser): boolean {
+    var errorLogin = false;
     this.loginPost(user).subscribe(
       {
-        next: (value) => {this.setSession(value.token);
-          this.resetPage();},
-        error: (error) => this.onHttpError(error),
-        complete: () => console.log('complete')
+        next: (value) => {this.setSession(value.token);},
+        error: () => {return true;},
+        complete: () => {this.router.navigate(['dashboard']);},
       }
     );
 
-    return of(true);
+    return errorLogin = true;
   }
-
 
   onHttpError(errorResponse: any) {
     console.log('error: ', errorResponse);
   }
-
-  private resetPage() {
-    const prevConfiguration = this.router.routeReuseStrategy.shouldReuseRoute;
-     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-     this.router.onSameUrlNavigation = "reload";
-     this.router.navigate(["./dashboard"], { relativeTo: this.route }).then(() => {
-         this.router.routeReuseStrategy.shouldReuseRoute = prevConfiguration;
-         this.router.onSameUrlNavigation = "ignore";
-     });
-   }
 
    public getProgrammers(): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(

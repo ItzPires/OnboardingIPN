@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-import { UserService } from 'src/app/user/user.service';
+import { UserService } from 'src/app/user/guards/user.service';
 import { States } from '../common/states';
 import { ProjectsService } from '../projects.service';
 import { IProjectsID } from './IProjectsID';

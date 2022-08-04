@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from './user/login/login.component';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +7,11 @@ import { UserService } from './user/user.service';
 })
 export class AppComponent {
   title = 'onboarding';
-  userRole = '';
 
-  constructor (private userService : UserService) {}
+  constructor () {}
 
   ngOnInit()
   {
-    this.userRole =  this.userService.getRole();
   }
 
-  logout()
-  {
-    this.userService.logout();
-    this.userRole = '';
-  }
 }

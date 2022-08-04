@@ -12,6 +12,7 @@ namespace API.Models
         {
             CreateMap<Project, ProjectForm>().ReverseMap();
             CreateMap<TaskModel, TaskForm>().ReverseMap();
+            CreateMap<TaskForm, TaskModel>().ReverseMap();
             CreateMap<TaskModel, TaskFormUpdate>().ReverseMap();
         }
     }

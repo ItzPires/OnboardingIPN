@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IUsers } from '../dashboard/IUsers';
-import { IProjectsID } from '../project/projects-list/IProjectsID';
-import { ProjectsService } from '../project/projects.service';
-import { UserService } from '../user/user.service';
-import { ITask } from './ITask';
-import { TasksService } from './tasks.service';
+import { IUsers } from 'src/app/dashboard/IUsers';
+import { IProjectsID } from 'src/app/project/projects-list/IProjectsID';
+import { ProjectsService } from 'src/app/project/projects.service';
+import { UserService } from 'src/app/user/guards/user.service';
+import { ITask } from '../ITask';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['../common/styles.css']
+  templateUrl: './tasks-new.component.html',
+  styleUrls: ['../../common/styles.css']
 })
-export class TasksComponent implements OnInit {
+export class TasksNewComponent implements OnInit {
   token: string | null | undefined;
   roleUser: string | null | undefined;
   newTask: ITask = {

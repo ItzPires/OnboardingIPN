@@ -1,6 +1,10 @@
-<div class="form-bg">
+<app-navbar></app-navbar>
 
-  <div class="container" *ngIf="roleUser !='Programmer' && roleUser == 'Manager'">
+<div class="form-bg">
+  <div
+    class="container"
+    *ngIf="roleUser != 'Programmer' && roleUser == 'Manager'"
+  >
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
@@ -12,7 +16,7 @@
               <button
                 type="button"
                 class="btn btn-primary add-new"
-                [routerLink]="'/newProjects'"
+                [routerLink]="'/projects'"
               >
                 View All
               </button>
@@ -33,15 +37,9 @@
                 <tbody>
                   <tr *ngFor="let project of projects">
                     <td>
-                      <a [routerLink]="['/projects', project.id]">
-                        {{ project.id }}
-                      </a>
+                      {{ project.id }}
                     </td>
-                    <td>
-                      <a [routerLink]="['/projects', project.id]">
-                        {{ project.name }}
-                      </a>
-                    </td>
+                    <td></td>
                     <td>{{ project.budget }}€</td>
                     <td>
                       <span class="badge bg-warning text-dark">{{
@@ -77,7 +75,7 @@
                 class="btn btn-primary add-new"
                 [routerLink]="'/tasks'"
               >
-              View All
+                View All
               </button>
             </div>
           </div>
@@ -95,15 +93,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let task of tasksV">
+                  <tr *ngFor="let task of tasks">
                     <td>{{ task.name }}</td>
                     <td>
-                        {{ task.project }}
+                      {{ task.idProject }}
                     </td>
-                    <td>{{ task.programmer }}</td>
+                    <td>{{ task.usernameProgrammer }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
-                        {{ task.state}}
+                        {{ task.state }}
                       </span>
                     </td>
                     <td>
@@ -140,19 +138,15 @@
                 <tbody>
                   <tr *ngFor="let programmer of programmers">
                     <td>
-                      <a [routerLink]="['/projects', programmer.id]">
-                        {{ programmer.userName }}
-                      </a>
+                      {{ programmer.userName }}
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', programmer.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-outline-success me-2"
-                        >
-                          View
-                        </button></a
+                      <button
+                        type="button"
+                        class="btn btn-outline-success me-2"
                       >
+                        View
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -176,19 +170,15 @@
                 <tbody>
                   <tr *ngFor="let manager of managers">
                     <td>
-                      <a [routerLink]="['/projects', manager.id]">
-                        {{ manager.userName }}
-                      </a>
+                      {{ manager.userName }}
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', manager.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-outline-success me-2"
-                        >
-                          View
-                        </button></a
+                      <button
+                        type="button"
+                        class="btn btn-outline-success me-2"
                       >
+                        View
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -213,9 +203,10 @@
                 <tbody>
                   <tr>
                     <td>{{ projects.length }}</td>
-                    <td>{{ tasksV.length }}</td>
+                    <td>{{ tasks.length }}</td>
                     <td>{{ programmers.length }}</td>
                   </tr>
+                </tbody>
               </table>
             </div>
           </form>
@@ -224,7 +215,10 @@
     </div>
   </div>
 
-  <div class="container" *ngIf="roleUser == 'Programmer' || roleUser != 'Manager'">
+  <div
+    class="container"
+    *ngIf="roleUser == 'Programmer' || roleUser != 'Manager'"
+  >
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
@@ -254,7 +248,7 @@
                     </td>
                     <td>
                       <span class="badge bg-warning text-dark">
-                        {{ task.state}}
+                        {{ task.state }}
                       </span>
                     </td>
                     <td>
@@ -293,5 +287,4 @@
       </div>
     </div>
   </div>
-
 </div>
