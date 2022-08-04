@@ -1,12 +1,8 @@
-﻿using API.Models.DataModels;
-using API.Models.Models;
+﻿using API.Models.Models;
 using API.Models.Types;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace API.Rest.Auth
 {
@@ -23,11 +19,22 @@ namespace API.Rest.Auth
 
         [HttpGet]
         [Route("programmers")]
-        public async void GetProgrammers()
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<ActionResult<IEnumerable<User>>> GetProgrammers()
         {
-            //var a = _userManager.
-            //Console.WriteLine(a.ToString());
+            var result = await _userManager.GetUsersInRoleAsync(Roles.Programmer);
+
+            return Ok(result);
         }
 
+        [HttpGet]
+        [Route("Managers")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<ActionResult<IEnumerable<User>>> GetManagers()
+        {
+            var result = await _userManager.GetUsersInRoleAsync(Roles.Manager);
+
+            return Ok(result);
+        }
     }
 }

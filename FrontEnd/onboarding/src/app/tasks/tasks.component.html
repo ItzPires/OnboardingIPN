@@ -22,9 +22,9 @@
             <div class="form-group">
               <label>Project</label>
               <div class="input-group mb-3">
-                <select class="custom-select">
+                <select name="projectID" class="custom-select" [(ngModel)]="newTask.idProject">
                   <option selected>Choose...</option>
-                  <option *ngFor="let project of projects">
+                  <option *ngFor="let project of projects" [value]= "project.id">
                     {{ project.name }}
                   </option>
                 </select>
@@ -32,12 +32,14 @@
             </div>
             <div class="form-group">
               <label>Programmer</label>
-              <input
-                name="username"
-                type="text"
-                class="form-control"
-                placeholder="Programmer"
-              />
+              <div class="input-group mb-3">
+                <select name="programmerID" class="custom-select" [(ngModel)]="newTask.usernameProgrammer">
+                  <option selected>Choose...</option>
+                  <option *ngFor="let programmer of programmers" [value]= "programmer.userName">
+                    {{ programmer.userName }}
+                  </option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
               <label>Deadline</label>

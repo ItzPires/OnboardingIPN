@@ -1,6 +1,7 @@
 export interface  ITask{
   name: string;
-  projectId: number;
-  programId: number;
+  idProject: number;
+  usernameProgrammer: string;
+  state: string;
   deadline: Date;
 }

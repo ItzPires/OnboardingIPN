@@ -1,9 +1,23 @@
 <div class="form-bg">
-  <div class="container">
+
+  <div class="container" *ngIf="roleUser !='Programmer' && roleUser == 'Manager'">
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
-          <h3 class="title">Projects</h3>
+          <div class="row justify-content-between">
+            <div class="col">
+              <h3 class="title">Projects</h3>
+            </div>
+            <div class="col-3">
+              <button
+                type="button"
+                class="btn btn-primary add-new"
+                [routerLink]="'/newProjects'"
+              >
+                View All
+              </button>
+            </div>
+          </div>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
@@ -53,20 +67,57 @@
       </div>
       <div class="col-md-5">
         <div class="form-container">
-          <h3 class="title">Tasks</h3>
+          <div class="row justify-content-between">
+            <div class="col">
+              <h3 class="title">Tasks</h3>
+            </div>
+            <div class="col-4">
+              <button
+                type="button"
+                class="btn btn-primary add-new"
+                [routerLink]="'/tasks'"
+              >
+              View All
+              </button>
+            </div>
+          </div>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
-                    <th>Budget</th>
+                    <th>Project</th>
+                    <th>Programmer</th>
                     <th>State</th>
                     <th>Options</th>
                     <th></th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr *ngFor="let task of tasksV">
+                    <td>{{ task.name }}</td>
+                    <td>
+                        {{ task.project }}
+                    </td>
+                    <td>{{ task.programmer }}</td>
+                    <td>
+                      <span class="badge bg-warning text-dark">
+                        {{ task.state}}
+                      </span>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', task.deadline]"
+                        ><button
+                          type="button"
+                          class="btn btn-outline-success me-2"
+                        >
+                          View
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </form>
@@ -82,14 +133,29 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Budget</th>
-                    <th>State</th>
+                    <th>Username</th>
                     <th>Options</th>
-                    <th></th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr *ngFor="let programmer of programmers">
+                    <td>
+                      <a [routerLink]="['/projects', programmer.id]">
+                        {{ programmer.userName }}
+                      </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', programmer.id]"
+                        ><button
+                          type="button"
+                          class="btn btn-outline-success me-2"
+                        >
+                          View
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </form>
@@ -97,20 +163,35 @@
       </div>
       <div class="col-md-4 mt-4">
         <div class="form-container">
-          <h3 class="title">Programmers</h3>
+          <h3 class="title">Managers</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Budget</th>
-                    <th>State</th>
+                    <th>Username</th>
                     <th>Options</th>
-                    <th></th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr *ngFor="let manager of managers">
+                    <td>
+                      <a [routerLink]="['/projects', manager.id]">
+                        {{ manager.userName }}
+                      </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', manager.id]"
+                        ><button
+                          type="button"
+                          class="btn btn-outline-success me-2"
+                        >
+                          View
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </form>
@@ -124,12 +205,85 @@
               <table class="table">
                 <thead>
                   <tr>
+                    <th>Projects</th>
+                    <th>Tasks</th>
+                    <th>Programmers</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ projects.length }}</td>
+                    <td>{{ tasksV.length }}</td>
+                    <td>{{ programmers.length }}</td>
+                  </tr>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="roleUser == 'Programmer' || roleUser != 'Manager'">
+    <div class="row d-flex justify-content-center">
+      <div class="col">
+        <div class="form-container">
+          <h3 class="title">My Tasks</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Budget</th>
+                    <th>Project</th>
                     <th>State</th>
                     <th>Options</th>
-                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let task of tasks">
+                    <td>
+                      <a [routerLink]="['/projects', task.name]">
+                        {{ task.name }}
+                      </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', task.idProject]">
+                        {{ task.idProject }}
+                      </a>
+                    </td>
+                    <td>
+                      <span class="badge bg-warning text-dark">
+                        {{ task.state}}
+                      </span>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/projects', task.deadline]"
+                        ><button
+                          type="button"
+                          class="btn btn-outline-success me-2"
+                        >
+                          View
+                        </button></a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-container">
+          <h3 class="title">Stats</h3>
+          <form class="form-horizontal" #form="ngForm">
+            <div class="form-group">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th><span class="badge bg-success">Done</span></th>
+                    <th><span class="badge bg-warning">In Work</span></th>
                   </tr>
                 </thead>
               </table>
@@ -139,4 +293,5 @@
       </div>
     </div>
   </div>
+
 </div>

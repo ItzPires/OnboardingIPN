@@ -107,5 +107,46 @@ namespace API.Rest.Controllers
         {
             return _context.Projects.SingleOrDefault(x => x.Id == id);
         }
+
+        [HttpPut("Update/{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<IActionResult> UpdateTasks([FromBody] ProjectForm model, int id)
+        {
+            try
+            {
+                _context.Database.BeginTransaction();
+
+                //verificacoes
+                if (model == null) return BadRequest("Is null");
+
+                var oldTask = _context.Projects.SingleOrDefault(x => x.Id == id);
+                if (oldTask == null) return BadRequest("Is null");
+
+                var newTask = _mapper.Map<Project>(model);
+
+                oldTask.Name = newTask.Name;
+                oldTask.Budget = newTask.Budget;
+                oldTask.State = newTask.State;
+
+                _context.Projects.Update(oldTask);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet("Stats")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public int GetStats()
+        {
+            return _context.Projects.ToList().Count;
+        }
     }
 }

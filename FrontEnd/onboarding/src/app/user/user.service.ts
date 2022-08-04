@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { IUsers } from '../dashboard/IUsers';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class UserService {
     return this.http.post('http://localhost:5000/api/Auth/login', loginForm);
   }
 
-  public loginUser(user: IUser): void {
+  public loginUser(user: IUser): Observable<any> {
     this.loginPost(user).subscribe(
       {
         next: (value) => {this.setSession(value.token);
@@ -73,6 +74,8 @@ export class UserService {
         complete: () => console.log('complete')
       }
     );
+
+    return of(true);
   }
 
 
@@ -89,4 +92,22 @@ export class UserService {
          this.router.onSameUrlNavigation = "ignore";
      });
    }
+
+   public getProgrammers(): Observable<IUsers[]> {
+    return this.http.get<IUsers[]>(
+      "http://localhost:5000/api/Users/programmers",
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+      }
+    );
+  }
+
+  public getManagers(): Observable<IUsers[]> {
+    return this.http.get<IUsers[]>(
+      "http://localhost:5000/api/Users/Managers",
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+      }
+    );
+  }
 }

@@ -16,8 +16,8 @@
     <div class="col-md-3 text-end">
       <button *ngIf="userRole =='Programmer' || userRole == 'Manager'" type="button" class="btn btn-outline-primary me-2" (click)="logout()" [routerLink]="'/'">Logout</button>
       <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">Login</button>
-      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-primary me-2">Sign-up</button>
-      <button type="button" class="btn btn-primary" [routerLink]="'/register'">PT</button>
+      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-primary me-2" [routerLink]="'/register'">Sign-up</button>
+      <button type="button" class="btn btn-primary">PT</button>
     </div>
   </header>
 </div>
@@ -25,7 +25,7 @@
 <router-outlet></router-outlet>
 
 <div class="footer">
-<footer class="bg-light text-center text-lg-start">
+<footer class="page-footer font-small blue">
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
     OnBoarding - Samuel Pires
