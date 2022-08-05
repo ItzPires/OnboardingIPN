@@ -27,7 +27,6 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Budget</th>
                     <th>State</th>
@@ -35,18 +34,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let project of projects">
-                    <td>
-                      {{ project.id }}
-                    </td>
-                    <td></td>
-                    <td>{{ project.budget }}€</td>
-                    <td>
+                  <tr *ngFor="let project of projects; let i = index;">
+                    <td *ngIf="i < 3">{{ project.name }}</td>
+                    <td *ngIf="i < 3">{{ project.budget }}€</td>
+                    <td *ngIf="i < 3">
                       <span class="badge bg-warning text-dark">{{
                         states[project.state]
                       }}</span>
                     </td>
-                    <td>
+                    <td *ngIf="i < 3">
                       <a [routerLink]="['/projects', project.id]"
                         ><button
                           type="button"
@@ -56,6 +52,12 @@
                         </button></a
                       >
                     </td>
+                  </tr>
+                  <tr *ngIf="projects.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
@@ -105,7 +107,7 @@
                       </span>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', task.deadline]"
+                      <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
                           class="btn btn-outline-success me-2"
@@ -114,6 +116,12 @@
                         </button></a
                       >
                     </td>
+                  </tr>
+                  <tr *ngIf="tasks.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
@@ -141,13 +149,19 @@
                       {{ programmer.userName }}
                     </td>
                     <td>
+                      <a [routerLink]="['/user', programmer.userName]">
                       <button
                         type="button"
                         class="btn btn-outline-success me-2"
                       >
                         View
                       </button>
+                    </a>
                     </td>
+                  </tr>
+                  <tr *ngIf="programmers.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
@@ -180,6 +194,10 @@
                         View
                       </button>
                     </td>
+                  </tr>
+                  <tr *ngIf="managers.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
@@ -236,23 +254,15 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let task of tasks">
-                    <td>
-                      <a [routerLink]="['/projects', task.name]">
-                        {{ task.name }}
-                      </a>
-                    </td>
-                    <td>
-                      <a [routerLink]="['/projects', task.idProject]">
-                        {{ task.idProject }}
-                      </a>
-                    </td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.idProject }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
                         {{ task.state }}
                       </span>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', task.deadline]"
+                      <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
                           class="btn btn-outline-success me-2"
@@ -261,6 +271,12 @@
                         </button></a
                       >
                     </td>
+                  </tr>
+                  <tr *ngIf="tasks.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>

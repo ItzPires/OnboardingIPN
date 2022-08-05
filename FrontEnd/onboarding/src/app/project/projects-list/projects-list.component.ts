@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/user/guards/user.service';
 import { States } from '../common/states';
 import { ProjectsService } from '../projects.service';
@@ -26,6 +26,14 @@ export class ProjectsListComponent implements OnInit {
       next: (dataProjects: IProjectsID[]) => {
         this.projects = dataProjects;
       },
+    });
+  }
+
+  onDelete(id: number): void {
+    this.projectsService.deleteProjectDelete(this.userService.getToken(), id).subscribe({
+      next: () => {
+        this.projects = this.projects.filter(project => project.id !== id);
+      }
     });
   }
 

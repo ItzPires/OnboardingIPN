@@ -186,7 +186,8 @@ namespace API.Rest.Migrations
                     Deadline = table.Column<DateTime>(type: "datetime2", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
-                    ProgrammerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ProgrammerUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProgrammerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,14 +196,13 @@ namespace API.Rest.Migrations
                         name: "FK_Tasks_AspNetUsers_ProgrammerId",
                         column: x => x.ProgrammerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tasks_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

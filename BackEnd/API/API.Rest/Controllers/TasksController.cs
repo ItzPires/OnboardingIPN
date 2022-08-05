@@ -27,17 +27,16 @@ namespace API.Rest.Controllers
 
         [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<TaskForm> GetTasks()
+        public List<TaskModel> GetTasks()
         {
             var tasks =  _context.Tasks.Include(t => t.Programmer).ToList();
-            return _mapper.Map<List<TaskForm>>(tasks);
+            return tasks;
         }
 
-        [HttpGet("GetProgrammerTasks")]
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Programmer)]
-        public List<TaskModel> GetTasksPerProgrammer()
+        [HttpGet("GetProgrammerTasks/{username}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public List<TaskModel> GetTasksPerProgrammer(string username)
         {
-            string username = User.Identity.Name;
             return _context.Tasks.Where(x => x.Programmer.UserName == username).ToList();
         }
 
@@ -46,6 +45,13 @@ namespace API.Rest.Controllers
         public List<TaskModel> GetProjectTasks(int id)
         {
             return _context.Tasks.Where(x => x.Project.Id == id).ToList();
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public TaskModel GetTAskById(int id)
+        {
+            return _context.Tasks.SingleOrDefault(x => x.Id == id);
         }
 
         [HttpPost("Add")]
@@ -68,6 +74,7 @@ namespace API.Rest.Controllers
 
                 newTask.Project = project;
                 newTask.Programmer = programmer;
+                //newTask.ProgrammerUserName = model.UsernameProgrammer;
 
                 //todo - ver se ficou ou não
                 _context.Add(newTask);

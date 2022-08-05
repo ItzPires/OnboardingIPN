@@ -64,11 +64,18 @@
                       <button
                         type="button"
                         class="btn btn-outline-danger"
-                        (click)="projectsService.deleteProject(project.id)"
+                        (click)="onDelete(project.id)"
                       >
                         Delete
                       </button>
                     </td>
+                  </tr>
+                  <tr *ngIf="projects.length == 0">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>

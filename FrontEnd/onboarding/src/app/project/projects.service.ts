@@ -86,7 +86,7 @@ export class ProjectsService {
     );
   }
 
-  private deleteProjectDelete(token: string | null | undefined, projectId: number): Observable<any> {
+  public deleteProjectDelete(token: string | null | undefined, projectId: number): Observable<any> {
     return this.http.delete(this.projectsUrl + projectId, {
       headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
     });

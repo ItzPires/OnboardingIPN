@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models.Models
 {
@@ -12,9 +13,11 @@ namespace API.Models.Models
         public DateTime Deadline { get; set; }
         [Required]
         public string? State { get; set; }
-        [Required]
+        public int? ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
         public Project Project { get; set; }
-        [Required]
+        public string? ProgrammerId { get; set; }
+        [ForeignKey("ProgrammerId")]
         public User Programmer { get; set; }
     }
 }

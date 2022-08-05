@@ -31,6 +31,15 @@ export class TasksService {
     );
   }
 
+  public getTaskByID(idProject : number): Observable<any> {
+    return this.http.get(
+      this.tasksUrl + idProject,
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+      }
+    );
+  }
+
   public getTasksByUser(token: string | null | undefined): Observable<ITask[]> {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'GetProgrammerTasks',

@@ -67,8 +67,10 @@ namespace API.Rest.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProgrammerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProgrammerUserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -299,9 +301,7 @@ namespace API.Rest.Migrations
                 {
                     b.HasOne("API.Models.Models.User", "Programmer")
                         .WithMany()
-                        .HasForeignKey("ProgrammerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProgrammerId");
 
                     b.HasOne("API.Models.Models.Project", "Project")
                         .WithMany()

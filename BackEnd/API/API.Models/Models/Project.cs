@@ -14,6 +14,6 @@ namespace API.Models.Models
         [Required]
         public ProjectState State { get; set; }
         [Required]
-        public User Manager { get; set; }
+        public virtual User Manager { get; set; }
     }
 }

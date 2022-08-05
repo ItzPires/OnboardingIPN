@@ -16,6 +16,7 @@ export class TasksNewComponent implements OnInit {
   token: string | null | undefined;
   roleUser: string | null | undefined;
   newTask: ITask = {
+    id: -1,
     name: '',
     idProject: -1,
     usernameProgrammer: '',

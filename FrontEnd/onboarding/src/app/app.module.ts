@@ -21,6 +21,8 @@ import { ProjectDetailsGuard } from './project/project-details/project-details.g
 import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
+import { TasksDetailsComponent } from './tasks/tasks-details/tasks-details.component';
+import { ProgrammerDetailsComponent } from './user/programmer-details/programmer-details.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AuthGuard } from './user/guards/auth.guard';
     ProjectDetailsComponent,
     TasksNewComponent,
     NavbarComponent,
-    TasksListComponent
+    TasksListComponent,
+    TasksDetailsComponent,
+    ProgrammerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,13 @@ import { AuthGuard } from './user/guards/auth.guard';
       {
         path: 'tasks',
         canActivate: [AuthGuard],
-        component: TasksListComponent },
+        component: TasksListComponent
+      },
+      {
+        path: 'tasks/:id',
+        canActivate: [AuthGuard],
+        component: TasksDetailsComponent
+      },
       {
         path: 'newTasks',
         canActivate: [AuthGuard, TaskGuard],
@@ -74,11 +84,17 @@ import { AuthGuard } from './user/guards/auth.guard';
       {
         path: 'projects/:id',
         canActivate: [AuthGuard, TaskGuard, ProjectDetailsGuard],
-        component: ProjectDetailsComponent },
+        component: ProjectDetailsComponent
+      },
       {
         path: 'newProjects',
         canActivate: [AuthGuard, TaskGuard],
         component: ProjectComponent
+      },
+      {
+        path: 'user/:username',
+        canActivate: [AuthGuard, TaskGuard],
+        component: ProgrammerDetailsComponent
       },
       {
         path: '',
