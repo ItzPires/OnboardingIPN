@@ -13,6 +13,7 @@ import { UserService } from '../guards/user.service';
 export class LoginComponent implements OnInit {
   errorLogin: boolean | undefined;
   loading: boolean = false;
+  errorMsg: string = "";
 
   user: IUser = {
     username: '',
@@ -25,18 +26,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.loading = true;
     if (form.valid) {
-      this.loading = true;
       this.userService.loginPost(this.user).subscribe(
         {
           next: (value) => { this.userService.setSession(value.token); },
-          error: () => { this.errorLogin = true; },
-          complete: () => { this.router.navigate(['dashboard']); },
+          error: (error) => {
+            this.errorLogin = true;
+            this.loading = false;
+            if(error.status === 0) this.errorMsg = "Server is not available";
+            else if (error.status === 401) this.errorMsg = "Invalid username or password";
+            else this.errorMsg = "Login Error";
+          },
+          complete: () => {
+            this.loading = false;
+            this.router.navigate(['dashboard']);
+          },
         }
       );
-
-      this.loading = false;
-      console.log(this.errorLogin);
     }
   }
 }

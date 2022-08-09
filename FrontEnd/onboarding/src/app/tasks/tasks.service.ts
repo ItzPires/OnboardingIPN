@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { UserService } from "../user/guards/user.service";
 import { ITask } from "./ITask";
-import { ITaskV } from "./ITaskV";
 
 
 @Injectable({

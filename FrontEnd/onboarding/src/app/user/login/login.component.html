@@ -5,7 +5,7 @@
       <div class="row justify-content-center">
           <div class="col-md-5">
             <div class="alert alert-danger text-center" role="alert" *ngIf="errorLogin ==true">
-              Login Invalid
+              {{ errorMsg }}
             </div>
               <div class="form-container">
                   <h3 class="title">Login</h3>
@@ -20,7 +20,7 @@
                           <input name="password" type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password">
                       </div>
                       <span class="signin-link">Don't have an account? Click here to <a [routerLink]="'/register'">Register</a></span>
-                      <button *ngIf="!loading" class="btn signup">Sign In</button>
+                      <button *ngIf="!loading" class="btn signup" >Sign In</button>
                       <button *ngIf="loading" class="btn signup" type="button" disabled>
                         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                         Sign In

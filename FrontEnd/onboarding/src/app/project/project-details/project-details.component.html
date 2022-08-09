@@ -67,11 +67,11 @@
                       </a>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', task.idProject]">
-                        {{ task.idProject }}
+                      <a [routerLink]="['/projects', task.project.id]">
+                        {{ task.project.id }}
                       </a>
                     </td>
-                    <td>{{ task.usernameProgrammer }}</td>
+                    <td>{{ task.programmer.userName }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
                         {{ task.state }}

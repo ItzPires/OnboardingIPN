@@ -3,7 +3,6 @@ import { States } from '../project/common/states';
 import { IProjectsID } from '../project/projects-list/IProjectsID';
 import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
-import { ITaskV } from '../tasks/ITaskV';
 import { TasksService } from '../tasks/tasks.service';
 import { UserService } from '../user/guards/user.service';
 import { IUsers } from './IUsers';

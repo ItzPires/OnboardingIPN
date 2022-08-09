@@ -18,9 +18,9 @@ export class TasksNewComponent implements OnInit {
   newTask: ITask = {
     id: -1,
     name: '',
-    idProject: -1,
-    usernameProgrammer: '',
     state: '',
+    project: {} as IProjectsID,
+    programmer: {} as IUsers,
     deadline: new Date()
   }
   projects: IProjectsID[] = [];

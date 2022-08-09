@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../guards/user.service';
 import { IUserRegister } from './IUserRegister';
 
@@ -10,9 +11,11 @@ import { IUserRegister } from './IUserRegister';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router,) { }
   errorRegisterPromise!: Promise<boolean>;
   errorRegister: boolean = false;
+  loading: boolean = false;
+  errorMsg: string = "";
 
   newUser: IUserRegister = {
     username: '',
@@ -25,11 +28,24 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
+    this.loading = true;
     if (form.valid) {
-      this.errorRegisterPromise = this.userService.registerUser(this.newUser);
+      this.userService.registerUser(this.newUser).subscribe(
+        {
+          error: (error) => {
+            this.loading = false;
+            this.errorRegister = true;
+            if(error.status === 0) this.errorMsg = "Server is not available";
+            else if (error.status === 406) this.errorMsg = "Username already exists.";
+          },
+          complete: () => {
+            this.loading = false;
+            this.router.navigate(['login']);
+          }
+        }
+      );
     }
-    console.log(this.errorRegisterPromise.then(data => this.errorRegister));
   }
 
 }

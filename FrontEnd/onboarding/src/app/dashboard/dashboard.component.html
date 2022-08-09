@@ -98,9 +98,9 @@
                   <tr *ngFor="let task of tasks">
                     <td>{{ task.name }}</td>
                     <td>
-                      {{ task.idProject }}
+                      {{ task.project.id }}
                     </td>
-                    <td>{{ task.usernameProgrammer }}</td>
+                    <td>{{ task.programmer.userName }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
                         {{ task.state }}
@@ -255,7 +255,7 @@
                 <tbody>
                   <tr *ngFor="let task of tasks">
                     <td>{{ task.name }}</td>
-                    <td>{{ task.idProject }}</td>
+                    <td>{{ task.project.id }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
                         {{ task.state }}

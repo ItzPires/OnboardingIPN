@@ -42,7 +42,7 @@ export class UserService {
     return decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
   }
 
-  private registerPost(registerForm: IUserRegister) : Observable<any> {
+  public registerUser(registerForm: IUserRegister) : Observable<any> {
     var newUser = {"username": registerForm.username, "password": registerForm.password, "email": registerForm.email, "isManager": false};
 
     if(registerForm.isManager === 'true'){
@@ -50,17 +50,6 @@ export class UserService {
     }
 
     return this.http.post('http://localhost:5000/api/Auth/register', newUser);
-  }
-
-  public async registerUser(registerForm: IUserRegister): Promise<boolean> {
-    this.registerPost(registerForm).subscribe(
-      {
-        error: () => {return true;},
-        complete: () => this.router.navigate(['login'])
-      }
-    );
-
-    return false;
   }
 
   public loginPost(loginForm: IUser) : Observable<any> {
