@@ -20,6 +20,10 @@ export class DashboardComponent implements OnInit {
   programmers: IUsers[] = [];
   managers: IUsers[] = [];
   tasks: ITask[] = [];
+  errorProjects: boolean = false;
+  errorProgrammers: boolean = false;
+  errorManagers: boolean = false;
+  errorTask: boolean = false;
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService) { }
 
@@ -32,32 +36,37 @@ export class DashboardComponent implements OnInit {
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
         },
+        error: () => {this.errorProjects = true;},
       });
 
       this.userService.getProgrammers().subscribe({
         next: (dataProgrammers: IUsers[]) => {
           this.programmers = dataProgrammers;
         },
+        error: () => {this.errorProgrammers = true;},
       });
 
       this.userService.getManagers().subscribe({
         next: (dataManagers: IUsers[]) => {
           this.managers = dataManagers;
         },
+        error: () => {this.errorManagers = true;},
       });
 
       this.taskService.getTasksGet().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
+        error: () => {this.errorTask = true;},
       });
     }
     else
     {
-      this.taskService.getTasksByUser(this.token).subscribe({
+      this.taskService.getMyTasks().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
+        error: () => {this.errorTask = true;},
       });
     }
   }

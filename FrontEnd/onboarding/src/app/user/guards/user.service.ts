@@ -27,7 +27,7 @@ export class UserService {
     return this.cookie.get('token');
   }
 
-  public getRole(): string {
+  private decodedToken(): any {
     const token = this.getToken() || '';
     const helper = new JwtHelperService();
 
@@ -39,7 +39,19 @@ export class UserService {
       return '';
     }
 
+    return decodedToken;
+  }
+
+  public getRole(): string {
+    var decodedToken = this.decodedToken();
+
     return decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  }
+
+  public getMyUsername(): string {
+    var decodedToken = this.decodedToken();
+
+    return decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
   }
 
   public registerUser(registerForm: IUserRegister) : Observable<any> {
@@ -85,6 +97,15 @@ export class UserService {
   public getManagers(): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(
       "http://localhost:5000/api/Users/Managers",
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+      }
+    );
+  }
+
+  public getUserDetails(username: string): any {
+    return this.http.get<IUsers>(
+      "http://localhost:5000/api/Users/Info/" + username,
       {
         headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
       }

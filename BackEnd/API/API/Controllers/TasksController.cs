@@ -27,31 +27,78 @@ namespace API.Controllers
 
         [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<Task> GetTasks()
+        public async Task<IActionResult> GetTasks()
         {
-            var tasks =  _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).ToList();
-            return tasks;
+            try
+            {
+                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).ToList();
+                return Ok(_mapper.Map<TaskDto[]>(tasks));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("BackEnd: " + ex.Message);
+            }
         }
 
         [HttpGet("GetProgrammerTasks/{username}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<Task> GetTasksPerProgrammer(string username)
+        public async Task<IActionResult> GetTasksPerProgrammer(string username)
         {
-            return _context.Tasks.Where(x => x.Programmer.UserName == username).ToList();
+            try
+            {
+                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Programmer).Include(t => t.Project).ToList();
+                return Ok(_mapper.Map<TaskDto[]>(tasks));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("BackEnd: " + ex.Message);
+            }
+        }
+
+        [HttpGet("GetMyTasks")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Programmer)]
+        public async Task<IActionResult> GetMyTasks()
+        {
+            try
+            {
+                string username = User.Identity.Name;
+                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Project).ToList();
+                return Ok(_mapper.Map<TaskDto[]>(tasks));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("BackEnd: " + ex.Message);
+            }
         }
 
         [HttpGet("GetProjectTasks/{id}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<Task> GetProjectTasks(int id)
+        public async Task<IActionResult> GetProjectTasks(int id)
         {
-            return _context.Tasks.Where(x => x.Project.Id == id).ToList();
+            try
+            {
+                var tasks = _context.Tasks.Where(x => x.Project.Id == id).Include(t => t.Programmer).Include(t => t.Project).ToList();
+                return Ok(_mapper.Map<TaskDto[]>(tasks));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("BackEnd: " + ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public Task GetTAskById(int id)
+        public async Task<IActionResult> GetTAskById(int id)
         {
-            return _context.Tasks.SingleOrDefault(x => x.Id == id);
+            try
+            {
+                var task = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).SingleOrDefault(x => x.Id == id);
+                return Ok(_mapper.Map<TaskDto>(task));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("BackEnd: " + ex.Message);
+            }
         }
 
         [HttpPost("Add")]
@@ -69,8 +116,8 @@ namespace API.Controllers
                 var project = _context.Projects.Find(model.IdProject);
                 var programmer = _context.Users.SingleOrDefault(x => x.UserName == model.UsernameProgrammer);
 
-                if(project == null) return BadRequest("A Is null");
-                if(programmer == null) return BadRequest("B Is null");
+                if (project == null) return BadRequest("A Is null");
+                if (programmer == null) return BadRequest("B Is null");
 
                 newTask.Project = project;
                 newTask.Programmer = programmer;
@@ -87,7 +134,7 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                return BadRequest("BackEnd: " + ex.Message);
             }
         }
 
@@ -107,14 +154,6 @@ namespace API.Controllers
 
                 var newTask = _mapper.Map<Task>(model);
 
-                
-
-                //var project = _context.Projects.Find(model.IdProject);
-                //var programmer = _context.Users.SingleOrDefault(x => x.UserName == model.UsernameProgrammer);
-
-                //newTask.Project = project;
-                //newTask.Programmer = programmer;
-
                 _context.Tasks.Update(oldTask);
                 _context.SaveChanges();
 
@@ -125,7 +164,7 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                return BadRequest("BackEnd: " + ex.Message);
             }
         }
     }

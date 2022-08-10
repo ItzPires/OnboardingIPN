@@ -35,14 +35,10 @@
                 <tbody>
                   <tr *ngFor="let project of projects">
                     <td>
-                      <a [routerLink]="['/projects', project.id]">
                         {{ project.id }}
-                      </a>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', project.id]">
                         {{ project.name }}
-                      </a>
                     </td>
                     <td>{{ project.budget }}€</td>
                     <td>
@@ -70,7 +66,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="projects.length == 0">
+                  <tr *ngIf="projects.length == 0 && errorProjects == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -79,6 +75,9 @@
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorProjects == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>

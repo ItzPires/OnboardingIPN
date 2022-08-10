@@ -22,7 +22,7 @@ import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
 import { TasksDetailsComponent } from './tasks/tasks-details/tasks-details.component';
-import { ProgrammerDetailsComponent } from './user/programmer-details/programmer-details.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { ProgrammerDetailsComponent } from './user/programmer-details/programmer
     NavbarComponent,
     TasksListComponent,
     TasksDetailsComponent,
-    ProgrammerDetailsComponent
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -92,9 +92,9 @@ import { ProgrammerDetailsComponent } from './user/programmer-details/programmer
         component: ProjectComponent
       },
       {
-        path: 'user/:username',
+        path: 'user/programmer/:username',
         canActivate: [AuthGuard, TaskGuard],
-        component: ProgrammerDetailsComponent
+        component: UserDetailsComponent
       },
       {
         path: '',

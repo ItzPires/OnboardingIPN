@@ -1,6 +1,6 @@
 ﻿namespace API.Types
 {
-    public enum ProjectState
+    public enum TaskState
     {
         ToStart = 0,
         InWork = 1,

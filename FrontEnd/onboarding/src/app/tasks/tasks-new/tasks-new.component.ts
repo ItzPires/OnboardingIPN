@@ -18,7 +18,7 @@ export class TasksNewComponent implements OnInit {
   newTask: ITask = {
     id: -1,
     name: '',
-    state: '',
+    state: -1,
     project: {} as IProjectsID,
     programmer: {} as IUsers,
     deadline: new Date()
@@ -47,7 +47,7 @@ export class TasksNewComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.newTask.state = 'New';
+      this.newTask.state = -1;
       this.taskService.newTask(this.newTask);
      }
   }

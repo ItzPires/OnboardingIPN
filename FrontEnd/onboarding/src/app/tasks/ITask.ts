@@ -5,7 +5,7 @@ export interface  ITask{
   id: number;
   name: string;
   deadline: Date;
-  state: string;
+  state: number;
   project: IProjectsID;
   programmer: IUsers;
 }

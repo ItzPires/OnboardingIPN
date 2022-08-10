@@ -9,11 +9,11 @@
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <label>Name</label>
-              <span class="form-control">Username</span>
+              <span class="form-control">{{ userInfo.userName }}</span>
             </div>
             <div class="form-group">
               <label>Email</label>
-              <span class="form-control">Email</span>
+              <span class="form-control">{{ userInfo.email }}</span>
             </div>
           </form>
         </div>
@@ -33,7 +33,27 @@
                 </tr>
               </thead>
               <tbody>
-
+                <tr *ngFor="let task of tasks">
+                  <td>{{ task.name }}</td>
+                  <td>
+                      {{ task.project.name }}
+                  </td>
+                  <td>
+                    <span class="badge bg-warning text-dark">
+                      {{ task.state}}
+                    </span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/tasks', task.id]"
+                      ><button
+                        type="button"
+                        class="btn btn-outline-success me-2"
+                      >
+                        View
+                      </button></a
+                    >
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

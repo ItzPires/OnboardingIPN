@@ -39,11 +39,20 @@ export class TasksService {
     );
   }
 
-  public getTasksByUser(token: string | null | undefined): Observable<ITask[]> {
+  public getMyTasks(): Observable<ITask[]> {
     return this.http.get<ITask[]>(
-      this.tasksUrl + 'GetProgrammerTasks',
+      this.tasksUrl + 'GetMyTasks',
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+      }
+    );
+  }
+
+  public getTasksByUser(username: string): Observable<ITask[]> {
+    return this.http.get<ITask[]>(
+      this.tasksUrl + 'GetProgrammerTasks/' + username,
+      {
+        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
       }
     );
   }

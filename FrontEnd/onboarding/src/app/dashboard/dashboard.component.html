@@ -38,7 +38,16 @@
                     <td *ngIf="i < 3">{{ project.name }}</td>
                     <td *ngIf="i < 3">{{ project.budget }}€</td>
                     <td *ngIf="i < 3">
-                      <span class="badge bg-warning text-dark">{{
+                      <span *ngIf="project.state == 0" class="badge bg-primary">{{
+                        states[project.state]
+                      }}</span>
+                      <span *ngIf="project.state == 1" class="badge bg-warning">{{
+                        states[project.state]
+                      }}</span>
+                      <span *ngIf="project.state == 2" class="badge bg-success">{{
+                        states[project.state]
+                      }}</span>
+                      <span *ngIf="project.state == 3" class="badge bg-danger">{{
                         states[project.state]
                       }}</span>
                     </td>
@@ -53,7 +62,7 @@
                       >
                     </td>
                   </tr>
-                  <tr *ngIf="projects.length == 0">
+                  <tr *ngIf="projects.length == 0 && errorProjects == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -61,6 +70,9 @@
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorProjects == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>
@@ -88,25 +100,32 @@
                   <tr>
                     <th>Name</th>
                     <th>Project</th>
-                    <th>Programmer</th>
                     <th>State</th>
                     <th>Options</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let task of tasks">
-                    <td>{{ task.name }}</td>
-                    <td>
-                      {{ task.project.id }}
+                  <tr *ngFor="let task of tasks; let i = index;">
+                    <td *ngIf="i < 3">{{ task.name }}</td>
+                    <td *ngIf="i < 3">
+                      {{ task.project.name }}
                     </td>
-                    <td>{{ task.programmer.userName }}</td>
-                    <td>
-                      <span class="badge bg-warning text-dark">
-                        {{ task.state }}
-                      </span>
+                    <td *ngIf="i < 3">
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                        states[task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                        states[task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{
+                        states[task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                        states[task.state]
+                      }}</span>
                     </td>
-                    <td>
+                    <td *ngIf="i < 3">
                       <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
@@ -117,7 +136,7 @@
                       >
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0">
+                  <tr *ngIf="tasks.length == 0 && errorTask == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -125,6 +144,9 @@
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorTask == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>
@@ -149,7 +171,7 @@
                       {{ programmer.userName }}
                     </td>
                     <td>
-                      <a [routerLink]="['/user', programmer.userName]">
+                      <a [routerLink]="['/user/programmer', programmer.userName]">
                       <button
                         type="button"
                         class="btn btn-outline-success me-2"
@@ -159,12 +181,15 @@
                     </a>
                     </td>
                   </tr>
-                  <tr *ngIf="programmers.length == 0">
+                  <tr *ngIf="programmers.length == 0 && errorProgrammers == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorProgrammers == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>
@@ -195,12 +220,15 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="managers.length == 0">
+                  <tr *ngIf="managers.length == 0 && errorManagers == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorManagers == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>
@@ -255,7 +283,7 @@
                 <tbody>
                   <tr *ngFor="let task of tasks">
                     <td>{{ task.name }}</td>
-                    <td>{{ task.project.id }}</td>
+                    <td>{{ task.project.name }}</td>
                     <td>
                       <span class="badge bg-warning text-dark">
                         {{ task.state }}
@@ -272,7 +300,7 @@
                       >
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0">
+                  <tr *ngIf="tasks.length == 0 && errorTask == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -280,6 +308,9 @@
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="errorTask == true" class="alert alert-danger text-center" role="alert">
+                Error Server
+              </div>
             </div>
           </form>
         </div>

@@ -28,23 +28,38 @@ namespace API.Controllers
 
         [HttpGet("All")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public ProjectDto[] GetProjects()
+        public async Task<IActionResult> GetProjects()
         {
-            var projects = _context.Projects.Include(p => p.Manager).ToList();
-            return _mapper.Map<ProjectDto[]>(projects);
+            try
+            {
+                var projects = _context.Projects.Include(p => p.Manager).ToList();
+                return Ok(_mapper.Map<ProjectDto[]>(projects));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Data);
+            }
         }
 
         [HttpGet("GetManagerProjects")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public List<Project> GetProjectsPerManager()
+        public async Task<IActionResult> GetProjectsPerManager()
         {
-            string username = User.Identity.Name;
-            return _context.Projects.Where(x => x.Manager.UserName == username).ToList();
+            try
+            {
+                string username = User.Identity.Name;
+                var projects = _context.Projects.Where(x => x.Manager.UserName == username).ToList();
+                return Ok(_mapper.Map<ProjectDto[]>(projects));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Data);
+            }
         }
 
         [HttpPost("Add")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public IActionResult AddProject([FromBody] ProjectForm model)
+        public async Task<IActionResult> AddProject([FromBody] ProjectForm model)
         {
             try
             {
@@ -83,7 +98,7 @@ namespace API.Controllers
 
                 var deleteProject = _context.Projects.Find(id);
 
-                if(deleteProject == null)
+                if (deleteProject == null)
                 {
                     _context.Database.CommitTransaction();
                     return NotFound("Project Dont Exist");
@@ -105,15 +120,22 @@ namespace API.Controllers
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public ProjectDto GetProject(int id)
+        public async Task<IActionResult> GetProject(int id)
         {
-            var project = _context.Projects.Include(p => p.Manager).SingleOrDefault(x => x.Id == id);
-            return _mapper.Map<ProjectDto>(project);
+            try
+            {
+                var project = _context.Projects.Include(p => p.Manager).SingleOrDefault(x => x.Id == id);
+                return Ok(_mapper.Map<ProjectDto>(project));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
         [HttpPut("Update/{id}")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
-        public async Task<IActionResult> UpdateTasks([FromBody] ProjectForm model, int id)
+        public async Task<IActionResult> UpdateProject([FromBody] ProjectForm model, int id)
         {
             try
             {

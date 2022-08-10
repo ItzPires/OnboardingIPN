@@ -20,8 +20,6 @@ builder.Services.AddIdentity<User, IdentityRole>(cfg =>
     cfg.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<Context>();
 
-
-
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -72,5 +70,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//seed
+using (var scope = app.Services.CreateScope())
+{ 
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<Context>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+    var roleManager = services.GetService<RoleManager<IdentityRole>>();
+    await Seed.SeedDataAsync(userManager, roleManager, context);
+}
+
 
 app.Run();

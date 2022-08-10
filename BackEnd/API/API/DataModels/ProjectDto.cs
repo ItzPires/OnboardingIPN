@@ -8,6 +8,6 @@ namespace API.DataModels
         public string? Name { get; set; }
         public float Budget { get; set; }
         public int State { get; set; }
-        public User Manager { get; set; }
+        public UserDto Manager { get; set; }
     }
 }

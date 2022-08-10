@@ -11,7 +11,7 @@ import { ProjectsService } from '../projects.service';
 })
 export class ProjectComponent implements OnInit {
   statesProject = States;
-
+  statesProjectKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
   newProject: IProjects = {
     name: '',
     budget: 0,

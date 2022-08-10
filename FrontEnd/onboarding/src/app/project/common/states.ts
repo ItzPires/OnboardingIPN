@@ -1,4 +1,6 @@
 export enum States {
-  InWork = 0,
-  Done = 1,
+  'To Start',
+  'In Work',
+  'Done',
+  'Canceled'
 }

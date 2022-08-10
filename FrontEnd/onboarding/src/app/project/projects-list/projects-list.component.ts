@@ -15,6 +15,7 @@ export class ProjectsListComponent implements OnInit {
   roleUser: string | null | undefined;
   states = States;
   projects: IProjectsID[] = [];
+  errorProjects: boolean = false;
 
   constructor(public projectsService: ProjectsService, private userService: UserService, public router: Router) { }
 
@@ -26,6 +27,7 @@ export class ProjectsListComponent implements OnInit {
       next: (dataProjects: IProjectsID[]) => {
         this.projects = dataProjects;
       },
+      error: () => {this.errorProjects = true;},
     });
   }
 

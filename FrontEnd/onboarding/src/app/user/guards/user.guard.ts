@@ -13,7 +13,7 @@ export class UserGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.userService.getRole() == '')
+      if(this.userService.getRole() != 'Manager' || this.userService.getRole() != 'Programmer')
       {
         return true;
       }

@@ -7,7 +7,6 @@ import { UserService } from "../user/guards/user.service";
 import { IProjects } from "./common/IProjects";
 import { IProjectsID } from "./projects-list/IProjectsID";
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -39,7 +38,7 @@ export class ProjectsService {
     );
   }
 
-  private updateProjectPut(projectId: number, projectForm: IProjects): Observable<any> {
+  public updateProjectPut(projectId: number, projectForm: IProjects): Observable<any> {
     return this.http.put(
       this.projectsUrl + 'Update/' + projectId,
       projectForm,

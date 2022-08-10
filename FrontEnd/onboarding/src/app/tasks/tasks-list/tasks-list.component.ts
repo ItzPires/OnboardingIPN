@@ -11,6 +11,7 @@ import { TasksService } from '../tasks.service';
 export class TasksListComponent implements OnInit {
   tasks: ITask[] = [];
   roleUser = '';
+  errorTask: boolean = false;
 
   constructor(private taskService: TasksService, private userService: UserService) { }
 
@@ -22,14 +23,16 @@ export class TasksListComponent implements OnInit {
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
+        error: () => {this.errorTask = true;},
       });
     }
     else
     {
-      this.taskService.getTasksByUser(this.userService.getToken()).subscribe({
+      this.taskService.getMyTasks().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
+        error: () => {this.errorTask = true;},
       });
     }
 

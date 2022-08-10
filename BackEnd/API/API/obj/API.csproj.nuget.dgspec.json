@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pires\\Desktop\\REconstrucao\\API\\API\\API.csproj": {}
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pires\\Desktop\\REconstrucao\\API\\API\\API.csproj": {
+    "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\REconstrucao\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\Pires\\Desktop\\REconstrucao\\API\\API\\API.csproj",
+        "projectPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Pires\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pires\\Desktop\\REconstrucao\\API\\API\\obj\\",
+        "outputPath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pires\\AppData\\Roaming\\NuGet\\NuGet.Config",

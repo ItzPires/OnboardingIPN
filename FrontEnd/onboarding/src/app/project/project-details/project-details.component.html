@@ -10,7 +10,7 @@
             <div class="form-group">
               <label>Name</label>
               <input
-                name="username"
+                name="name"
                 type="text"
                 class="form-control"
                 placeholder="Nome do Projecto"
@@ -21,7 +21,7 @@
             <div class="form-group">
               <label>Budget</label>
               <input
-                name="password"
+                name="budget"
                 type="number"
                 min="0"
                 step="0.01"
@@ -35,7 +35,7 @@
               <label>State</label>
               <div class="input-group mb-3">
                 <select name="state" class="custom-select" [(ngModel)]="project.state">
-                  <option selected>{{ states[project.state] }}</option>
+                  <option *ngFor="let enum of statesProjectKeys" [value]= "enum">{{ statesProject[enum] }}</option>
                 </select>
               </div>
             </div>
@@ -44,7 +44,7 @@
           </form>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div class="form-container">
           <h3 class="title">Tasks</h3>
             <div class="form-group">
@@ -62,14 +62,10 @@
                 <tbody>
                   <tr *ngFor="let task of tasks">
                     <td>
-                      <a [routerLink]="['/projects', task.name]">
                         {{ task.name }}
-                      </a>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', task.project.id]">
-                        {{ task.project.id }}
-                      </a>
+                        {{ task.project.name }}
                     </td>
                     <td>{{ task.programmer.userName }}</td>
                     <td>
@@ -78,7 +74,7 @@
                       </span>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', task.deadline]"
+                      <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
                           class="btn btn-outline-success me-2"
@@ -94,7 +90,7 @@
             <button
             type="button"
             class="btn btn-primary add-new"
-            [routerLink]="'/projects'"
+            [routerLink]="'/newTasks'"
           >New Task</button>
         </div>
       </div>
