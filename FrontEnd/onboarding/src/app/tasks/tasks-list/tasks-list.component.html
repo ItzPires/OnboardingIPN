@@ -19,7 +19,7 @@
                 class="btn btn-primary add-new"
                 [routerLink]="'/newTasks'"
               >
-                Add New
+              {{ 'dashboard.addNew' | translate }}
               </button>
             </div>
           </div>
@@ -28,11 +28,11 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Project</th>
-                    <th>Programmer</th>
-                    <th>State</th>
-                    <th>Options</th>
+                    <th>{{ 'task.name' | translate }}</th>
+                    <th>{{ 'task.project' | translate }}</th>
+                    <th>{{ 'users.programmer' | translate }}</th>
+                    <th>{{ 'task.status' | translate }}</th>
+                    <th>{{ 'task.options' | translate }}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -54,7 +54,7 @@
                           type="button"
                           class="btn btn-outline-success me-2"
                         >
-                          View
+                        {{ 'dashboard.view' | translate }}
                         </button></a
                       >
                     </td>
@@ -108,9 +108,18 @@
                         {{ task.project.name }}
                     </td>
                     <td>
-                      <span class="badge bg-warning text-dark">
-                        {{ task.state}}
-                      </span>
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                        [task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                        [task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{
+                        [task.state]
+                      }}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                        [task.state]
+                      }}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/tasks', task.id]"

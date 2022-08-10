@@ -12,44 +12,44 @@
           {{ errorMsg }}
         </div>
         <div class="form-container">
-          <h3 class="title">Register</h3>
+          <h3 class="title">{{ 'register.register' | translate }}</h3>
           <form
             class="form-horizontal"
             #form="ngForm"
             (ngSubmit)="onSubmit(form)"
           >
             <div class="form-group">
-              <label>User Name</label>
+              <label>{{ 'register.username' | translate }}</label>
               <input
                 name="username"
                 type="text"
                 class="form-control"
-                placeholder="Username"
+                placeholder="{{ 'register.username' | translate }}"
                 [(ngModel)]="newUser.username"
               />
             </div>
             <div class="form-group">
-              <label>Email ID</label>
+              <label>{{ 'register.email' | translate }}</label>
               <input
                 name="email"
                 type="email"
                 class="form-control"
-                placeholder="Email Address"
+                placeholder="{{ 'register.email' | translate }}"
                 [(ngModel)]="newUser.email"
               />
             </div>
             <div class="form-group">
-              <label>Password</label>
+              <label>{{ 'register.password' | translate }}</label>
               <input
                 name="password"
                 type="password"
                 class="form-control"
-                placeholder="Password"
+                placeholder="{{ 'register.password' | translate }}"
                 [(ngModel)]="newUser.password"
               />
             </div>
             <div class="form-group">
-              <label>Role</label>
+              <label>{{ 'register.role' | translate }}</label>
               <div class="row justify-content-center">
                 <div class="col">
                   <div class="form-check-inline">
@@ -60,7 +60,7 @@
                       [(ngModel)]="newUser.isManager"
                     />
                     <label class="form-check-label m-2" for="inlineRadio1"
-                      >Programmer</label
+                      >{{ 'register.programmer' | translate }}</label
                     >
                   </div>
                 </div>
@@ -73,20 +73,20 @@
                       [(ngModel)]="newUser.isManager"
                     />
                     <label class="form-check-label m-2" for="inlineRadio2"
-                      >Manager</label
+                      >{{ 'register.manager' | translate }}</label
                     >
                   </div>
                 </div>
               </div>
             </div>
             <span class="signin-link"
-              >Already have an account? Click here to
-              <a [routerLink]="'/login'">Login</a></span
+              >{{ 'register.msgHaveAccount' | translate }}
+              <a [routerLink]="'/login'">{{ 'register.login' | translate }}</a></span
             >
-            <button *ngIf="!loading" class="btn signup" >Create Account</button>
+            <button *ngIf="!loading" class="btn signup" >{{ 'register.createAccount' | translate }}</button>
             <button *ngIf="loading" class="btn signup" type="button" disabled>
               <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-              Create Account
+              {{ 'register.createAccount' | translate }}
             </button>
           </form>
         </div>

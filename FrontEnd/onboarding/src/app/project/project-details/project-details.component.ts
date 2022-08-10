@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ITask } from 'src/app/tasks/ITask';
 import { TasksService } from 'src/app/tasks/tasks.service';
-import { UserService } from 'src/app/user/guards/user.service';
+import { UserService } from 'src/app/user/user.service';
 import { States } from '../common/states';
 import { IProjectsID } from '../projects-list/IProjectsID';
 import { ProjectsService } from '../projects.service';

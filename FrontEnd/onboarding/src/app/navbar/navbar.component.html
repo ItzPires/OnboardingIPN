@@ -5,19 +5,20 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li *ngIf="userRole =='Programmer' || userRole == 'Manager'" ><a href="dashboard" class="nav-link px-2 link-dark">Dashboard</a></li>
-      <li *ngIf="userRole == 'Manager'" ><a href="/projects" class="nav-link px-2 link-dark">Projects</a></li>
-      <li *ngIf="userRole == 'Programmer'|| userRole == 'Manager'" ><a href="/tasks" class="nav-link px-2 link-dark">Tasks</a></li>
-      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'"><a href="#" class="nav-link px-2 link-dark">Home</a></li>
-      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'" ><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'" ><a href="#" class="nav-link px-2 link-dark">About</a></li>
+      <li *ngIf="userRole =='Programmer' || userRole == 'Manager'" ><a href="dashboard" class="nav-link px-2 link-dark">{{ 'home.dashboard' | translate }}</a></li>
+      <li *ngIf="userRole == 'Manager'" ><a href="/projects" class="nav-link px-2 link-dark">{{ 'home.projects' | translate }}</a></li>
+      <li *ngIf="userRole == 'Programmer'|| userRole == 'Manager'" ><a href="/tasks" class="nav-link px-2 link-dark">{{ 'home.tasks' | translate }}</a></li>
+      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'"><a href="#" class="nav-link px-2 link-dark">{{ 'home.home' | translate }}</a></li>
+      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'" ><a href="#" class="nav-link px-2 link-dark">{{ 'home.pricing' | translate }}</a></li>
+      <li *ngIf="userRole !='Programmer' && userRole != 'Manager'" ><a href="#" class="nav-link px-2 link-dark">{{ 'home.about' | translate }}</a></li>
     </ul>
 
     <div class="col-md-3 text-end">
-      <button *ngIf="userRole =='Programmer' || userRole == 'Manager'" type="button" class="btn btn-outline-primary me-2" (click)="logout()" [routerLink]="'/'">Logout</button>
-      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">Login</button>
-      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-primary me-2" [routerLink]="'/register'">Sign-up</button>
-      <button type="button" class="btn btn-primary">PT</button>
+      <button *ngIf="userRole =='Programmer' || userRole == 'Manager'" type="button" class="btn btn-outline-primary me-2" (click)="logout()" [routerLink]="'/'">{{ 'home.logout' | translate }}</button>
+      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-outline-primary me-2" [routerLink]="'/login'">{{ 'home.login' | translate }}</button>
+      <button *ngIf="userRole !='Programmer' && userRole != 'Manager'" type="button" class="btn btn-primary me-2" [routerLink]="'/register'">{{ 'home.signup' | translate }}</button>
+      <button *ngIf="language == 'pt'" type="button" class="btn btn-primary" (click)="changeSiteLanguage('en')">PT</button>
+      <button *ngIf="language == 'en'" type="button" class="btn btn-primary" (click)="changeSiteLanguage('pt')">EN</button>
     </div>
   </header>
 </div>

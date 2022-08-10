@@ -5,14 +5,14 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-5">
         <div class="form-container">
-          <h3 class="title">Programmer</h3>
+          <h3 class="title">{{ 'users.programmer' | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
-              <label>Name</label>
+              <label>{{ 'users.username' | translate }}</label>
               <span class="form-control">{{ userInfo.userName }}</span>
             </div>
             <div class="form-group">
-              <label>Email</label>
+              <label>{{ 'users.email' | translate }}</label>
               <span class="form-control">{{ userInfo.email }}</span>
             </div>
           </form>
@@ -20,15 +20,15 @@
       </div>
       <div class="col">
         <div class="form-container">
-          <h3 class="title">Tasks</h3>
+          <h3 class="title">{{ 'dashboard.tasks' | translate }}</h3>
           <div class="form-group">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Project</th>
-                  <th>State</th>
-                  <th>Options</th>
+                  <th>{{ 'task.name' | translate }}</th>
+                  <th>{{ 'task.project' | translate }}</th>
+                  <th>{{ 'task.status' | translate }}</th>
+                  <th>{{ 'task.options' | translate }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -49,7 +49,7 @@
                         type="button"
                         class="btn btn-outline-success me-2"
                       >
-                        View
+                      {{ 'dashboard.view' | translate }}
                       </button></a
                     >
                   </td>

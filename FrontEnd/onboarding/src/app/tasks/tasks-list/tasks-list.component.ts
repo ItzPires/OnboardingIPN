@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/user/guards/user.service';
+import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
 import { TasksService } from '../tasks.service';
 

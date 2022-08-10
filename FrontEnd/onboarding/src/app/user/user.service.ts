@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IUserRegister } from '../register/IUserRegister';
-import { IUser } from '../common/IUser';
+import { IUserRegister } from './register/IUserRegister';
+import { IUser } from './common/IUser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { IUsers } from '../../dashboard/IUsers';
+import { IUsers } from '../dashboard/IUsers';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,14 @@ export class UserService {
 
   public getToken(): string | null | undefined {
     return this.cookie.get('token');
+  }
+
+  public setLanguage(language: string): void {
+    this.cookie.set('language', language);
+  }
+
+  public getLanguage():  string | null | undefined {
+    return this.cookie.get('language');
   }
 
   private decodedToken(): any {

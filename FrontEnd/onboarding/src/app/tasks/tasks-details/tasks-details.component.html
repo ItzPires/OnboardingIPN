@@ -50,6 +50,12 @@
             </div>
             <div class="form-group">
               <label>State</label>
+              <div class="input-group mb-3">
+                <select name="state" class="custom-select" [(ngModel)]="task.state">
+                  <option selected>{{ 'dashboard.choose' | translate }}...</option>
+                  <option *ngFor="let enum of statesTaskKeys" [value]= "enum">{{ statesTask[enum] }}</option>
+                </select>
+              </div>
             </div>
             <span class="signin-link"></span>
             <button class="btn signup">Edit</button>

@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { UserService } from "../user/guards/user.service";
+import { UserService } from "../user/user.service";
 import { IProjects } from "./common/IProjects";
 import { IProjectsID } from "./projects-list/IProjectsID";
 

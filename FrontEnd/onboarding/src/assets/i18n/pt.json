@@ -1,0 +1,73 @@
+{
+  "home": {
+    "cardOne": "Simples",
+    "cardTwo": "Mais eficiente",
+    "cardThree": "Mais prático",
+    "login": "Login",
+    "signup": "Registro",
+    "logout": "Logout",
+    "pricing": "Preços",
+    "about": "Sobre",
+    "dashboard": "Dashboard",
+    "projects": "Projetos",
+    "tasks": "Tarefas",
+    "home": "Home"
+  },
+  "login": {
+    "username": "Nome de utilizador",
+    "password": "Senha",
+    "login": "Login",
+    "signin": "Iniciar sessão",
+    "msgNotRegistered": "Não tem conta? Clique aqui para ",
+    "register": "Registar"
+  },
+  "register": {
+    "username": "Nome de utilizador",
+    "password": "Senha",
+    "email": "Email",
+    "role": "Papel",
+    "programmer": "Programador",
+    "manager": "Gestor",
+    "signin": "Iniciar sessão",
+    "msgHaveAccount": "Já tem uma conta? Clique aqui para ",
+    "login": "Login",
+    "register": "Registo",
+    "createAccount": "Criar Conta"
+  },
+  "dashboard": {
+    "projects": "Projetos",
+    "newProject": "Novo Projeto",
+    "projectName": "Nome do projeto",
+    "tasks": "Tarefas",
+    "viewAll": "Ver Tudo",
+    "view": "Ver",
+    "addNew": "Adicionar Novo",
+    "create": "Adicionar Novo",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "choose": "Escolha"
+  },
+  "project": {
+    "name": "Nome",
+    "budget": "Orçamento",
+    "status": "Estado",
+    "options": "Opções"
+  },
+  "task": {
+    "name": "Nome",
+    "project": "Projeto",
+    "status": "Estado",
+    "options": "Opções",
+    "myTasks": "Tarefas"
+  },
+  "users": {
+    "programmers": "Programadores",
+    "programmer": "Programador",
+    "managers": "Gestores",
+    "manager": "Gestor",
+    "username": "Nome de utilizador",
+    "email": "Email",
+    "role": "Papel",
+    "options": "Opções"
+  }
+}

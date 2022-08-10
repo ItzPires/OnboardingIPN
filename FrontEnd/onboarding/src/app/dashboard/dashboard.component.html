@@ -10,7 +10,7 @@
         <div class="form-container">
           <div class="row justify-content-between">
             <div class="col">
-              <h3 class="title">Projects</h3>
+              <h3 class="title">{{ 'dashboard.projects' | translate }}</h3>
             </div>
             <div class="col-3">
               <button
@@ -18,7 +18,7 @@
                 class="btn btn-primary add-new"
                 [routerLink]="'/projects'"
               >
-                View All
+                {{ 'dashboard.viewAll' | translate }}
               </button>
             </div>
           </div>
@@ -27,10 +27,10 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Budget</th>
-                    <th>State</th>
-                    <th>Options</th>
+                    <th>{{ 'project.name' | translate }}</th>
+                    <th>{{ 'project.budget' | translate }}</th>
+                    <th>{{ 'project.status' | translate }}</th>
+                    <th>{{ 'project.options' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
                           type="button"
                           class="btn btn-outline-success me-2"
                         >
-                          View
+                        {{ 'dashboard.view' | translate }}
                         </button></a
                       >
                     </td>
@@ -81,7 +81,7 @@
         <div class="form-container">
           <div class="row justify-content-between">
             <div class="col">
-              <h3 class="title">Tasks</h3>
+              <h3 class="title">{{ 'dashboard.tasks' | translate }}</h3>
             </div>
             <div class="col-4">
               <button
@@ -89,7 +89,7 @@
                 class="btn btn-primary add-new"
                 [routerLink]="'/tasks'"
               >
-                View All
+                {{ 'dashboard.viewAll' | translate }}
               </button>
             </div>
           </div>
@@ -98,10 +98,10 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Project</th>
-                    <th>State</th>
-                    <th>Options</th>
+                    <th>{{ 'task.name' | translate }}</th>
+                    <th>{{ 'task.project' | translate }}</th>
+                    <th>{{ 'task.status' | translate }}</th>
+                    <th>{{ 'task.options' | translate }}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -131,7 +131,7 @@
                           type="button"
                           class="btn btn-outline-success me-2"
                         >
-                          View
+                        {{ 'dashboard.view' | translate }}
                         </button></a
                       >
                     </td>
@@ -155,14 +155,14 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-4 mt-4">
         <div class="form-container">
-          <h3 class="title">Programmers</h3>
+          <h3 class="title">{{ 'users.programmers' | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Username</th>
-                    <th>Options</th>
+                    <th>{{ 'users.username' | translate }}</th>
+                    <th>{{ 'users.options' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -176,7 +176,7 @@
                         type="button"
                         class="btn btn-outline-success me-2"
                       >
-                        View
+                      {{ 'dashboard.view' | translate }}
                       </button>
                     </a>
                     </td>
@@ -196,14 +196,14 @@
       </div>
       <div class="col-md-4 mt-4">
         <div class="form-container">
-          <h3 class="title">Managers</h3>
+          <h3 class="title">{{ 'users.managers' | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Username</th>
-                    <th>Options</th>
+                    <th>{{ 'users.username' | translate }}</th>
+                    <th>{{ 'users.options' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -216,7 +216,7 @@
                         type="button"
                         class="btn btn-outline-success me-2"
                       >
-                        View
+                      {{ 'dashboard.view' | translate }}
                       </button>
                     </td>
                   </tr>
@@ -268,16 +268,16 @@
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
-          <h3 class="title">My Tasks</h3>
+          <h3 class="title">{{ 'task.myTasks' | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Project</th>
-                    <th>State</th>
-                    <th>Options</th>
+                    <th>{{ 'task.name' | translate }}</th>
+                    <th>{{ 'task.project' | translate }}</th>
+                    <th>{{ 'task.status' | translate }}</th>
+                    <th>{{ 'task.options' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -285,9 +285,18 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                      <span class="badge bg-warning text-dark">
-                        {{ task.state }}
-                      </span>
+                        <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                          states[task.state]
+                        }}</span>
+                        <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                          states[task.state]
+                        }}</span>
+                        <span *ngIf="task.state == 2" class="badge bg-success">{{
+                          states[task.state]
+                        }}</span>
+                        <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                          states[task.state]
+                        }}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/tasks', task.id]"
@@ -295,7 +304,7 @@
                           type="button"
                           class="btn btn-outline-success me-2"
                         >
-                          View
+                        {{ 'dashboard.view' | translate }}
                         </button></a
                       >
                     </td>

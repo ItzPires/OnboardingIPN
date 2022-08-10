@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { IProjectsID } from 'src/app/project/projects-list/IProjectsID';
 import { ProjectsService } from 'src/app/project/projects.service';
-import { UserService } from 'src/app/user/guards/user.service';
+import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
 import { TasksService } from '../tasks.service';
 

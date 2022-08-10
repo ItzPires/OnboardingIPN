@@ -1,0 +1,73 @@
+{
+  "home": {
+    "cardOne": "Simple",
+    "cardTwo": "More Efficient",
+    "cardThree": "More Practical",
+    "login": "Login",
+    "signup": "Signup",
+    "logout": "Logout",
+    "pricing": "Pricing",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "tasks": "Tasks",
+    "home": "Home"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "signin": "Sign In",
+    "msgNotRegistered": "Don't have an account? Click here to ",
+    "register": "Register"
+  },
+  "register": {
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "role": "Role",
+    "programmer": "Programmer",
+    "manager": "Manager",
+    "signin": "Sign In",
+    "msgHaveAccount": "Already have an account? Click here to ",
+    "login": "Login",
+    "register": "Register",
+    "createAccount": "Create Account"
+  },
+  "dashboard": {
+    "projects": "Projects",
+    "newProject": "New Project",
+    "projectName": "Project Name",
+    "tasks": "Tasks",
+    "viewAll": "View All",
+    "view": "View",
+    "addNew": "Add New",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "choose": "Choose"
+  },
+  "project": {
+    "name": "Name",
+    "budget": "Budget",
+    "status": "Status",
+    "options": "Options"
+  },
+  "task": {
+    "name": "Name",
+    "project": "Project",
+    "status": "Status",
+    "options": "Options",
+    "myTasks": "My Tasks"
+  },
+  "users": {
+    "programmers": "Programmers",
+    "programmer": "Programmer",
+    "managers": "Managers",
+    "manager": "Manager",
+    "username": "Username",
+    "email": "Email",
+    "role": "Role",
+    "options": "Options"
+  }
+}

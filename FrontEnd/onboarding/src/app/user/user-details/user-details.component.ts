@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { ITask } from 'src/app/tasks/ITask';
 import { TasksService } from 'src/app/tasks/tasks.service';
-import { UserService } from '../guards/user.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-programmer-details',
