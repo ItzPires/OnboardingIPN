@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { ITask } from 'src/app/tasks/ITask';
@@ -10,20 +11,15 @@ import { UserService } from '../user.service';
   templateUrl: './user-details.component.html',
   styleUrls: ['../../common/styles.css']
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent {
   userName: string = "";
   userRole!: string | null;
   userInfo!: IUsers;
   tasks: ITask[] = [];
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private taskService: TasksService) { }
-
-  ngOnInit(): void {
-    var userIsNull = this.route.snapshot.paramMap.get('username');
-
-    if (userIsNull != null) {
-      this.userName = userIsNull;
-    }
+  constructor(public dialogRef: MatDialogRef<UserDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService)
+  {
+    this.userName = data.user;
 
     this.userService.getUserDetails(this.userName).subscribe(
       {

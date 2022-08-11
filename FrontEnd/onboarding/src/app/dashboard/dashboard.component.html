@@ -10,15 +10,15 @@
         <div class="form-container">
           <div class="row justify-content-between">
             <div class="col">
-              <h3 class="title">{{ 'dashboard.projects' | translate }}</h3>
+              <h3 class="title">{{ "dashboard.projects" | translate }}</h3>
             </div>
             <div class="col-3">
               <button
                 type="button"
-                class="btn btn-primary add-new"
+                class="btn btn-primary"
                 [routerLink]="'/projects'"
               >
-                {{ 'dashboard.viewAll' | translate }}
+                {{ "dashboard.viewAll" | translate }}
               </button>
             </div>
           </div>
@@ -27,42 +27,79 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ 'project.name' | translate }}</th>
-                    <th>{{ 'project.budget' | translate }}</th>
-                    <th>{{ 'project.status' | translate }}</th>
-                    <th>{{ 'project.options' | translate }}</th>
+                    <th>{{ "project.name" | translate }}</th>
+                    <th>{{ "project.budget" | translate }}</th>
+                    <th>{{ "project.status" | translate }}</th>
+                    <th>{{ "project.options" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let project of projects; let i = index;">
+                  <tr *ngFor="let project of projects; let i = index">
                     <td *ngIf="i < 3">{{ project.name }}</td>
                     <td *ngIf="i < 3">{{ project.budget }}€</td>
                     <td *ngIf="i < 3">
-                      <span *ngIf="project.state == 0" class="badge bg-primary">{{ ("states." + project.state) | translate}}</span>
-                      <span *ngIf="project.state == 1" class="badge bg-warning">{{ ("states." + project.state) | translate}}</span>
-                      <span *ngIf="project.state == 2" class="badge bg-success">{{ ("states." + project.state) | translate}}</span>
-                      <span *ngIf="project.state == 3" class="badge bg-danger">{{ ("states." + project.state) | translate}}</span>
+                      <span
+                        *ngIf="project.state == 0"
+                        class="badge bg-primary"
+                        >{{ "states." + project.state | translate }}</span
+                      >
+                      <span
+                        *ngIf="project.state == 1"
+                        class="badge bg-warning"
+                        >{{ "states." + project.state | translate }}</span
+                      >
+                      <span
+                        *ngIf="project.state == 2"
+                        class="badge bg-success"
+                        >{{ "states." + project.state | translate }}</span
+                      >
+                      <span
+                        *ngIf="project.state == 3"
+                        class="badge bg-danger"
+                        >{{ "states." + project.state | translate }}</span
+                      >
                     </td>
                     <td *ngIf="i < 3">
                       <a [routerLink]="['/projects', project.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-success me-2"
-                        >
-                        {{ 'dashboard.view' | translate }}
+                        ><button type="button" class="btn btn-success me-2">
+                          {{ "dashboard.view" | translate }}
                         </button></a
                       >
                     </td>
                   </tr>
                   <tr *ngIf="projects.length == 0 && errorProjects == false">
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div *ngIf="errorProjects == true" class="alert alert-danger text-center" role="alert">
+              <div
+                *ngIf="errorProjects == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>
@@ -73,7 +110,7 @@
         <div class="form-container">
           <div class="row justify-content-between">
             <div class="col">
-              <h3 class="title">{{ 'dashboard.tasks' | translate }}</h3>
+              <h3 class="title">{{ "dashboard.tasks" | translate }}</h3>
             </div>
             <div class="col-4">
               <button
@@ -81,7 +118,7 @@
                 class="btn btn-primary add-new"
                 [routerLink]="'/tasks'"
               >
-                {{ 'dashboard.viewAll' | translate }}
+                {{ "dashboard.viewAll" | translate }}
               </button>
             </div>
           </div>
@@ -90,45 +127,74 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ 'task.name' | translate }}</th>
-                    <th>{{ 'task.project' | translate }}</th>
-                    <th>{{ 'task.status' | translate }}</th>
-                    <th>{{ 'task.options' | translate }}</th>
+                    <th>{{ "task.name" | translate }}</th>
+                    <th>{{ "task.project" | translate }}</th>
+                    <th>{{ "task.status" | translate }}</th>
+                    <th>{{ "task.options" | translate }}</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let task of tasks; let i = index;">
+                  <tr *ngFor="let task of tasks; let i = index">
                     <td *ngIf="i < 3">{{ task.name }}</td>
                     <td *ngIf="i < 3">
                       {{ task.project.name }}
                     </td>
                     <td *ngIf="i < 3">
-                      <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
-                      <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
-                      <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
-                      <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                        "states." + task.state | translate
+                      }}</span>
                     </td>
                     <td *ngIf="i < 3">
                       <a [routerLink]="['/tasks', task.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-success me-2"
-                        >
-                        {{ 'dashboard.view' | translate }}
+                        ><button type="button" class="btn btn-success me-2">
+                          {{ "dashboard.view" | translate }}
                         </button></a
                       >
                     </td>
                   </tr>
                   <tr *ngIf="tasks.length == 0 && errorTask == false">
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div *ngIf="errorTask == true" class="alert alert-danger text-center" role="alert">
+              <div
+                *ngIf="errorTask == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>
@@ -139,14 +205,14 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-4 mt-4">
         <div class="form-container">
-          <h3 class="title">{{ 'users.programmers' | translate }}</h3>
+          <h3 class="title">{{ "users.programmers" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ 'users.username' | translate }}</th>
-                    <th>{{ 'users.options' | translate }}</th>
+                    <th>{{ "users.username" | translate }}</th>
+                    <th>{{ "users.options" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -155,23 +221,34 @@
                       {{ programmer.userName }}
                     </td>
                     <td>
-                      <a [routerLink]="['/user/programmer', programmer.userName]">
-                      <button
-                        type="button"
-                        class="btn btn-success me-2"
-                      >
-                      {{ 'dashboard.view' | translate }}
+                      <button type="button" class="btn btn-success me-2" (click)="openDialogProgrammer(programmer.userName)">
+                        {{ "dashboard.view" | translate }}
                       </button>
-                    </a>
                     </td>
                   </tr>
-                  <tr *ngIf="programmers.length == 0 && errorProgrammers == false">
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                  <tr
+                    *ngIf="programmers.length == 0 && errorProgrammers == false"
+                  >
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div *ngIf="errorProgrammers == true" class="alert alert-danger text-center" role="alert">
+              <div
+                *ngIf="errorProgrammers == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>
@@ -180,14 +257,14 @@
       </div>
       <div class="col-md-4 mt-4">
         <div class="form-container">
-          <h3 class="title">{{ 'users.managers' | translate }}</h3>
+          <h3 class="title">{{ "users.managers" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ 'users.username' | translate }}</th>
-                    <th>{{ 'users.options' | translate }}</th>
+                    <th>{{ "users.username" | translate }}</th>
+                    <th>{{ "users.options" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -196,21 +273,32 @@
                       {{ manager.userName }}
                     </td>
                     <td>
-                      <button
-                        type="button"
-                        class="btn btn-success me-2"
-                      >
-                      {{ 'dashboard.view' | translate }}
+                      <button type="button" class="btn btn-success me-2">
+                        {{ "dashboard.view" | translate }}
                       </button>
                     </td>
                   </tr>
                   <tr *ngIf="managers.length == 0 && errorManagers == false">
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div *ngIf="errorManagers == true" class="alert alert-danger text-center" role="alert">
+              <div
+                *ngIf="errorManagers == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>
@@ -252,16 +340,16 @@
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
-          <h3 class="title">{{ 'task.myTasks' | translate }}</h3>
+          <h3 class="title">{{ "task.myTasks" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>{{ 'task.name' | translate }}</th>
-                    <th>{{ 'task.project' | translate }}</th>
-                    <th>{{ 'task.status' | translate }}</th>
-                    <th>{{ 'task.options' | translate }}</th>
+                    <th>{{ "task.name" | translate }}</th>
+                    <th>{{ "task.project" | translate }}</th>
+                    <th>{{ "task.status" | translate }}</th>
+                    <th>{{ "task.options" | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -269,31 +357,60 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                        <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
-                        <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
-                        <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
-                        <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{
+                        "states." + task.state | translate
+                      }}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                        "states." + task.state | translate
+                      }}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/tasks', task.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-success me-2"
-                        >
-                        {{ 'dashboard.view' | translate }}
+                        ><button type="button" class="btn btn-success me-2">
+                          {{ "dashboard.view" | translate }}
                         </button></a
                       >
                     </td>
                   </tr>
                   <tr *ngIf="tasks.length == 0 && errorTask == false">
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
-                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
+                    <td>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div *ngIf="errorTask == true" class="alert alert-danger text-center" role="alert">
+              <div
+                *ngIf="errorTask == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>

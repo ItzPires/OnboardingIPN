@@ -12,7 +12,7 @@
             (ngSubmit)="onSubmit(form)"
           >
             <div class="form-group">
-              <label>Name</label>
+              <label>{{ 'project.name' | translate }}</label>
               <input
                 name="name"
                 type="text"
@@ -23,7 +23,7 @@
               />
             </div>
             <div class="form-group">
-              <label>Budget</label>
+              <label>{{ 'project.budget' | translate }}</label>
               <input
                 name="budget"
                 type="number"
@@ -36,7 +36,7 @@
               />
             </div>
             <div class="form-group">
-              <label>State</label>
+              <label>{{ 'project.staus' | translate }}</label>
               <div class="input-group mb-3">
                 <select
                   name="state"
@@ -50,22 +50,22 @@
               </div>
             </div>
             <span class="signin-link"></span>
-            <button class="btn signup">Edit</button>
+            <button class="btn signup">{{ 'dashboard.edit' | translate }}</button>
           </form>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-container">
-          <h3 class="title">Tasks</h3>
+          <h3 class="title">{{ 'dashboard.tasks' | translate }}</h3>
           <div class="form-group">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Project</th>
-                  <th>Programmer</th>
-                  <th>State</th>
-                  <th>Options</th>
+                  <th>{{ 'task.name' | translate }}</th>
+                  <th>{{ 'task.project' | translate }}</th>
+                  <th>{{ 'users.programmer' | translate }}</th>
+                  <th>{{ 'task.status' | translate }}</th>
+                  <th>{{ 'task.options' | translate }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -98,7 +98,7 @@
                         type="button"
                         class="btn btn-outline-success me-2"
                       >
-                        View
+                      {{ 'dashboard.view' | translate }}
                       </button></a
                     >
                   </td>
@@ -111,7 +111,7 @@
             class="btn btn-primary add-new"
             [routerLink]="'/newTasks'"
           >
-            New Task
+          {{ 'dashboard.addNew' | translate }}
           </button>
         </div>
       </div>

@@ -48,11 +48,11 @@ export class ProjectsListComponent implements OnInit {
   }*/
 
   openDialog(id: number): void {
-    var di = this.dialog.open(DialogAnimationsExampleDialog, {
+    var dialog = this.dialog.open(DeleteProjectDialog, {
       width: '250px',
       data: { id: id }
     });
-    di.afterClosed().subscribe(
+    dialog.afterClosed().subscribe(
       data => { if (data) { this.onDelete(id); } }
     );
   }
@@ -63,8 +63,8 @@ export class ProjectsListComponent implements OnInit {
   selector: 'dialog-animations-example-dialog',
   templateUrl: 'deleteDialog.html',
 })
-export class DialogAnimationsExampleDialog {
-  constructor(public dialogRef: MatDialogRef<DialogAnimationsExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: { id: number }, public projectsService: ProjectsService) { }
+export class DeleteProjectDialog {
+  constructor(public dialogRef: MatDialogRef<DeleteProjectDialog>, @Inject(MAT_DIALOG_DATA) public data: { id: number }, public projectsService: ProjectsService) { }
 
   close(bool: boolean): void {
     this.dialogRef.close(bool);

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { States } from '../project/common/states';
 import { IProjectsID } from '../project/projects-list/IProjectsID';
 import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
 import { TasksService } from '../tasks/tasks.service';
+import { UserDetailsComponent } from '../user/user-details/user-details.component';
 import { UserService } from '../user/user.service';
 import { IUsers } from './IUsers';
 
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit {
   errorManagers: boolean = false;
   errorTask: boolean = false;
 
-  constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService) { }
+  constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService,  public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.token = this.userService.getToken();
@@ -69,6 +71,12 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorTask = true;},
       });
     }
+  }
+
+  openDialogProgrammer(username: string): void {
+    var dialog = this.dialog.open(UserDetailsComponent, {
+      data: { user: username }
+    });
   }
 
 }
