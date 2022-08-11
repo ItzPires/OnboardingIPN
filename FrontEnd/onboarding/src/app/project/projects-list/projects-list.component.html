@@ -42,9 +42,10 @@
                     </td>
                     <td>{{ project.budget }}€</td>
                     <td>
-                      <span class="badge bg-warning text-dark">{{
-                        states[project.state]
-                      }}</span>
+                      <span *ngIf="project.state == 0" class="badge bg-primary">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 1" class="badge bg-warning">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 2" class="badge bg-success">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 3" class="badge bg-danger">{{ ("states." + project.state) | translate}}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/projects', project.id]"

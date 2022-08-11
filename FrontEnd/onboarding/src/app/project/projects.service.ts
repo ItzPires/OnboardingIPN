@@ -12,87 +12,55 @@ import { IProjectsID } from "./projects-list/IProjectsID";
 })
 export class ProjectsService {
   private projectsUrl = 'http://localhost:5000/api/Project/';
+  header: HttpHeaders;
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
-
-  public getProjects(): void {
-
+  constructor(private userService: UserService, private http: HttpClient, private router: Router, private route: ActivatedRoute) {
+    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() });
   }
 
-
-  public getProjectsGet(token: string | null | undefined): Observable<IProjectsID[]> {
+  public getProjects(): Observable<IProjectsID[]> {
     return this.http.get<IProjectsID[]>(
       this.projectsUrl + 'GetManagerProjects',
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: this.header,
       }
     );
   }
 
-  public getProjectByIDGet(token: string | null | undefined, idProject : number): Observable<any> {
+  public getProjectByID(idProject: number): Observable<any> {
     return this.http.get(
       this.projectsUrl + idProject,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: this.header,
       }
     );
   }
 
-  public updateProjectPut(projectId: number, projectForm: IProjects): Observable<any> {
+  public updateProject(projectId: number, projectForm: IProjects): Observable<any> {
     return this.http.put(
       this.projectsUrl + 'Update/' + projectId,
       projectForm,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken()})
+        headers: this.header,
       }
     );
   }
 
-  public updateProject(projectForm: IProjects, projectId: number): void {
-    this.updateProjectPut(projectId, projectForm).subscribe(
-      {
-        error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.router.navigate(['projects'])
-      }
-    );
-  }
-
-  private newProjectPost(token: string | null | undefined, projectForm: IProjects): Observable<any> {
+  public newProject(projectForm: IProjects): Observable<any> {
     return this.http.post(
       this.projectsUrl + 'Add',
       projectForm,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: this.header,
       }
     );
   }
 
-  public newProject(projectForm: IProjects): void {
-    this.newProjectPost(this.userService.getToken(), projectForm).subscribe(
+  public deleteProject(projectId: number): Observable<any> {
+    return this.http.delete(this.projectsUrl + projectId,
       {
-        error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.router.navigate(['projects'])
-      }
-    );
-  }
-
-  public deleteProject(projectId: number): void {
-    this.deleteProjectDelete(this.userService.getToken(), projectId).subscribe(
-      {
-        error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.router.navigate(['projects'])
-      }
-    );
-  }
-
-  public deleteProjectDelete(token: string | null | undefined, projectId: number): Observable<any> {
-    return this.http.delete(this.projectsUrl + projectId, {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
-    });
-  }
-
-  onHttpError(errorResponse: any) {
-    console.log('error: ', errorResponse);
+        headers: this.header,
+      });
   }
 
 }

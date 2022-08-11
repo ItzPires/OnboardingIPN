@@ -38,24 +38,16 @@
                     <td *ngIf="i < 3">{{ project.name }}</td>
                     <td *ngIf="i < 3">{{ project.budget }}€</td>
                     <td *ngIf="i < 3">
-                      <span *ngIf="project.state == 0" class="badge bg-primary">{{
-                        states[project.state]
-                      }}</span>
-                      <span *ngIf="project.state == 1" class="badge bg-warning">{{
-                        states[project.state]
-                      }}</span>
-                      <span *ngIf="project.state == 2" class="badge bg-success">{{
-                        states[project.state]
-                      }}</span>
-                      <span *ngIf="project.state == 3" class="badge bg-danger">{{
-                        states[project.state]
-                      }}</span>
+                      <span *ngIf="project.state == 0" class="badge bg-primary">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 1" class="badge bg-warning">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 2" class="badge bg-success">{{ ("states." + project.state) | translate}}</span>
+                      <span *ngIf="project.state == 3" class="badge bg-danger">{{ ("states." + project.state) | translate}}</span>
                     </td>
                     <td *ngIf="i < 3">
                       <a [routerLink]="['/projects', project.id]"
                         ><button
                           type="button"
-                          class="btn btn-outline-success me-2"
+                          class="btn btn-success me-2"
                         >
                         {{ 'dashboard.view' | translate }}
                         </button></a
@@ -112,24 +104,16 @@
                       {{ task.project.name }}
                     </td>
                     <td *ngIf="i < 3">
-                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                        states[task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                        states[task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 2" class="badge bg-success">{{
-                        states[task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                        states[task.state]
-                      }}</span>
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
                     </td>
                     <td *ngIf="i < 3">
                       <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
-                          class="btn btn-outline-success me-2"
+                          class="btn btn-success me-2"
                         >
                         {{ 'dashboard.view' | translate }}
                         </button></a
@@ -174,7 +158,7 @@
                       <a [routerLink]="['/user/programmer', programmer.userName]">
                       <button
                         type="button"
-                        class="btn btn-outline-success me-2"
+                        class="btn btn-success me-2"
                       >
                       {{ 'dashboard.view' | translate }}
                       </button>
@@ -214,7 +198,7 @@
                     <td>
                       <button
                         type="button"
-                        class="btn btn-outline-success me-2"
+                        class="btn btn-success me-2"
                       >
                       {{ 'dashboard.view' | translate }}
                       </button>
@@ -285,24 +269,16 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                        <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                          states[task.state]
-                        }}</span>
-                        <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                          states[task.state]
-                        }}</span>
-                        <span *ngIf="task.state == 2" class="badge bg-success">{{
-                          states[task.state]
-                        }}</span>
-                        <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                          states[task.state]
-                        }}</span>
+                        <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
+                        <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
+                        <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
+                        <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/tasks', task.id]"
                         ><button
                           type="button"
-                          class="btn btn-outline-success me-2"
+                          class="btn btn-success me-2"
                         >
                         {{ 'dashboard.view' | translate }}
                         </button></a

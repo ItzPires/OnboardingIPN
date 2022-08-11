@@ -27,13 +27,13 @@ export class ProjectDetailsComponent implements OnInit {
     this.token = this.userService.getToken();
     this.roleUser = this.userService.getRole();
 
-    this.projectsService.getProjectByIDGet(this.token, Number(this.route.snapshot.paramMap.get('id'))).subscribe({
+    this.projectsService.getProjectByID(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
       next: (dataProjects: IProjectsID) => {
         this.project = dataProjects;
       },
     });
 
-    this.taskService.getTasksByProject(this.token, Number(this.route.snapshot.paramMap.get('id'))).subscribe({
+    this.taskService.getTasksByProject(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
       },
@@ -43,7 +43,7 @@ export class ProjectDetailsComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.project.state = Number(this.project.state);
-      this.projectsService.updateProjectPut(Number(this.route.snapshot.paramMap.get('id')), this.project).subscribe(
+      this.projectsService.updateProject(Number(this.route.snapshot.paramMap.get('id')), this.project).subscribe(
         {
           error: (error) => console.log(error),
           complete: () => this.router.navigate(['projects'])

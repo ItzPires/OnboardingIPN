@@ -139,7 +139,7 @@ namespace API.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> UpdateTasks([FromBody] TaskFormUpdate model, int id)
         {
             try
@@ -153,6 +153,10 @@ namespace API.Controllers
                 if (oldTask == null) return BadRequest("Is null");
 
                 var newTask = _mapper.Map<Task>(model);
+
+                oldTask.Name = newTask.Name;
+                oldTask.Deadline = newTask.Deadline;
+                oldTask.State = newTask.State;
 
                 _context.Tasks.Update(oldTask);
                 _context.SaveChanges();

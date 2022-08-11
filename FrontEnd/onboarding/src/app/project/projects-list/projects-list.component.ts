@@ -23,7 +23,7 @@ export class ProjectsListComponent implements OnInit {
     this.token = this.userService.getToken();
     this.roleUser = this.userService.getRole();
 
-    this.projectsService.getProjectsGet(this.token).subscribe({
+    this.projectsService.getProjects().subscribe({
       next: (dataProjects: IProjectsID[]) => {
         this.projects = dataProjects;
       },
@@ -32,7 +32,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   onDelete(id: number): void {
-    this.projectsService.deleteProjectDelete(this.userService.getToken(), id).subscribe({
+    this.projectsService.deleteProject(id).subscribe({
       next: () => {
         this.projects = this.projects.filter(project => project.id !== id);
       }

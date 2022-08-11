@@ -5,8 +5,12 @@
     <div class="row d-flex justify-content-center">
       <div class="col">
         <div class="form-container">
-          <h3 class="title"> {{ project.name }} </h3>
-          <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit(form)">
+          <h3 class="title">{{ project.name }}</h3>
+          <form
+            class="form-horizontal"
+            #form="ngForm"
+            (ngSubmit)="onSubmit(form)"
+          >
             <div class="form-group">
               <label>Name</label>
               <input
@@ -34,8 +38,14 @@
             <div class="form-group">
               <label>State</label>
               <div class="input-group mb-3">
-                <select name="state" class="custom-select" [(ngModel)]="project.state">
-                  <option *ngFor="let enum of statesProjectKeys" [value]= "enum">{{ statesProject[enum] }}</option>
+                <select
+                  name="state"
+                  class="custom-select"
+                  [(ngModel)]="project.state"
+                >
+                  <option *ngFor="let enum of statesProjectKeys" [value]="enum">
+                    {{ statesProject[enum] }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -47,51 +57,62 @@
       <div class="col-md-6">
         <div class="form-container">
           <h3 class="title">Tasks</h3>
-            <div class="form-group">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Project</th>
-                    <th>Programmer</th>
-                    <th>State</th>
-                    <th>Options</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let task of tasks">
-                    <td>
-                        {{ task.name }}
-                    </td>
-                    <td>
-                        {{ task.project.name }}
-                    </td>
-                    <td>{{ task.programmer.userName }}</td>
-                    <td>
-                      <span class="badge bg-warning text-dark">
-                        {{ task.state }}
-                      </span>
-                    </td>
-                    <td>
-                      <a [routerLink]="['/tasks', task.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-outline-success me-2"
-                        >
-                          View
-                        </button></a
+          <div class="form-group">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Project</th>
+                  <th>Programmer</th>
+                  <th>State</th>
+                  <th>Options</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of tasks">
+                  <td>
+                    {{ task.name }}
+                  </td>
+                  <td>
+                    {{ task.project.name }}
+                  </td>
+                  <td>{{ task.programmer.userName }}</td>
+                  <td>
+                    <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 2" class="badge bg-success">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                      "states." + task.state | translate
+                    }}</span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/tasks', task.id]"
+                      ><button
+                        type="button"
+                        class="btn btn-outline-success me-2"
                       >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <button
+                        View
+                      </button></a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button
             type="button"
             class="btn btn-primary add-new"
             [routerLink]="'/newTasks'"
-          >New Task</button>
+          >
+            New Task
+          </button>
         </div>
       </div>
     </div>

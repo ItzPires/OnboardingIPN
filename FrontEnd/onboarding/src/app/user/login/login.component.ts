@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.loading = true;
     if (form.valid) {
-      this.userService.loginPost(this.user).subscribe(
+      this.loading = true;
+      this.userService.login(this.user).subscribe(
         {
           next: (value) => { this.userService.setSession(value.token); },
           error: (error) => {
@@ -44,6 +44,10 @@ export class LoginComponent implements OnInit {
           },
         }
       );
+    }
+    else
+    {
+
     }
   }
 }

@@ -19,7 +19,7 @@ export class TasksListComponent implements OnInit {
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser == 'Manager') {
-      this.taskService.getTasksGet().subscribe({
+      this.taskService.getTasks().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },

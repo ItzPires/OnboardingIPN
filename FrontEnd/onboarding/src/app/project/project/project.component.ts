@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IProjects } from '../common/IProjects';
 import { States } from '../common/states';
 import { ProjectsService } from '../projects.service';
@@ -18,15 +19,19 @@ export class ProjectComponent implements OnInit {
     state: 0
   };
 
-  constructor(private projectService: ProjectsService) { }
+  constructor(private projectService: ProjectsService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.projectService.newProject(this.newProject);
-     }
+      this.projectService.newProject(this.newProject).subscribe(
+        {
+          error: (error) => console.log(error),
+          complete: () => this.router.navigate(['projects'])
+        }
+      );
+    }
   }
-
 }

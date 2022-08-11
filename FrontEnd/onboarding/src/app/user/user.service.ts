@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUsers } from '../dashboard/IUsers';
@@ -13,8 +12,14 @@ import { IUsers } from '../dashboard/IUsers';
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private router: Router, private cookie: CookieService, private route: ActivatedRoute) { }
+  header: HttpHeaders;
 
+  constructor(private http: HttpClient, private cookie: CookieService)
+  {
+    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() });
+  }
+
+  //cookies
   public setSession(token: string): void {
     this.cookie.set('token', token);
   }
@@ -35,6 +40,7 @@ export class UserService {
     return this.cookie.get('language');
   }
 
+  //jwt
   private decodedToken(): any {
     const token = this.getToken() || '';
     const helper = new JwtHelperService();
@@ -72,32 +78,15 @@ export class UserService {
     return this.http.post('http://localhost:5000/api/Auth/register', newUser);
   }
 
-  public loginPost(loginForm: IUser) : Observable<any> {
+  public login(loginForm: IUser) : Observable<any> {
     return this.http.post('http://localhost:5000/api/Auth/login', loginForm);
-  }
-
-  public loginUser(user: IUser): boolean {
-    var errorLogin = false;
-    this.loginPost(user).subscribe(
-      {
-        next: (value) => {this.setSession(value.token);},
-        error: () => {return true;},
-        complete: () => {this.router.navigate(['dashboard']);},
-      }
-    );
-
-    return errorLogin = true;
-  }
-
-  onHttpError(errorResponse: any) {
-    console.log('error: ', errorResponse);
   }
 
    public getProgrammers(): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(
       "http://localhost:5000/api/Users/programmers",
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+        headers: this.header,
       }
     );
   }
@@ -106,7 +95,7 @@ export class UserService {
     return this.http.get<IUsers[]>(
       "http://localhost:5000/api/Users/Managers",
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+        headers: this.header,
       }
     );
   }
@@ -115,7 +104,7 @@ export class UserService {
     return this.http.get<IUsers>(
       "http://localhost:5000/api/Users/Info/" + username,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() })
+        headers: this.header,
       }
     );
   }

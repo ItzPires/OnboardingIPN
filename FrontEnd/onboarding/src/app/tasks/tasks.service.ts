@@ -1,7 +1,6 @@
 import { HttpHeaders } from "@angular/common/http";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { UserService } from "../user/user.service";
 import { ITask } from "./ITask";
@@ -12,20 +11,18 @@ import { ITask } from "./ITask";
 })
 export class TasksService {
   private tasksUrl = 'http://localhost:5000/api/Tasks/';
+  header: HttpHeaders;
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
-
-  /*
-  public getProjects(): void {
-
+  constructor(private userService: UserService, private http: HttpClient)
+  {
+    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() });
   }
 
-  */
-  public getTasksGet(): Observable<ITask[]> {
+  public getTasks(): Observable<ITask[]> {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'All',
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+        headers: this.header,
       }
     );
   }
@@ -34,7 +31,7 @@ export class TasksService {
     return this.http.get(
       this.tasksUrl + idProject,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+        headers: this.header,
       }
     );
   }
@@ -43,7 +40,7 @@ export class TasksService {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'GetMyTasks',
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+        headers: this.header,
       }
     );
   }
@@ -52,38 +49,49 @@ export class TasksService {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'GetProgrammerTasks/' + username,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
+        headers: this.header,
       }
     );
   }
 
-  public getTasksByProject(token: string | null | undefined, idProject : number): Observable<any> {
+  public getTasksByProject(idProject : number): Observable<any> {
     return this.http.get(
       this.tasksUrl + 'GetProjectTasks/' + idProject,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: this.header,
       }
     );
   }
 
-  private newTaskPost(token: string | null | undefined, taskForm: ITask): Observable<any> {
+  public newTask(taskForm: ITask): Observable<any> {
     return this.http.post(
       this.tasksUrl + 'Add',
       taskForm,
       {
-        headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+        headers: this.header,
       }
     );
   }
 
-  public newTask(taskForm: ITask): void {
-    this.newTaskPost(this.userService.getToken(), taskForm).subscribe(
+  public updateTask(taskId: number, taskForm: ITask): Observable<any> {
+    return this.http.put(
+      this.tasksUrl + 'Update/' + taskId,
+      taskForm,
       {
-        error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.router.navigate(['projects'])
+        headers: this.header,
       }
     );
   }
+
+  /*
+  public newTask(taskForm: ITask): void {
+    this.newTaskPost(this.userService.getToken(), taskForm).subscribe(
+      {
+        error: (error) => console.log(error),
+        complete: () => this.router.navigate(['projects'])
+      }
+    );
+  }*/
 
   /*
   public deleteProject(projectId: number): void {
@@ -101,8 +109,4 @@ export class TasksService {
     });
   }
 */
-  onHttpError(errorResponse: any) {
-    console.log('error: ', errorResponse);
-  }
-
 }

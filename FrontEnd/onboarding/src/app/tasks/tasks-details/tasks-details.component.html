@@ -16,7 +16,7 @@
               <label>Name</label>
               <input
                 *ngIf="task != null"
-                name="username"
+                name="name"
                 type="text"
                 class="form-control"
                 placeholder="Nome do Projecto"
@@ -25,7 +25,7 @@
               />
               <input
                 *ngIf="task == null"
-                name="username"
+                name="name"
                 type="text"
                 class="form-control"
                 placeholder="Task"
@@ -52,7 +52,6 @@
               <label>State</label>
               <div class="input-group mb-3">
                 <select name="state" class="custom-select" [(ngModel)]="task.state">
-                  <option selected>{{ 'dashboard.choose' | translate }}...</option>
                   <option *ngFor="let enum of statesTaskKeys" [value]= "enum">{{ statesTask[enum] }}</option>
                 </select>
               </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { States } from 'src/app/project/common/states';
 import { ITask } from '../ITask';
 import { TasksService } from '../tasks.service';
@@ -15,7 +15,7 @@ export class TasksDetailsComponent implements OnInit {
   statesTask = States;
   statesTaskKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
 
-  constructor(private taskSerive: TasksService, private route: ActivatedRoute) { }
+  constructor(private taskSerive: TasksService, public router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.taskSerive.getTaskByID(Number(this.route.snapshot.paramMap.get('id'))).subscribe({
@@ -26,5 +26,13 @@ export class TasksDetailsComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if (form.valid) {
+      this.taskSerive.updateTask(Number(this.route.snapshot.paramMap.get('id')), this.task).subscribe(
+        {
+          error: (error) => console.log(error),
+          complete: () => this.router.navigate(['tasks'])
+        }
+      );
+    }
   }
 }

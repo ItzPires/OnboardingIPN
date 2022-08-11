@@ -28,6 +28,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isValidEmail(email: string): boolean {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+  }
+
   onSubmit(form: NgForm) {
     this.loading = true;
     if (form.valid) {
@@ -36,7 +40,7 @@ export class RegisterComponent implements OnInit {
           error: (error) => {
             this.loading = false;
             this.errorRegister = true;
-            if(error.status === 0) this.errorMsg = "Server is not available";
+            if (error.status === 0) this.errorMsg = "Server is not available";
             else if (error.status === 406) this.errorMsg = "Username already exists.";
           },
           complete: () => {

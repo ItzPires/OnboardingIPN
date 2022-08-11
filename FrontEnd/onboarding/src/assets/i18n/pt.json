@@ -19,7 +19,9 @@
     "login": "Login",
     "signin": "Iniciar sessão",
     "msgNotRegistered": "Não tem conta? Clique aqui para ",
-    "register": "Registar"
+    "register": "Registo",
+    "usernameIsRequired": "O nome de utilizador é necessário",
+    "passwordIsRequired": "A palavra-passe é necessária"
   },
   "register": {
     "username": "Nome de utilizador",
@@ -32,7 +34,10 @@
     "msgHaveAccount": "Já tem uma conta? Clique aqui para ",
     "login": "Login",
     "register": "Registo",
-    "createAccount": "Criar Conta"
+    "createAccount": "Criar Conta",
+    "usernameIsRequired": "O nome de utilizador é necessário",
+    "passwordIsRequired": "A palavra-passe é necessária",
+    "emailIsRequired": "O e-mail é necessário"
   },
   "dashboard": {
     "projects": "Projetos",
@@ -46,6 +51,12 @@
     "edit": "Editar",
     "delete": "Excluir",
     "choose": "Escolha"
+  },
+  "states": {
+    "0": "Por começar",
+    "1": "Em Trabalho",
+    "2": "Feito",
+    "3": "Cancelado"
   },
   "project": {
     "name": "Nome",

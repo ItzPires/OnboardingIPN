@@ -39,13 +39,11 @@
 }
 .form-container .form-horizontal .form-control{
   color: #000;
-  background: #fff;
   font-weight: 400;
   letter-spacing: 1px;
   height: 40px;
   padding: 6px 12px;
   border-radius: 10px;
-  border: 2px solid #e7e7e7;
   box-shadow: none;
 }
 .form-container .form-horizontal .form-control:focus{ box-shadow: 0 0 5px #dcdcdc; }

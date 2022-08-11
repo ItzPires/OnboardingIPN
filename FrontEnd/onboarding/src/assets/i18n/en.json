@@ -19,7 +19,9 @@
     "login": "Login",
     "signin": "Sign In",
     "msgNotRegistered": "Don't have an account? Click here to ",
-    "register": "Register"
+    "register": "Register",
+    "usernameIsRequired": "Username is required",
+    "passwordIsRequired": "Password is required"
   },
   "register": {
     "username": "Username",
@@ -32,7 +34,10 @@
     "msgHaveAccount": "Already have an account? Click here to ",
     "login": "Login",
     "register": "Register",
-    "createAccount": "Create Account"
+    "createAccount": "Create Account",
+    "usernameIsRequired": "Username is required",
+    "passwordIsRequired": "Password is required",
+    "emailIsRequired": "Email is required"
   },
   "dashboard": {
     "projects": "Projects",
@@ -46,6 +51,12 @@
     "edit": "Edit",
     "delete": "Delete",
     "choose": "Choose"
+  },
+  "states": {
+    "0": "To Start",
+    "1": "In Work",
+    "2": "Done",
+    "3": "Canceled"
   },
   "project": {
     "name": "Name",

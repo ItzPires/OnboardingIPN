@@ -11,14 +11,21 @@
                   <h3 class="title">{{ 'login.login' | translate }}</h3>
                   <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit(form)">
                       <div class="form-group">
-                          <label>{{ 'login.username' | translate }}</label>
-                          <input name="username" type="text" required #username="ngModel" class="form-control" placeholder="{{ 'login.username' | translate }}" [(ngModel)]="user.username">
-                          <small class="text-danger" [class.d-none]="username.valid || username.untouched">Username Invalido</small>
+                          <label for="username">{{ 'login.username' | translate }}</label>
+                          <input required id="username" name="username" type="text" #username="ngModel" class="form-control" placeholder="{{ 'login.username' | translate }}" [(ngModel)]="user.username"  [ngClass]="{'is-invalid': (username.touched || username.dirty) && !username.valid }" />
+                          <span class="invalid-feedback">
+                            {{ 'login.usernameIsRequired' | translate }}
+                          </span>
                         </div>
                       <div class="form-group">
                           <label>{{ 'login.password' | translate }}</label>
-                          <input name="password" type="password" class="form-control" placeholder="{{ 'login.password' | translate }}" [(ngModel)]="user.password">
-                      </div>
+                          <input required id="password" name="password" type="password" #password="ngModel" class="form-control" placeholder="{{ 'login.password' | translate }}" [(ngModel)]="user.password" [ngClass]="{'is-invalid': (password.touched || password.dirty) && !password.valid }" />
+                          <span class="invalid-feedback">
+                            <span *ngIf="password.errors">
+                              {{ 'login.passwordIsRequired' | translate }}
+                            </span>
+                          </span>
+                        </div>
                       <span class="signin-link">{{ 'login.msgNotRegistered' | translate }}<a [routerLink]="'/register'">{{ 'login.register' | translate }}</a></span>
                       <button *ngIf="!loading" class="btn signup" >{{ 'login.signin' | translate }}</button>
                       <button *ngIf="loading" class="btn signup" type="button" disabled>

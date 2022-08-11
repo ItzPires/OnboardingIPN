@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser === 'Manager') {
-      this.projectsService.getProjectsGet(this.token).subscribe({
+      this.projectsService.getProjects().subscribe({
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
         },
@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorManagers = true;},
       });
 
-      this.taskService.getTasksGet().subscribe({
+      this.taskService.getTasks().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
