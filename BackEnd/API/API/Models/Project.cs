@@ -15,5 +15,7 @@ namespace API.Models
         public ProjectState State { get; set; }
         [Required]
         public User Manager { get; set; }
+        [Required]
+        public bool isDeleted { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace API.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).ToList();
+                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -46,7 +46,7 @@ namespace API.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Programmer).Include(t => t.Project).ToList();
+                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@ namespace API.Controllers
             try
             {
                 string username = User.Identity.Name;
-                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Project).ToList();
+                var tasks = _context.Tasks.Where(x => x.Programmer.UserName == username).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace API.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Where(x => x.Project.Id == id).Include(t => t.Programmer).Include(t => t.Project).ToList();
+                var tasks = _context.Tasks.Where(x => x.Project.Id == id).Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace API.Controllers
         {
             try
             {
-                var task = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).SingleOrDefault(x => x.Id == id);
+                var task = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).SingleOrDefault(x => x.Id == id);
                 return Ok(_mapper.Map<TaskDto>(task));
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace API.Controllers
                 //verificacoes
                 if (model == null) return BadRequest("Is null");
 
-                var oldTask = _context.Tasks.SingleOrDefault(x => x.Id == id);
+                var oldTask = _context.Tasks.Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).SingleOrDefault(x => x.Id == id);
                 if (oldTask == null) return BadRequest("Is null");
 
                 var newTask = _mapper.Map<Task>(model);

@@ -39,6 +39,8 @@ namespace API.Controllers
             var user = await _userManager.FindByNameAsync(model.Username);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                if(user.isDeleted) return Unauthorized();
+
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 var authClaims = new List<Claim>

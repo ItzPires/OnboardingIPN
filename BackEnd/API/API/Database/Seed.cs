@@ -16,19 +16,22 @@ namespace API.Database
                 User manager = new()
                 {
                     UserName = "manager",
-                    Email = "manager@ipn.pt"
+                    Email = "manager@ipn.pt",
+                    isDeleted = false
                 };
 
                 User programmerOne = new()
                 {
                     UserName = "programmerOne",
-                    Email = "programmerOne@ipn.pt"
+                    Email = "programmerOne@ipn.pt",
+                    isDeleted = false
                 };
 
                 User programmerTwo = new()
                 {
                     UserName = "programmerTwo",
-                    Email = "programmerTwo@ipn.pt"
+                    Email = "programmerTwo@ipn.pt",
+                    isDeleted = false
                 };
 
                 //add roles
@@ -62,7 +65,8 @@ namespace API.Database
                     Name = "Desafio OnBoarding",
                     Budget = 0,
                     State = 0,
-                    Manager = manager
+                    Manager = manager,
+                    isDeleted = false
                 };
 
                 Project projectTwo = new()
@@ -70,7 +74,8 @@ namespace API.Database
                     Name = "Casa de Apostas - Site",
                     Budget = 0,
                     State = 0,
-                    Manager = manager
+                    Manager = manager,
+                    isDeleted = false
                 };
 
                 if(_context.Projects.SingleOrDefault(x => x.Name == "Desafio OnBoarding") == null)
@@ -90,7 +95,8 @@ namespace API.Database
                     State = 0,
                     ProjectId = 1,
                     Project = projectOne,
-                    Programmer = programmerOne
+                    Programmer = programmerOne,
+                    isDeleted = false
                 };
 
                 Task taskTwo = new()
@@ -100,7 +106,8 @@ namespace API.Database
                     State = 0,
                     ProjectId = 1,
                     Project = projectOne,
-                    Programmer = programmerTwo
+                    Programmer = programmerTwo,
+                    isDeleted = false
                 };
 
                 Task taskThree = new()
@@ -110,7 +117,8 @@ namespace API.Database
                     State = 0,
                     ProjectId = 2,
                     Project = projectTwo,
-                    Programmer = programmerTwo
+                    Programmer = programmerTwo,
+                    isDeleted = false
                 };
 
                 Task taskFour = new()
@@ -120,7 +128,8 @@ namespace API.Database
                     State = 0,
                     ProjectId = 1,
                     Project = projectTwo,
-                    Programmer = programmerOne
+                    Programmer = programmerOne,
+                    isDeleted = false
                 };
 
                 if (_context.Tasks.SingleOrDefault(x => x.Name == "BackEnd") == null)

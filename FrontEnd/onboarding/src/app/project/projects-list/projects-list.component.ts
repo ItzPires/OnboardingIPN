@@ -6,6 +6,7 @@ import { ProjectsService } from '../projects.service';
 import { IProjectsID } from './IProjectsID';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ProjectComponent } from '../project/project.component';
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -47,14 +48,32 @@ export class ProjectsListComponent implements OnInit {
     }
   }*/
 
-  openDialog(id: number): void {
+  openDialog(projectName: string, id: number): void {
     var dialog = this.dialog.open(DeleteProjectDialog, {
       width: '250px',
-      data: { id: id }
+      data: {
+        projectName: projectName,
+        id: id
+      }
     });
     dialog.afterClosed().subscribe(
       data => { if (data) { this.onDelete(id); } }
     );
+  }
+
+  newProject(): void {
+    var dialog = this.dialog.open(ProjectComponent, {
+      width: '600px'
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.projectsService.getProjects().subscribe({
+        next: (dataProjects: IProjectsID[]) => {
+          this.projects = dataProjects;
+        },
+        error: () => { this.errorProjects = true; },
+      });
+    })
   }
 
 }
@@ -64,7 +83,7 @@ export class ProjectsListComponent implements OnInit {
   templateUrl: 'deleteDialog.html',
 })
 export class DeleteProjectDialog {
-  constructor(public dialogRef: MatDialogRef<DeleteProjectDialog>, @Inject(MAT_DIALOG_DATA) public data: { id: number }, public projectsService: ProjectsService) { }
+  constructor(public dialogRef: MatDialogRef<DeleteProjectDialog>, @Inject(MAT_DIALOG_DATA) public data: { projectName: string, id: number }) { }
 
   close(bool: boolean): void {
     this.dialogRef.close(bool);

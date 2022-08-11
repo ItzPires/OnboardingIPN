@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import {MatNativeDateModule} from '@angular/material/core';
+import { MaterialModule } from 'src/material.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,12 +45,18 @@ import { MatDialogModule } from '@angular/material/dialog';
     UserDetailsComponent
   ],
   imports: [
+    MaterialModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    // ngx-translate and the loader module
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -58,7 +68,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule
   ],
   providers: [CookieService],
-  bootstrap: [AppComponent, DashboardComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

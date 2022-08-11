@@ -20,5 +20,7 @@ namespace API.Models
         public string? ProgrammerId { get; set; }
         [ForeignKey("ProgrammerId")]
         public User Programmer { get; set; }
+        [Required]
+        public bool isDeleted { get; set; }
     }
 }

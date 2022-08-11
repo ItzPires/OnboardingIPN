@@ -21,7 +21,7 @@ export class UserService {
 
   //cookies
   public setSession(token: string): void {
-    this.cookie.set('token', token);
+    this.cookie.set('token', token, 0.125);
   }
 
   public logout(): void {
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   public setLanguage(language: string): void {
-    this.cookie.set('language', language);
+    this.cookie.set('language', language, 0.125);
   }
 
   public getLanguage():  string | null | undefined {

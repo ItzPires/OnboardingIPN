@@ -59,6 +59,15 @@
                         </button></a
                       >
                     </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger"
+                        (click)="openDialog(task.name, task.id)"
+                      >
+                      {{ 'dashboard.delete' | translate }}
+                      </button>
+                    </td>
                   </tr>
                   <tr *ngIf="tasks.length == 0 && errorTask == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -109,18 +118,10 @@
                         {{ task.project.name }}
                     </td>
                     <td>
-                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                        [task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                        [task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 2" class="badge bg-success">{{
-                        [task.state]
-                      }}</span>
-                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                        [task.state]
-                      }}</span>
+                      <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
+                      <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
                     </td>
                     <td>
                       <a [routerLink]="['/tasks', task.id]"

@@ -32,7 +32,7 @@ namespace API.Controllers
         {
             try
             {
-                var projects = _context.Projects.Include(p => p.Manager).ToList();
+                var projects = _context.Projects.Include(p => p.Manager).Where(x => x.isDeleted == false).ToList();
                 return Ok(_mapper.Map<ProjectDto[]>(projects));
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace API.Controllers
             try
             {
                 string username = User.Identity.Name;
-                var projects = _context.Projects.Where(x => x.Manager.UserName == username).ToList();
+                var projects = _context.Projects.Where(x => x.Manager.UserName == username).Where(x => x.isDeleted == false).ToList();
                 return Ok(_mapper.Map<ProjectDto[]>(projects));
             }
             catch (Exception ex)
@@ -104,7 +104,9 @@ namespace API.Controllers
                     return NotFound("Project Dont Exist");
                 }
 
-                _context.Projects.Remove(deleteProject);
+                deleteProject.isDeleted = true;
+
+                _context.Projects.Update(deleteProject);
                 _context.SaveChanges();
 
                 _context.Database.CommitTransaction();
@@ -124,7 +126,7 @@ namespace API.Controllers
         {
             try
             {
-                var project = _context.Projects.Include(p => p.Manager).SingleOrDefault(x => x.Id == id);
+                var project = _context.Projects.Include(p => p.Manager).Where(x => x.isDeleted == false).SingleOrDefault(x => x.Id == id);
                 return Ok(_mapper.Map<ProjectDto>(project));
             }
             catch (Exception ex)
@@ -144,7 +146,7 @@ namespace API.Controllers
                 //verificacoes
                 if (model == null) return BadRequest("Is null");
 
-                var oldTask = _context.Projects.SingleOrDefault(x => x.Id == id);
+                var oldTask = _context.Projects.Where(x => x.isDeleted == false).SingleOrDefault(x => x.Id == id);
                 if (oldTask == null) return BadRequest("Is null");
 
                 var newTask = _mapper.Map<Project>(model);

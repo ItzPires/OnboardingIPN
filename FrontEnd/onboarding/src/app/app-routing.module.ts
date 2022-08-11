@@ -60,11 +60,6 @@ const routes: Routes = [
     component: ProjectDetailsComponent
   },
   {
-    path: 'newProjects',
-    canActivate: [AuthGuard, TaskGuard],
-    component: ProjectComponent
-  },
-  {
     path: 'user/programmer/:username',
     canActivate: [AuthGuard, TaskGuard],
     component: UserDetailsComponent

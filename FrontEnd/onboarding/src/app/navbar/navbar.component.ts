@@ -5,8 +5,7 @@ import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
   userRole: string | undefined;
@@ -19,14 +18,15 @@ export class NavbarComponent implements OnInit {
     this.userRole =  this.userService.getRole();
     this.language = this.userService.getLanguage();
 
+    console.log(this.language + " language");
+
     if (this.language == null || this.language == undefined || this.language == '') {
       this.language = 'en';
       this.changeSiteLanguage(this.language);
     }
     else
     {
-      console.log("Language is " + this.language);
-      this.changeSiteLanguage(this.language);
+      this.translate.use(this.language);
     }
   }
 

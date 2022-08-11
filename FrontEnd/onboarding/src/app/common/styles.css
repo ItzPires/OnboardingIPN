@@ -3,7 +3,7 @@
   font-family: 'Titillium Web', sans-serif;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.3);
 }
 .form-container .title{
   color: #000;
