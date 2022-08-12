@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { IStats } from '../common/IStats';
 import { States } from '../project/common/states';
 import { IProjectsID } from '../project/projects-list/IProjectsID';
 import { ProjectsService } from '../project/projects.service';
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
   programmers: IUsers[] = [];
   managers: IUsers[] = [];
   tasks: ITask[] = [];
+  stats!: IStats;
   errorProjects: boolean = false;
   errorProgrammers: boolean = false;
   errorManagers: boolean = false;
@@ -34,6 +36,8 @@ export class DashboardComponent implements OnInit {
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser === 'Manager') {
+      while(this.token === undefined || this.token === null) {} //garanti que o token esteja definido - n muito correcto
+
       this.projectsService.getProjects().subscribe({
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
@@ -67,6 +71,13 @@ export class DashboardComponent implements OnInit {
       this.taskService.getMyTasks().subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
+        },
+        error: () => {this.errorTask = true;},
+      });
+
+      this.userService.getUserStats().subscribe({
+        next: (dataStats: IStats) => {
+          this.stats = dataStats;
         },
         error: () => {this.errorTask = true;},
       });

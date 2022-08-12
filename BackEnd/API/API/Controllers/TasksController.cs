@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using API.Types;
 using API.DataModels;
 using Task = API.Models.Task;
+using Microsoft.AspNetCore.Identity;
+using API.Models;
 
 namespace API.Controllers
 {
@@ -15,12 +17,15 @@ namespace API.Controllers
     {
 
         public Context _context;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
         public TasksController(
             Context context,
+            UserManager<User> userManager,
             IMapper mapper)
         {
+            _userManager = userManager;
             _context = context;
             _mapper = mapper;
         }
@@ -31,7 +36,7 @@ namespace API.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).ToList();
+                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).OrderBy(x => x.Project).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -169,6 +174,58 @@ namespace API.Controllers
             {
                 _context.Database.RollbackTransaction();
                 return BadRequest("BackEnd: " + ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            try
+            {
+                _context.Database.BeginTransaction();
+
+                var deleteTask = _context.Tasks.Find(id);
+
+                if (deleteTask == null)
+                {
+                    _context.Database.CommitTransaction();
+                    return NotFound("Project Dont Exist");
+                }
+
+                deleteTask.isDeleted = true;
+
+                _context.Tasks.Update(deleteTask);
+                _context.SaveChanges();
+
+                _context.Database.CommitTransaction();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _context.Database.RollbackTransaction();
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet("Stats")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetMyStats()
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                int toStart = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.ToStart).Count();
+                int inWork = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.InWork).Count();
+                int done = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.Done).Count();
+
+                return Ok(new StatsResponse { toStart = toStart, inWork = inWork, done = done });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
             }
         }
     }

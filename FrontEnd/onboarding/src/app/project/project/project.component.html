@@ -1,38 +1,67 @@
 <div class="form-bg">
   <div class="container">
-      <div class="row justify-content-center">
-          <div class="col">
-              <div class="form-container" style="box-shadow: 0 0 0">
-                  <h3 class="title">{{ 'dashboard.newProject' | translate }}</h3>
-                  <form class="form-horizontal" #form="ngForm" (ngSubmit)="onSubmit(form)">
-                      <div class="form-group">
-                          <label>{{ 'project.name' | translate }}</label>
-                          <input name="username" type="text" class="form-control" placeholder="{{ 'dashboard.projectName' | translate }}" [(ngModel)]="newProject.name">
-                      </div>
-                      <div class="form-group">
-                          <label>{{ 'project.budget' | translate }}</label>
-                          <input name="password" type="number" min="0" step="0.01" class="form-control" placeholder="Budget" [(ngModel)]="newProject.budget">
-                      </div>
-                      <div class="form-group">
-                        <label>{{ 'project.status' | translate }}</label>
-                        <div class="input-group mb-3">
-                          <select
-                          name="state"
-                          class="custom-select"
-                          [(ngModel)]="newProject.state"
-                        >
-                          <option *ngFor="let enum of statesProjectKeys" [value]="enum">
-                            {{ statesProject[enum] }}
-                          </option>
-                        </select>
-                        </div>
-                    </div>
-                      <span class="signin-link"></span>
-                      <button class="btn signup">{{ 'dashboard.create' | translate }}</button>
-                  </form>
+    <div class="row justify-content-center">
+      <div class="col">
+        <div class="form-container" style="box-shadow: 0 0 0">
+          <h3 class="title">{{ "dashboard.newProject" | translate }}</h3>
+          <form
+            class="form-horizontal"
+            #form="ngForm"
+            (ngSubmit)="onSubmit(form)"
+          >
+            <div class="form-group">
+              <label>{{ "project.name" | translate }}</label>
+              <input
+                required
+                id="name"
+                name="name"
+                type="text"
+                #name="ngModel"
+                class="form-control"
+                placeholder="{{ 'dashboard.projectName' | translate }}"
+                [(ngModel)]="newProject.name"
+                [ngClass]="{
+                  'is-invalid': (name.touched || name.dirty) && !name.valid
+                }"
+              />
+              <span class="invalid-feedback">
+                {{ "login.usernameIsRequired" | translate }}
+              </span>
+            </div>
+            <div class="form-group">
+              <label>{{ "project.budget" | translate }}</label>
+              <input
+                required
+                name="budget"
+                type="number"
+                min="0"
+                step="0.01"
+                class="form-control"
+                placeholder="Budget"
+                [(ngModel)]="newProject.budget"
+              />
+            </div>
+            <div class="form-group">
+              <label>{{ "project.status" | translate }}</label>
+              <div class="input-group mb-3">
+                <select
+                  name="state"
+                  class="form-control"
+                  [(ngModel)]="newProject.state"
+                >
+                  <option *ngFor="let enum of statesProjectKeys" [value]="enum">
+                    {{ "states." + enum | translate }}
+                  </option>
+                </select>
               </div>
-          </div>
+            </div>
+            <span class="signin-link"></span>
+            <button class="btn signup">
+              {{ "dashboard.create" | translate }}
+            </button>
+          </form>
+        </div>
       </div>
+    </div>
   </div>
 </div>
-

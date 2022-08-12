@@ -1,31 +1,28 @@
-<app-navbar></app-navbar>
-
 <div class="form-bg">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-5">
+      <div class="col">
         <div class="form-container">
-          <h3 class="title">New Task</h3>
+          <h3 class="title">{{ 'dashboard.newTask' | translate }}</h3>
           <form
             class="form-horizontal"
             #form="ngForm"
-            (ngSubmit)="onSubmit(form)"
+            (ngSubmit)="onSubmit()"
           >
             <div class="form-group">
-              <label>Name</label>
+              <label>{{ 'task.name' | translate }}</label>
               <input
                 name="username"
                 type="text"
                 class="form-control"
-                placeholder="Nome da Task"
+                placeholder="{{ 'task.name' | translate }}"
                 [(ngModel)]="newTask.name"
               />
             </div>
             <div class="form-group">
-              <label>Project</label>
+              <label>{{ 'task.project' | translate }}</label>
               <div class="input-group mb-3">
-                <select name="projectID" class="custom-select" [(ngModel)]="newTask.project.id">
-                  <option selected>Choose...</option>
+                <select name="projectID" class="form-control" [(ngModel)]="newTask.idProject">
                   <option *ngFor="let project of projects" [value]= "project.id">
                     {{ project.name }}
                   </option>
@@ -33,10 +30,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Programmer</label>
+              <label>{{ 'users.programmer' | translate }}</label>
               <div class="input-group mb-3">
-                <select name="programmerID" class="custom-select" [(ngModel)]="newTask.programmer.userName">
-                  <option selected>Choose...</option>
+                <select name="programmerID" class="form-control" [(ngModel)]="newTask.usernameProgrammer">
                   <option *ngFor="let programmer of programmers" [value]= "programmer.userName">
                     {{ programmer.userName }}
                   </option>
@@ -44,13 +40,13 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Deadline</label>
+              <label>{{ 'task.deadline' | translate }}</label>
               <div class="input-group mb-3">
-                <input name="deadline" type="datetime-local" [(ngModel)]="newTask.deadline"/>
+                <input name="deadline" type="datetime-local" class="form-control" [(ngModel)]="newTask.deadline"/>
               </div>
             </div>
             <span class="signin-link"></span>
-            <button class="btn signup">Create</button>
+            <button class="btn signup">{{ 'dashboard.create' | translate }}</button>
           </form>
         </div>
       </div>

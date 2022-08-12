@@ -1,4 +1,4 @@
-﻿namespace API.Controllers
+﻿namespace API.DataModels
 {
     public class Response
     {

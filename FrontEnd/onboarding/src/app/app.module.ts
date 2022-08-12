@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import {MatNativeDateModule} from '@angular/material/core';
 import { MaterialModule } from 'src/material.module';
+import { ProfileComponent } from './user/profile/profile.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MaterialModule } from 'src/material.module';
     NavbarComponent,
     TasksListComponent,
     TasksDetailsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ProfileComponent
   ],
   imports: [
     MaterialModule,

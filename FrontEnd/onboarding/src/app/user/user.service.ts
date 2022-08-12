@@ -108,4 +108,13 @@ export class UserService {
       }
     );
   }
+
+  public getUserStats(): any {
+    return this.http.get<IUsers>(
+      "http://localhost:5000/api/Tasks/Stats/",
+      {
+        headers: this.header,
+      }
+    );
+  }
 }

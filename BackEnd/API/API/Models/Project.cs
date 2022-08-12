@@ -12,7 +12,7 @@ namespace API.Models
         [Required]
         public float Budget { get; set; }
         [Required]
-        public ProjectState State { get; set; }
+        public States State { get; set; }
         [Required]
         public User Manager { get; set; }
         [Required]

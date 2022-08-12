@@ -42,6 +42,7 @@
   "dashboard": {
     "projects": "Projects",
     "newProject": "New Project",
+    "newTask": "New Task",
     "projectName": "Project Name",
     "tasks": "Tasks",
     "viewAll": "View All",
@@ -66,10 +67,12 @@
   },
   "task": {
     "name": "Name",
+    "taskName": "Task Name",
     "project": "Project",
     "status": "Status",
     "options": "Options",
-    "myTasks": "My Tasks"
+    "myTasks": "My Tasks",
+    "deadline": "Deadline"
   },
   "users": {
     "programmers": "Programmers",

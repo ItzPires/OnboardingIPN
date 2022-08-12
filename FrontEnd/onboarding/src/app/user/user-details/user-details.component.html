@@ -3,27 +3,14 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-5">
         <div class="form-container">
-          <div class="row justify-content-between">
-            <div class="col">
-              <h3 class="title">{{ 'users.programmer' | translate }}</h3>
-            </div>
-            <div class="col-3">
-              <button
-                type="button"
-                class="btn btn-primary"
-                [routerLink]="'/projects'"
-              >
-                {{ "dashboard.viewAll" | translate }}
-              </button>
-            </div>
-          </div>
+          <h3 class="title">{{ "users.programmer" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
-              <label>{{ 'users.username' | translate }}</label>
+              <label>{{ "users.username" | translate }}</label>
               <span class="form-control">{{ userInfo.userName }}</span>
             </div>
             <div class="form-group">
-              <label>{{ 'users.email' | translate }}</label>
+              <label>{{ "users.email" | translate }}</label>
               <span class="form-control">{{ userInfo.email }}</span>
             </div>
           </form>
@@ -31,15 +18,15 @@
       </div>
       <div class="col">
         <div class="form-container">
-          <h3 class="title">{{ 'dashboard.tasks' | translate }}</h3>
+          <h3 class="title">{{ "dashboard.tasks" | translate }}</h3>
           <div class="form-group">
             <table class="table">
               <thead>
                 <tr>
-                  <th>{{ 'task.name' | translate }}</th>
-                  <th>{{ 'task.project' | translate }}</th>
-                  <th>{{ 'task.status' | translate }}</th>
-                  <th>{{ 'task.options' | translate }}</th>
+                  <th>{{ "task.name" | translate }}</th>
+                  <th>{{ "task.project" | translate }}</th>
+                  <th>{{ "task.status" | translate }}</th>
+                  <th>{{ "task.options" | translate }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -47,21 +34,30 @@
                 <tr *ngFor="let task of tasks">
                   <td>{{ task.name }}</td>
                   <td>
-                      {{ task.project.name }}
+                    {{ task.project.name }}
                   </td>
                   <td>
-                    <span *ngIf="task.state == 0" class="badge bg-primary">{{ ("states." + task.state) | translate}}</span>
-                    <span *ngIf="task.state == 1" class="badge bg-warning">{{ ("states." + task.state) | translate}}</span>
-                    <span *ngIf="task.state == 2" class="badge bg-success">{{ ("states." + task.state) | translate}}</span>
-                    <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
+                    <span *ngIf="task.state == 0" class="badge bg-primary">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 1" class="badge bg-warning">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 2" class="badge bg-success">{{
+                      "states." + task.state | translate
+                    }}</span>
+                    <span *ngIf="task.state == 3" class="badge bg-danger">{{
+                      "states." + task.state | translate
+                    }}</span>
                   </td>
                   <td>
                     <a [routerLink]="['/tasks', task.id]"
                       ><button
                         type="button"
                         class="btn btn-outline-success me-2"
+                        (click)="close()"
                       >
-                      {{ 'dashboard.view' | translate }}
+                        {{ "dashboard.view" | translate }}
                       </button></a
                     >
                   </td>

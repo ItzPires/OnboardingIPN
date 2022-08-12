@@ -3,7 +3,7 @@
 <div class="form-bg">
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col">
+      <div class="col-md-5">
         <div class="form-container">
           <h3 *ngIf="task != null" class="title">{{ task.name }}</h3>
           <h3 *ngIf="task == null" class="title">Task</h3>
@@ -13,51 +13,42 @@
             (ngSubmit)="onSubmit(form)"
           >
             <div class="form-group">
-              <label>Name</label>
+              <label>{{ 'task.name' | translate }}</label>
+              <span *ngIf="task != null && userRole != 'Manager'" class="form-control">{{ task.name }}</span>
               <input
-                *ngIf="task != null"
+                *ngIf="task != null && userRole == 'Manager'"
                 name="name"
                 type="text"
                 class="form-control"
-                placeholder="Nome do Projecto"
+                placeholder="{{ 'task.taskName' | translate }}"
                 [value]="task.name"
                 [(ngModel)]="task.name"
               />
-              <input
-                *ngIf="task == null"
-                name="name"
-                type="text"
-                class="form-control"
-                placeholder="Task"
-              />
             </div>
             <div class="form-group">
-              <label>Deadline</label>
+              <label>{{ 'task.deadline' | translate }}</label>
               <div class="input-group mb-3">
                 <input
-                  *ngIf="task != null"
+                  *ngIf="task != null && userRole == 'Manager'"
                   name="deadline"
                   type="datetime-local"
+                  class="form-control"
                   [value]="task.deadline"
                   [(ngModel)]="task.deadline"
                 />
-                <input
-                *ngIf="task == null"
-                name="deadline"
-                type="datetime-local"
-              />
+                <span *ngIf="task != null && userRole != 'Manager'" class="form-control">{{ task.name }}</span>
               </div>
             </div>
             <div class="form-group">
-              <label>State</label>
+              <label>{{ 'task.status' | translate }}</label>
               <div class="input-group mb-3">
-                <select name="state" class="custom-select" [(ngModel)]="task.state">
-                  <option *ngFor="let enum of statesTaskKeys" [value]= "enum">{{ statesTask[enum] }}</option>
+                <select name="state" class="form-control" [(ngModel)]="task.state">
+                  <option *ngFor="let enum of statesTaskKeys" [value]= "enum">{{ "states." + enum | translate }}</option>
                 </select>
               </div>
             </div>
             <span class="signin-link"></span>
-            <button class="btn signup">Edit</button>
+            <button class="btn signup">{{ 'dashboard.edit' | translate }}</button>
           </form>
         </div>
       </div>

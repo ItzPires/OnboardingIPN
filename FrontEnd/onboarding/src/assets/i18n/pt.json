@@ -42,6 +42,7 @@
   "dashboard": {
     "projects": "Projetos",
     "newProject": "Novo Projeto",
+    "newTask": "Nova Tarefa",
     "projectName": "Nome do projeto",
     "tasks": "Tarefas",
     "viewAll": "Ver Tudo",
@@ -66,10 +67,12 @@
   },
   "task": {
     "name": "Nome",
+    "taskName": "Nome da Tarefa",
     "project": "Projeto",
     "status": "Estado",
     "options": "Opções",
-    "myTasks": "Tarefas"
+    "myTasks": "Tarefas",
+    "deadline": "Data Limite"
   },
   "users": {
     "programmers": "Programadores",

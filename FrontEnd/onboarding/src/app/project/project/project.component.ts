@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { IProjects } from '../common/IProjects';
 import { States } from '../common/states';
 import { ProjectsService } from '../projects.service';
@@ -20,17 +19,17 @@ export class ProjectComponent {
     state: 0
   };
 
-  constructor(public dialogRef: MatDialogRef<ProjectComponent>, private projectService: ProjectsService, private router: Router) { }
+  constructor(public dialogRef: MatDialogRef<ProjectComponent>, private projectService: ProjectsService) { }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.newProject.state = Number(this.newProject.state);
       this.projectService.newProject(this.newProject).subscribe(
         {
-          error: (error) => console.log(error)
+          error: (error) => console.log(error),
+          complete: () => {    this.dialogRef.close(); }
         }
       );
     }
-    this.dialogRef.close();
   }
 }

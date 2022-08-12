@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserService } from "../user/user.service";
 import { ITask } from "./ITask";
+import { ITaskForm } from "./tasks-new/ITaskForm";
 
 
 @Injectable({
@@ -63,7 +64,7 @@ export class TasksService {
     );
   }
 
-  public newTask(taskForm: ITask): Observable<any> {
+  public newTask(taskForm: ITaskForm): Observable<any> {
     return this.http.post(
       this.tasksUrl + 'Add',
       taskForm,
@@ -83,30 +84,9 @@ export class TasksService {
     );
   }
 
-  /*
-  public newTask(taskForm: ITask): void {
-    this.newTaskPost(this.userService.getToken(), taskForm).subscribe(
-      {
-        error: (error) => console.log(error),
-        complete: () => this.router.navigate(['projects'])
-      }
-    );
-  }*/
-
-  /*
-  public deleteProject(projectId: number): void {
-    this.deleteProjectDelete(this.userService.getToken(), projectId).subscribe(
-      {
-        error: (error) => this.onHttpError("Error: " + error),
-        complete: () => this.
-      }
-    );
-  }
-
-  private deleteProjectDelete(token: string | null | undefined, projectId: number): Observable<any> {
-    return this.http.delete(this.projectsUrl + projectId, {
-      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + token })
+  public deleteTask(taskID: number): Observable<any> {
+    return this.http.delete(this.tasksUrl + taskID, {
+      headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() })
     });
   }
-*/
 }

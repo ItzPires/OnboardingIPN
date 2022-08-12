@@ -1,0 +1,22 @@
+01/08/2022
+Alguns ajustes de erros
+Criação de vista de Login e Registo
+Criação dos LoginService e RegisterService
+
+02/08/2022
+Pesquisa e criação dos Cookies no FrontEnd
+Começo da View Project, task e da Dashboard
+
+03/08/2022
+Tentativa de Fix de um bug no BackEnd
+Dashboard diferente entre Managers e Programmers
+
+04/08/2022
+Tentativa de Fix de um bug no BackEnd, novamente
+NavBar atualizar conforme as roles do user
+Algumas Msg de Erro
+Adição de guardas
+
+05/08/2022
+Tentativa de Fix de um bug no BackEnd, novamente
+Limpeza de Codigo FronEnd

@@ -10,6 +10,6 @@ namespace API.DataModels
         [Required]
         public float Budget { get; set; }
         [Required]
-        public ProjectState State { get; set; }
-}
+        public States State { get; set; }
+    }
 }

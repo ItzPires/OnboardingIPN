@@ -1,0 +1,23 @@
+08/08/2022
+Resolução do Erro no BackEnd - Import incorrecto
+Ver como iria adicionar mensagens de erro
+Adição de msg de erro - login e assim
+Alguns try catch
+
+09/08/2022
+Correção da Estrutura/Organização do BackEnd
+Adição de DTOS que faltavam
+Resto dos try catch
+
+10/08/2022
+Pesquisa como fazer a tradução no site
+90% da tradução concluida
+Editar Task - BackEnd
+
+11/08/2022
+Restantes Traduções que faltavam
+Badges conforme progresso de tasks e Projectos
+Alertas no delete de task e projectos
+Atualização dos deletes - variavel isDelected - não apaga mesmo
+
+12/08/2022

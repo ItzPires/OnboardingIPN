@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
+import { TasksNewComponent } from '../tasks-new/tasks-new.component';
 import { TasksService } from '../tasks.service';
 
 @Component({
@@ -39,12 +40,12 @@ export class TasksListComponent implements OnInit {
 
   }
 
-  onDelete(id: number): void {/*
-    this.taskService.de(id).subscribe({
+  onDelete(id: number): void {
+    this.taskService.deleteTask(id).subscribe({
       next: () => {
-        this.projects = this.projects.filter(project => project.id !== id);
+        this.tasks = this.tasks.filter(task => task.id !== id);
       }
-    });*/
+    });
   }
 
 
@@ -59,6 +60,21 @@ export class TasksListComponent implements OnInit {
     dialog.afterClosed().subscribe(
       data => { if (data) { this.onDelete(id); } }
     );
+  }
+
+  newTask(): void {
+    var dialog = this.dialog.open(TasksNewComponent, {
+      width: '600px'
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.taskService.getTasks().subscribe({
+        next: (dataProjects: ITask[]) => {
+          this.tasks = dataProjects;
+        },
+        error: () => { this.errorTask = true; },
+      });
+    })
   }
 
 }

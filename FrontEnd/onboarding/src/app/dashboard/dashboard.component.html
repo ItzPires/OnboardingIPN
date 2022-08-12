@@ -425,10 +425,24 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th><span class="badge bg-success">Done</span></th>
-                    <th><span class="badge bg-warning">In Work</span></th>
+                    <th><span class="badge bg-primary">{{
+                      "states.0" | translate
+                    }}</span></th>
+                    <th><span class="badge bg-warning">{{
+                      "states.1" | translate
+                    }}</span></th>
+                    <th><span class="badge bg-success">{{
+                      "states.2" | translate
+                    }}</span></th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ stats.toStart }}</td>
+                    <td>{{ stats.inWork }}</td>
+                    <td>{{ stats.done }}</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </form>

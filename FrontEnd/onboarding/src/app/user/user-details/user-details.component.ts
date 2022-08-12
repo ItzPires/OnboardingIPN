@@ -33,4 +33,9 @@ export class UserDetailsComponent {
         error: () => { console.log("error"); }
       });
     }
+
+    close()
+    {
+      this.dialogRef.close();
+    }
   }

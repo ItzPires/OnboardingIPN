@@ -1,0 +1,27 @@
+INICIO DO PROJECTO - 25/07/2022
+Samuel Pires
+
+25/07/2022
+Desenho da Base de Dados
+Pesquisa sobre estuturas para o projecto
+Criação de Modelos, Base de Dados
+Inicio da criação de Controllers para os modelos
+
+26/07/2022
+Login com Autenticação e Autorização
+Teste das Roles
+
+27/07/2022
+Correção de bugs relacionados com Database
+Restruturação de projecto
+Controlador de projectos praticamente finalisado
+
+28/07/2022
+Task Controller
+Alguns try catch
+Setup do FrontEnd
+
+29/07/2022
+Organizar estrutura do projecto
+Setup do FrontEnd
+Pesquisa sobre autenticação e autorização - frontEnd

@@ -13,7 +13,7 @@ namespace API.Models
         [Required]
         public DateTime Deadline { get; set; }
         [Required]
-        public TaskState State { get; set; }
+        public States State { get; set; }
         public int? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         public Project Project { get; set; }
