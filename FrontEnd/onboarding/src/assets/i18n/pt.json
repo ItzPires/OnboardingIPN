@@ -51,7 +51,14 @@
     "create": "Adicionar Novo",
     "edit": "Editar",
     "delete": "Excluir",
-    "choose": "Escolha"
+    "choose": "Escolha",
+    "deleteTask": "Apagar Tarefa",
+    "deleteTaskMsg": "Pretende eliminar a tarefa: {{taskName}}?",
+    "deleteProject": "Apagar Projeto",
+    "deleteProjectMsg": "Pretende eliminar o projeto: {{projectName}}?",
+    "yes": "Sim",
+    "no": "Não",
+    "calendar": "Calendário"
   },
   "states": {
     "0": "Por começar",
@@ -77,8 +84,10 @@
   "users": {
     "programmers": "Programadores",
     "programmer": "Programador",
+    "Programmer": "Programador",
     "managers": "Gestores",
     "manager": "Gestor",
+    "Manager": "Gestor",
     "username": "Nome de utilizador",
     "email": "Email",
     "role": "Papel",

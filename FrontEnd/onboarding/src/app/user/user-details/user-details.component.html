@@ -51,15 +51,9 @@
                     }}</span>
                   </td>
                   <td>
-                    <a [routerLink]="['/tasks', task.id]"
-                      ><button
-                        type="button"
-                        class="btn btn-outline-success me-2"
-                        (click)="close()"
-                      >
-                        {{ "dashboard.view" | translate }}
-                      </button></a
-                    >
+                    <button type="button" class="btn btn-success me-2" (click)="openDialogTask(task.id)">
+                      {{ "dashboard.view" | translate }}
+                    </button>
                   </td>
                 </tr>
               </tbody>

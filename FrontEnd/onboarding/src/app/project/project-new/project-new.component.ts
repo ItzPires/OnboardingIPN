@@ -10,7 +10,7 @@ import { ProjectsService } from '../projects.service';
   templateUrl: './project.component.html',
   styleUrls: ['../../common/styles.css']
 })
-export class ProjectComponent {
+export class ProjectNewComponent {
   statesProject = States;
   statesProjectKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
   newProject: IProjects = {
@@ -19,7 +19,7 @@ export class ProjectComponent {
     state: 0
   };
 
-  constructor(public dialogRef: MatDialogRef<ProjectComponent>, private projectService: ProjectsService) { }
+  constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, private projectService: ProjectsService) { }
 
   onSubmit(form: NgForm) {
     if (form.valid) {

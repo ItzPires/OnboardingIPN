@@ -228,5 +228,21 @@ namespace API.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpGet("Calendar")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public async Task<IActionResult> GetCalendar()
+        {
+            try
+            {
+
+                return Ok(_context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false).OrderBy(x => x.Deadline));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

@@ -155,11 +155,13 @@
                       }}</span>
                     </td>
                     <td *ngIf="i < 3">
-                      <a [routerLink]="['/tasks', task.id]"
-                        ><button type="button" class="btn btn-success me-2">
-                          {{ "dashboard.view" | translate }}
-                        </button></a
+                      <button
+                        type="button"
+                        class="btn btn-success me-2"
+                        (click)="openDialogTask(task.id)"
                       >
+                        {{ "dashboard.view" | translate }}
+                      </button>
                     </td>
                   </tr>
                   <tr *ngIf="tasks.length == 0 && errorTask == false">
@@ -203,7 +205,7 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <div class="col-md-4 mt-4 mb-5">
+      <div class="col-md-3 mt-4 mb-5">
         <div class="form-container">
           <h3 class="title">{{ "users.programmers" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
@@ -221,7 +223,11 @@
                       {{ programmer.userName }}
                     </td>
                     <td>
-                      <button type="button" class="btn btn-success me-2" (click)="openDialogProgrammer(programmer.userName)">
+                      <button
+                        type="button"
+                        class="btn btn-success me-2"
+                        (click)="openDialogProgrammer(programmer.userName)"
+                      >
                         {{ "dashboard.view" | translate }}
                       </button>
                     </td>
@@ -255,47 +261,32 @@
           </form>
         </div>
       </div>
-      <div class="col-md-4 mt-4">
+      <div class="col-md-5 mt-4">
         <div class="form-container">
-          <h3 class="title">{{ "users.managers" | translate }}</h3>
+          <h3 class="title">{{ "dashboard.calendar" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>{{ "users.username" | translate }}</th>
-                    <th>{{ "users.options" | translate }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let manager of managers">
-                    <td>
-                      {{ manager.userName }}
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-success me-2">
-                        {{ "dashboard.view" | translate }}
-                      </button>
-                    </td>
-                  </tr>
-                  <tr *ngIf="managers.length == 0 && errorManagers == false">
-                    <td>
-                      <span
-                        class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
-                    </td>
-                    <td>
-                      <span
-                        class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div *ngFor="let task of calendar">
+                <div class="form-group">
+                  <a (click)="openDialogTask(task.id)">
+                  <span class="form-control">
+                    <div class="row d-flex justify-content-between">
+                      <div class="col">
+                        <h3>
+                          {{ task.deadline | date: "dd" }}
+                        </h3>
+                        {{ task.deadline | date: "MM y" }}
+                      </div>
+                      <div class="col">
+                        {{ task.name }}
+                      </div>
+                    </div>
+                  </span>
+                </a>
+                </div>
+              </div>
               <div
-                *ngIf="errorManagers == true"
+                *ngIf="errorTask == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
@@ -313,9 +304,21 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Projects</th>
-                    <th>Tasks</th>
-                    <th>Programmers</th>
+                    <th>
+                      <span class="badge bg-primary">{{
+                        "states.0" | translate
+                      }}</span>
+                    </th>
+                    <th>
+                      <span class="badge bg-warning">{{
+                        "states.1" | translate
+                      }}</span>
+                    </th>
+                    <th>
+                      <span class="badge bg-success">{{
+                        "states.2" | translate
+                      }}</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -371,11 +374,13 @@
                       }}</span>
                     </td>
                     <td>
-                      <a [routerLink]="['/tasks', task.id]"
-                        ><button type="button" class="btn btn-success me-2">
-                          {{ "dashboard.view" | translate }}
-                        </button></a
+                      <button
+                        type="button"
+                        class="btn btn-success me-2"
+                        (click)="openDialogTask(task.id)"
                       >
+                        {{ "dashboard.view" | translate }}
+                      </button>
                     </td>
                   </tr>
                   <tr *ngIf="tasks.length == 0 && errorTask == false">
@@ -425,15 +430,21 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th><span class="badge bg-primary">{{
-                      "states.0" | translate
-                    }}</span></th>
-                    <th><span class="badge bg-warning">{{
-                      "states.1" | translate
-                    }}</span></th>
-                    <th><span class="badge bg-success">{{
-                      "states.2" | translate
-                    }}</span></th>
+                    <th>
+                      <span class="badge bg-primary">{{
+                        "states.0" | translate
+                      }}</span>
+                    </th>
+                    <th>
+                      <span class="badge bg-warning">{{
+                        "states.1" | translate
+                      }}</span>
+                    </th>
+                    <th>
+                      <span class="badge bg-success">{{
+                        "states.2" | translate
+                      }}</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>

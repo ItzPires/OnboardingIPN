@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
+import { TasksDeleteComponent } from '../tasks-delete/tasks-delete.component';
+import { TasksDetailsComponent } from '../tasks-details/tasks-details.component';
 import { TasksNewComponent } from '../tasks-new/tasks-new.component';
 import { TasksService } from '../tasks.service';
 
@@ -14,6 +16,8 @@ export class TasksListComponent implements OnInit {
   tasks: ITask[] = [];
   roleUser = '';
   errorTask: boolean = false;
+  originalTasks: ITask[] = [];
+  searchString: string = '';
 
   constructor(private taskService: TasksService, private userService: UserService, public dialog: MatDialog) { }
 
@@ -21,23 +25,33 @@ export class TasksListComponent implements OnInit {
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser == 'Manager') {
-      this.taskService.getTasks().subscribe({
-        next: (dataTasks: ITask[]) => {
-          this.tasks = dataTasks;
-        },
-        error: () => {this.errorTask = true;},
-      });
+      this.getAllTasks();
     }
     else
     {
-      this.taskService.getMyTasks().subscribe({
-        next: (dataTasks: ITask[]) => {
-          this.tasks = dataTasks;
-        },
-        error: () => {this.errorTask = true;},
-      });
+      this.getMyTasks();
     }
 
+  }
+
+  private getAllTasks(): void {
+    this.taskService.getTasks().subscribe({
+      next: (dataTasks: ITask[]) => {
+        this.tasks = dataTasks;
+        this.originalTasks = this.tasks;
+      },
+      error: () => {this.errorTask = true;},
+    });
+  }
+
+  private getMyTasks(): void {
+    this.taskService.getMyTasks(this.userService.getToken()).subscribe({
+      next: (dataTasks: ITask[]) => {
+        this.tasks = dataTasks;
+        this.originalTasks = this.tasks;
+      },
+      error: () => {this.errorTask = true;},
+    });
   }
 
   onDelete(id: number): void {
@@ -50,7 +64,7 @@ export class TasksListComponent implements OnInit {
 
 
   openDialog(taskName: string, id: number): void {
-    var dialog = this.dialog.open(DeleteTaskDialog, {
+    var dialog = this.dialog.open(TasksDeleteComponent, {
       width: '250px',
       data: {
         projectName: taskName,
@@ -59,6 +73,21 @@ export class TasksListComponent implements OnInit {
     });
     dialog.afterClosed().subscribe(
       data => { if (data) { this.onDelete(id); } }
+    );
+  }
+
+  openDialogTask(id: number): void {
+    var dialog = this.dialog.open(TasksDetailsComponent, {
+      width: '600px',
+      data: { id: id }
+    });
+    dialog.afterClosed().subscribe(
+      data => {
+        if(this.roleUser == 'Manager')
+          this.getAllTasks();
+        else
+          this.getMyTasks();
+        }
     );
   }
 
@@ -77,17 +106,9 @@ export class TasksListComponent implements OnInit {
     })
   }
 
-}
-
-
-@Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: 'deleteDialog.html',
-})
-export class DeleteTaskDialog {
-  constructor(public dialogRef: MatDialogRef<DeleteTaskDialog>, @Inject(MAT_DIALOG_DATA) public data: { taskName: string, id: number }) { }
-
-  close(bool: boolean): void {
-    this.dialogRef.close(bool);
+  onSearch(search: string): void {
+    search = search.toLowerCase();
+    this.tasks = this.originalTasks.filter(task => task.name.toLowerCase().includes(search) || task.project.name.toLowerCase().includes(search));
   }
+
 }

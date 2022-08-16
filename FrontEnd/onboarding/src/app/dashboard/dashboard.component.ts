@@ -5,6 +5,7 @@ import { States } from '../project/common/states';
 import { IProjectsID } from '../project/projects-list/IProjectsID';
 import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
+import { TasksDetailsComponent } from '../tasks/tasks-details/tasks-details.component';
 import { TasksService } from '../tasks/tasks.service';
 import { UserDetailsComponent } from '../user/user-details/user-details.component';
 import { UserService } from '../user/user.service';
@@ -21,12 +22,11 @@ export class DashboardComponent implements OnInit {
   states = States;
   projects: IProjectsID[] = [];
   programmers: IUsers[] = [];
-  managers: IUsers[] = [];
   tasks: ITask[] = [];
+  calendar: ITask[] = [];
   stats!: IStats;
   errorProjects: boolean = false;
   errorProgrammers: boolean = false;
-  errorManagers: boolean = false;
   errorTask: boolean = false;
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService,  public dialog: MatDialog) { }
@@ -45,18 +45,11 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorProjects = true;},
       });
 
-      this.userService.getProgrammers().subscribe({
+      this.userService.getProgrammers(this.token).subscribe({
         next: (dataProgrammers: IUsers[]) => {
           this.programmers = dataProgrammers;
         },
         error: () => {this.errorProgrammers = true;},
-      });
-
-      this.userService.getManagers().subscribe({
-        next: (dataManagers: IUsers[]) => {
-          this.managers = dataManagers;
-        },
-        error: () => {this.errorManagers = true;},
       });
 
       this.taskService.getTasks().subscribe({
@@ -65,10 +58,17 @@ export class DashboardComponent implements OnInit {
         },
         error: () => {this.errorTask = true;},
       });
+
+      this.taskService.getCalendar().subscribe({
+        next: (dataTasks: ITask[]) => {
+          this.calendar = dataTasks;
+        },
+        error: () => {this.errorTask = true;},
+      });
     }
     else
     {
-      this.taskService.getMyTasks().subscribe({
+      this.taskService.getMyTasks(this.token).subscribe({
         next: (dataTasks: ITask[]) => {
           this.tasks = dataTasks;
         },
@@ -87,6 +87,13 @@ export class DashboardComponent implements OnInit {
   openDialogProgrammer(username: string): void {
     var dialog = this.dialog.open(UserDetailsComponent, {
       data: { user: username }
+    });
+  }
+
+  openDialogTask(id: number): void {
+    var dialog = this.dialog.open(TasksDetailsComponent, {
+      width: '600px',
+      data: { id: id }
     });
   }
 

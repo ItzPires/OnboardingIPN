@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { IUsers } from 'src/app/dashboard/IUsers';
-import { ProjectComponent } from 'src/app/project/project/project.component';
+import { ProjectNewComponent } from 'src/app/project/project-new/project-new.component';
 import { IProjectsID } from 'src/app/project/projects-list/IProjectsID';
 import { ProjectsService } from 'src/app/project/projects.service';
 import { UserService } from 'src/app/user/user.service';
@@ -15,7 +15,7 @@ import { ITaskForm } from './ITaskForm';
   styleUrls: ['../../common/styles.css']
 })
 export class TasksNewComponent implements OnInit {
-  token: string | null | undefined;
+  token!: string;
   roleUser: string | null | undefined;
   newTask: ITaskForm = {
     name: '',
@@ -28,7 +28,7 @@ export class TasksNewComponent implements OnInit {
   projects: IProjectsID[] = [];
   programmers: IUsers[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ProjectComponent>, public projectsService: ProjectsService, private taskService: TasksService, private router: Router, private userService: UserService) { }
+  constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, public projectsService: ProjectsService, private taskService: TasksService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.token = this.userService.getToken();
@@ -40,10 +40,11 @@ export class TasksNewComponent implements OnInit {
       },
     });
 
-    this.userService.getProgrammers().subscribe({
+    this.userService.getProgrammers(this.token).subscribe({
       next: (dataProgrammers: IUsers[]) => {
         this.programmers = dataProgrammers;
       },
+      error: () => {console.log('error')},
     });
   }
 
@@ -53,7 +54,7 @@ export class TasksNewComponent implements OnInit {
       this.taskService.newTask(this.newTask).subscribe(
         {
           error: (error) => console.log(error),
-          complete: () => {    this.dialogRef.close(); }
+          complete: () => { this.dialogRef.close(); }
         }
       );
   }

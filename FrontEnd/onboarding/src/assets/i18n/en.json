@@ -51,7 +51,14 @@
     "create": "Create",
     "edit": "Edit",
     "delete": "Delete",
-    "choose": "Choose"
+    "choose": "Choose",
+    "deleteTask": "Delete Task",
+    "deleteTaskMsg": "Are you sure you want to delete {taskName}} task?",
+    "deleteProject": "Delete Project",
+    "deleteProjectMsg": "Are you sure you want to delete {{projectName}} project?",
+    "yes": "Yes",
+    "no": "No",
+    "calendar": "Calendar"
   },
   "states": {
     "0": "To Start",
@@ -77,8 +84,10 @@
   "users": {
     "programmers": "Programmers",
     "programmer": "Programmer",
+    "Programmer": "Programmer",
     "managers": "Managers",
     "manager": "Manager",
+    "Manager": "Manager",
     "username": "Username",
     "email": "Email",
     "role": "Role",

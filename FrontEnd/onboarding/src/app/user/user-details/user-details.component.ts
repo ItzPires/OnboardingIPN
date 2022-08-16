@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { ITask } from 'src/app/tasks/ITask';
+import { TasksDetailsComponent } from 'src/app/tasks/tasks-details/tasks-details.component';
 import { TasksService } from 'src/app/tasks/tasks.service';
 import { UserService } from '../user.service';
 
@@ -17,7 +18,7 @@ export class UserDetailsComponent {
   userInfo!: IUsers;
   tasks: ITask[] = [];
 
-  constructor(public dialogRef: MatDialogRef<UserDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService)
+  constructor(public dialogRef: MatDialogRef<UserDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService, public dialog: MatDialog)
   {
     this.userName = data.user;
 
@@ -31,6 +32,13 @@ export class UserDetailsComponent {
       {
         next: (value: ITask[]) => { this.tasks = value; },
         error: () => { console.log("error"); }
+      });
+    }
+
+    openDialogTask(id: number): void {
+      var dialog = this.dialog.open(TasksDetailsComponent, {
+        width: '600px',
+        data: { id: id }
       });
     }
 

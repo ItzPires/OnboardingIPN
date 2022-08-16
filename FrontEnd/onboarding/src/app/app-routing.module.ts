@@ -6,17 +6,13 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProjectsListComponent } from './project/projects-list/projects-list.component';
-import { ProjectComponent } from './project/project/project.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProjectDetailsComponent } from './project/project-details/project-details.component';
-import { TasksNewComponent } from './tasks/tasks-new/tasks-new.component';
+import { ProjectDetailsComponent } from './project/project-details/project-details.component'
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
 import { ProjectDetailsGuard } from './project/project-details/project-details.guard';
 import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
-import { TasksDetailsComponent } from './tasks/tasks-details/tasks-details.component';
-import { UserDetailsComponent } from './user/user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -35,35 +31,26 @@ const routes: Routes = [
     component: ProjectsListComponent
   },
   {
+    path: 'projects/:id',
+    canActivate: [AuthGuard, TaskGuard, ProjectDetailsGuard],
+    component: ProjectDetailsComponent
+  },
+  {
     path: 'tasks',
     canActivate: [AuthGuard],
     component: TasksListComponent
-  },
-  {
-    path: 'tasks/:id',
-    canActivate: [AuthGuard],
-    component: TasksDetailsComponent
-  },
-  {
-    path: 'newTasks',
-    canActivate: [AuthGuard, TaskGuard],
-    component: TasksNewComponent
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
     component: DashboardComponent
   },
-  {
-    path: 'projects/:id',
-    canActivate: [AuthGuard, TaskGuard, ProjectDetailsGuard],
-    component: ProjectDetailsComponent
-  },
+  /*
   {
     path: 'user/programmer/:username',
     canActivate: [AuthGuard, TaskGuard],
     component: UserDetailsComponent
-  },
+  },*/
   {
     path: '',
     canActivate: [UserGuard],

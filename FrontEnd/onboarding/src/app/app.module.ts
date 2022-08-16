@@ -10,7 +10,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProjectsListComponent } from './project/projects-list/projects-list.component';
 import { CookieService } from 'ngx-cookie-service';
-import { ProjectComponent } from './project/project/project.component';
+import { ProjectNewComponent } from './project/project-new/project-new.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
 import { TasksNewComponent } from './tasks/tasks-new/tasks-new.component';
@@ -27,6 +27,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MaterialModule } from 'src/material.module';
 import { ProfileComponent } from './user/profile/profile.component';
+import { TasksDeleteComponent } from './tasks/tasks-delete/tasks-delete.component';
+import { ProjectDeleteComponent } from './project/project-delete/project-delete.component';
+import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 
 
 @NgModule({
@@ -36,7 +39,7 @@ import { ProfileComponent } from './user/profile/profile.component';
     RegisterComponent,
     WelcomeComponent,
     ProjectsListComponent,
-    ProjectComponent,
+    ProjectNewComponent,
     DashboardComponent,
     ProjectDetailsComponent,
     TasksNewComponent,
@@ -44,7 +47,10 @@ import { ProfileComponent } from './user/profile/profile.component';
     TasksListComponent,
     TasksDetailsComponent,
     UserDetailsComponent,
-    ProfileComponent
+    ProfileComponent,
+    TasksDeleteComponent,
+    ProjectDeleteComponent,
+    ProjectEditComponent
   ],
   imports: [
     MaterialModule,

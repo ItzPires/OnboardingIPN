@@ -19,6 +19,11 @@ export class TasksService {
     this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() });
   }
 
+  private getHeader(token: string): HttpHeaders
+  {
+    return new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+  }
+
   public getTasks(): Observable<ITask[]> {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'All',
@@ -37,11 +42,11 @@ export class TasksService {
     );
   }
 
-  public getMyTasks(): Observable<ITask[]> {
+  public getMyTasks(token: string): Observable<ITask[]> {
     return this.http.get<ITask[]>(
       this.tasksUrl + 'GetMyTasks',
       {
-        headers: this.header,
+        headers: this.getHeader(token),
       }
     );
   }
@@ -58,6 +63,15 @@ export class TasksService {
   public getTasksByProject(idProject : number): Observable<any> {
     return this.http.get(
       this.tasksUrl + 'GetProjectTasks/' + idProject,
+      {
+        headers: this.header,
+      }
+    );
+  }
+
+  public getCalendar(): Observable<any> {
+    return this.http.get(
+      this.tasksUrl + 'Calendar',
       {
         headers: this.header,
       }

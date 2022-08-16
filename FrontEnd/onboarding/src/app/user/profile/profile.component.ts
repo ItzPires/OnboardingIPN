@@ -10,6 +10,7 @@ import { UserService } from '../user.service';
 })
 export class ProfileComponent {
   userName: string = "";
+  role: string = "";
   userInfo!: IUsers;
 
   constructor(public dialogRef: MatDialogRef<ProfileComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService)
@@ -21,6 +22,8 @@ export class ProfileComponent {
         next: (value: IUsers) => { this.userInfo = value; },
         error: () => { console.log("error"); }
       });
+
+    this.role = this.userService.getRole();
   }
 
   close(): void {

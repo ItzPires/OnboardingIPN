@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col">
-        <div class="form-container">
+        <div class="form-container" style="box-shadow: 0 0 0">
           <div class="row justify-content-between">
             <div class="col">
-              <h3 class="title">{{ "users.programmer" | translate }}</h3>
+              <h3 class="title">{{ "users." + role | translate }}</h3>
             </div>
           </div>
           <form class="form-horizontal" #form="ngForm">

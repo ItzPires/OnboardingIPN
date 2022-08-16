@@ -13,6 +13,17 @@
             <div class="col">
               <h3 class="title">Tasks</h3>
             </div>
+            <div class="col-3">
+              <input
+                class="form-control"
+                name="search"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                [(ngModel)]="searchString"
+                (keyup)="onSearch(searchString)"
+              />
+            </div>
             <div class="col-2">
               <button
                 type="button"
@@ -50,14 +61,13 @@
                       <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
                     </td>
                     <td>
-                      <a [routerLink]="['/tasks', task.id]"
-                        ><button
-                          type="button"
+                      <td>
+                        <button
                           class="btn btn-outline-success me-2"
+                          (click)="openDialogTask(task.id)"
                         >
-                        {{ 'dashboard.view' | translate }}
-                        </button></a
-                      >
+                          {{ "dashboard.view" | translate }}
+                        </button>
                     </td>
                     <td>
                       <button
@@ -69,7 +79,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0 && errorTask == false">
+                  <tr *ngIf="originalTasks.length == 0 && errorTask == false">
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
@@ -99,16 +109,27 @@
             <div class="col">
               <h3 class="title">Tasks</h3>
             </div>
+            <div class="col-3">
+              <input
+                class="form-control"
+                name="search"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                [(ngModel)]="searchString"
+                (keyup)="onSearch(searchString)"
+              />
+            </div>
           </div>
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Project</th>
-                    <th>State</th>
-                    <th>Options</th>
+                    <th>{{ 'task.name' | translate }}</th>
+                    <th>{{ 'task.project' | translate }}</th>
+                    <th>{{ 'task.status' | translate }}</th>
+                    <th>{{ 'task.options' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,17 +145,16 @@
                       <span *ngIf="task.state == 3" class="badge bg-danger">{{ ("states." + task.state) | translate}}</span>
                     </td>
                     <td>
-                      <a [routerLink]="['/tasks', task.id]"
-                        ><button
-                          type="button"
-                          class="btn btn-outline-success me-2"
-                        >
-                          View
-                        </button></a
+                      <button
+                        class="btn btn-outline-success me-2"
+                        (click)="openDialogTask(task.id)"
                       >
+                        {{ "dashboard.view" | translate }}
+                      </button>
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0 && errorTask == false">
+                  <tr *ngIf="originalTasks.length == 0 && errorTask == false">
+                    <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>
                     <td><span class="spinner-grow spinner-grow-sm" role="status"></span></td>

@@ -4,9 +4,9 @@ import { UserService } from 'src/app/user/user.service';
 import { States } from '../common/states';
 import { ProjectsService } from '../projects.service';
 import { IProjectsID } from './IProjectsID';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProjectComponent } from '../project/project.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ProjectNewComponent } from '../project-new/project-new.component';
+import { ProjectDeleteComponent } from '../project-delete/project-delete.component';
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -17,7 +17,9 @@ export class ProjectsListComponent implements OnInit {
   roleUser: string | null | undefined;
   states = States;
   projects: IProjectsID[] = [];
+  originalProjects: IProjectsID[] = [];
   errorProjects: boolean = false;
+  searchString: string = '';
 
   constructor(public projectsService: ProjectsService, private userService: UserService, public router: Router, public dialog: MatDialog) { }
 
@@ -28,6 +30,7 @@ export class ProjectsListComponent implements OnInit {
     this.projectsService.getProjects().subscribe({
       next: (dataProjects: IProjectsID[]) => {
         this.projects = dataProjects;
+        this.originalProjects = dataProjects;
       },
       error: () => { this.errorProjects = true; },
     });
@@ -49,7 +52,7 @@ export class ProjectsListComponent implements OnInit {
   }*/
 
   openDialog(projectName: string, id: number): void {
-    var dialog = this.dialog.open(DeleteProjectDialog, {
+    var dialog = this.dialog.open(ProjectDeleteComponent, {
       width: '250px',
       data: {
         projectName: projectName,
@@ -62,7 +65,7 @@ export class ProjectsListComponent implements OnInit {
   }
 
   newProject(): void {
-    var dialog = this.dialog.open(ProjectComponent, {
+    var dialog = this.dialog.open(ProjectNewComponent, {
       width: '600px'
     });
 
@@ -76,16 +79,9 @@ export class ProjectsListComponent implements OnInit {
     })
   }
 
-}
-
-@Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: 'deleteDialog.html',
-})
-export class DeleteProjectDialog {
-  constructor(public dialogRef: MatDialogRef<DeleteProjectDialog>, @Inject(MAT_DIALOG_DATA) public data: { projectName: string, id: number }) { }
-
-  close(bool: boolean): void {
-    this.dialogRef.close(bool);
+  onSearch(search: string): void {
+    search = search.toLowerCase();
+    this.projects = this.originalProjects.filter(project => project.name.toLowerCase().includes(search));
   }
+
 }

@@ -1,0 +1,8 @@
+<h5 mat-dialog-title>{{ "dashboard.deleteProject" | translate}}</h5>
+<div mat-dialog-content>
+  {{ "dashboard.deleteProjectMsg" | translate:{'projectName': data.projectName} }}
+</div>
+<div mat-dialog-actions>
+  <button mat-dialog-close type="button" class="btn btn-success m-2" (click)="close(true)">{{ "dashboard.yes" | translate}}</button>
+  <button mat-dialog-close type="button" class="btn btn-danger m-2" (click)="close(false)">{{ "dashboard.no" | translate}}</button>
+</div>

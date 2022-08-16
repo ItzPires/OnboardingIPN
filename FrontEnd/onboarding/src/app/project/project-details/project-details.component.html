@@ -5,7 +5,10 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-4">
         <div class="form-container">
-          <h3 class="title">{{ project.name }}</h3>
+          <h3 class="title" *ngIf="project != undefined">{{ project.name }}</h3>
+          <h3 class="title" *ngIf="project == undefined">
+            {{ "project.name" | translate }}
+          </h3>
           <form
             class="form-horizontal"
             #form="ngForm"
@@ -14,6 +17,7 @@
             <div class="form-group">
               <label>{{ "project.name" | translate }}</label>
               <input
+                *ngIf="project != undefined"
                 name="name"
                 type="text"
                 class="form-control"
@@ -21,10 +25,14 @@
                 [value]="project.name"
                 [(ngModel)]="project.name"
               />
+              <span *ngIf="project == undefined" class="form-control">{{
+                "project.name" | translate
+              }}</span>
             </div>
             <div class="form-group">
               <label>{{ "project.budget" | translate }}</label>
               <input
+                *ngIf="project != undefined"
                 name="budget"
                 type="number"
                 min="0"
@@ -34,11 +42,15 @@
                 [value]="project.budget"
                 [(ngModel)]="project.budget"
               />
+              <span *ngIf="project == undefined" class="form-control">{{
+                "project.budget" | translate
+              }}</span>
             </div>
             <div class="form-group">
               <label>{{ "project.status" | translate }}</label>
               <div class="input-group mb-3">
                 <select
+                  *ngIf="project != undefined"
                   name="state"
                   class="form-control"
                   [(ngModel)]="project.state"
@@ -47,19 +59,36 @@
                     {{ "states." + enum | translate }}
                   </option>
                 </select>
+                <span *ngIf="project == undefined" class="form-control"></span>
               </div>
-              <div class="d-flex flex-row-reverse">
-              <button type="button" class="btn btn-primary add-new">
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <button class="btn btn-primary"
+              (click)="openDialogDeleteTask('s', 1)">
                 {{ "dashboard.edit" | translate }}
               </button>
             </div>
-          </div>
           </form>
         </div>
       </div>
       <div class="col">
         <div class="form-container">
-          <h3 class="title">{{ "dashboard.tasks" | translate }}</h3>
+          <div class="row d-flex justify-content-center">
+            <div class="col">
+              <h3 class="title">{{ "dashboard.tasks" | translate }}</h3>
+            </div>
+            <div class="col">
+              <input
+                class="form-control"
+                name="search"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                [(ngModel)]="searchString"
+                (keyup)="onSearch(searchString)"
+              />
+            </div>
+          </div>
           <div class="form-group">
             <table class="table">
               <thead>
@@ -96,29 +125,53 @@
                     }}</span>
                   </td>
                   <td>
-                    <a [routerLink]="['/tasks', task.id]"
-                      ><button
-                        type="button"
-                        class="btn btn-outline-success me-2"
-                      >
-                        {{ "dashboard.view" | translate }}
-                      </button></a
+                    <button
+                      class="btn btn-outline-success me-2"
+                      (click)="openDialogTask(task.id)"
                     >
+                      {{ "dashboard.view" | translate }}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-outline-danger"
+                      (click)="openDialogDeleteTask(task.name, task.id)"
+                    >
+                      {{ "dashboard.delete" | translate }}
+                    </button>
                   </td>
                 </tr>
               </tbody>
+              <!--
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              -->
             </table>
           </div>
           <div class="d-flex flex-row-reverse">
-          <button
-            type="button"
-            class="btn btn-primary add-new"
-            [routerLink]="'/newTasks'"
-          >
-            {{ "dashboard.addNew" | translate }}
-          </button>
+            <button
+              class="btn btn-primary add-new"
+              (click)="openDialogNewTask()"
+            >
+              {{ "dashboard.addNew" | translate }}
+            </button>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>

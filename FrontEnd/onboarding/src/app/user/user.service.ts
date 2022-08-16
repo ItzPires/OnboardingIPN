@@ -19,6 +19,11 @@ export class UserService {
     this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() });
   }
 
+  private getHeader(token: string): HttpHeaders
+  {
+    return new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+  }
+
   //cookies
   public setSession(token: string): void {
     this.cookie.set('token', token, 0.125);
@@ -28,7 +33,7 @@ export class UserService {
     this.cookie.delete('token');
   }
 
-  public getToken(): string | null | undefined {
+  public getToken(): string {
     return this.cookie.get('token');
   }
 
@@ -82,20 +87,20 @@ export class UserService {
     return this.http.post('http://localhost:5000/api/Auth/login', loginForm);
   }
 
-   public getProgrammers(): Observable<IUsers[]> {
+   public getProgrammers(token: string): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(
       "http://localhost:5000/api/Users/programmers",
       {
-        headers: this.header,
+        headers: this.getHeader(token),
       }
     );
   }
 
-  public getManagers(): Observable<IUsers[]> {
+  public getManagers(token: string): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(
       "http://localhost:5000/api/Users/Managers",
       {
-        headers: this.header,
+        headers: this.getHeader(token),
       }
     );
   }
