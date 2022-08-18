@@ -11,6 +11,8 @@ namespace API.Models
         [Required]
         public User Writer { get; set; }
         [Required]
+        public Task Task { get; set; }
+        [Required]
         public bool isDeleted { get; set; }
     }
 }

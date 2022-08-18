@@ -10,6 +10,7 @@ namespace API.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)
         { }

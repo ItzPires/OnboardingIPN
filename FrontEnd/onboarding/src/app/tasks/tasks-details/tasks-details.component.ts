@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { States } from 'src/app/project/common/states';
 import { UserService } from 'src/app/user/user.service';
+import { IComment } from '../IComment';
 import { ITask } from '../ITask';
 import { TasksService } from '../tasks.service';
 
@@ -14,6 +15,7 @@ import { TasksService } from '../tasks.service';
 })
 export class TasksDetailsComponent {
   task!: ITask;
+  comments: IComment[] = [];
   userRole: string | null | undefined;
   statesTask = States;
   statesTaskKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
@@ -24,6 +26,12 @@ export class TasksDetailsComponent {
       next: (dataTask: ITask) => {
         this.task = dataTask;
       },
+    });
+
+    this.taskSerive.getCommentsByTask(data.id).subscribe({
+      next: (dataComments: IComment[]) => {
+        this.comments = dataComments;
+      }
     });
 
     this.userRole = this.userService.getRole();

@@ -88,6 +88,15 @@ export class TasksService {
     );
   }
 
+  public getCommentsByTask(idTask : number): Observable<any> {
+    return this.http.get(
+      'http://localhost:5000/api/Comment/' + idTask,
+      {
+        headers: this.header,
+      }
+    );
+  }
+
   public updateTask(taskId: number, taskForm: ITask): Observable<any> {
     return this.http.put(
       this.tasksUrl + 'Update/' + taskId,

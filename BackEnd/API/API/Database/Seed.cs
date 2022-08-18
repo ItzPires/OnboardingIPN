@@ -148,6 +148,14 @@ namespace API.Database
                 {
                     _context.Add(taskFour);
                 }
+
+
+                /*
+                //Comments
+                Comment commentOne =new()
+                {
+                    
+                }*/
                 
                 _context.SaveChanges();
 

@@ -12,6 +12,7 @@ namespace API.Database
             CreateMap<Project, ProjectForm>().ReverseMap();
             CreateMap<Task, TaskForm>().ReverseMap();
             CreateMap<Task, TaskFormUpdate>().ReverseMap();
+            CreateMap<Comment, CommentForm>().ReverseMap();
 
             //Output
             CreateMap<Task, TaskDto>().ReverseMap();
