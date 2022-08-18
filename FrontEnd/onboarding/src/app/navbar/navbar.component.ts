@@ -20,8 +20,6 @@ export class NavbarComponent implements OnInit {
     this.userRole =  this.userService.getRole();
     this.language = this.userService.getLanguage();
 
-    console.log(this.language + " language");
-
     if (this.language == null || this.language == undefined || this.language == '') {
       this.language = 'en';
       this.changeSiteLanguage(this.language);

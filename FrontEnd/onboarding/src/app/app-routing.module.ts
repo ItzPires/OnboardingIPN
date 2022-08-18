@@ -28,12 +28,7 @@ const routes: Routes = [
   {
     path: 'projects',
     canActivate: [AuthGuard, TaskGuard],
-    component: ProjectsListComponent
-  },
-  {
-    path: 'projects/:id',
-    canActivate: [AuthGuard, TaskGuard, ProjectDetailsGuard],
-    component: ProjectDetailsComponent
+    loadChildren: () =>import('./project/project.module').then(m => m.ProjectModule)
   },
   {
     path: 'tasks',
@@ -45,12 +40,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: DashboardComponent
   },
-  /*
-  {
-    path: 'user/programmer/:username',
-    canActivate: [AuthGuard, TaskGuard],
-    component: UserDetailsComponent
-  },*/
   {
     path: '',
     canActivate: [UserGuard],

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Types;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.DataModels
 {
@@ -6,7 +7,7 @@ namespace API.DataModels
     {
         public string? Name { get; set; }
         public DateTime Deadline { get; set; }
-        public string? State { get; set; }
+        public States State { get; set; }
         public int IdProject { get; set; }
         public string? UsernameProgrammer { get; set; }
     }

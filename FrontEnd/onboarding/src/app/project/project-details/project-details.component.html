@@ -12,7 +12,6 @@
           <form
             class="form-horizontal"
             #form="ngForm"
-            (ngSubmit)="onSubmit(form)"
           >
             <div class="form-group">
               <label>{{ "project.name" | translate }}</label>
@@ -64,7 +63,7 @@
             </div>
             <div class="d-flex flex-row-reverse">
               <button class="btn btn-primary"
-              (click)="openDialogDeleteTask('s', 1)">
+              (click)="openDialogEditProject(project.name, project.id)">
                 {{ "dashboard.edit" | translate }}
               </button>
             </div>

@@ -1,71 +1,40 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './user/login/login.component';
-import { RegisterComponent } from './user/register/register.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { ProjectsListComponent } from './project/projects-list/projects-list.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { ProjectNewComponent } from './project/project-new/project-new.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProjectDetailsComponent } from './project/project-details/project-details.component';
-import { TasksNewComponent } from './tasks/tasks-new/tasks-new.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
-import { TasksDetailsComponent } from './tasks/tasks-details/tasks-details.component';
-import { UserDetailsComponent } from './user/user-details/user-details.component';
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import {MatNativeDateModule} from '@angular/material/core';
-import { MaterialModule } from 'src/material.module';
-import { ProfileComponent } from './user/profile/profile.component';
-import { TasksDeleteComponent } from './tasks/tasks-delete/tasks-delete.component';
-import { ProjectDeleteComponent } from './project/project-delete/project-delete.component';
-import { ProjectEditComponent } from './project/project-edit/project-edit.component';
+import { AppComponent } from './app.component';
+
+import { AppRoutingModule } from './app-routing.module';
+
+import { WelcomeComponent } from './welcome/welcome.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+import { SharedModule } from './shared/shared.module';
+import { TasksModule } from './tasks/tasks.module';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     WelcomeComponent,
-    ProjectsListComponent,
-    ProjectNewComponent,
-    DashboardComponent,
-    ProjectDetailsComponent,
-    TasksNewComponent,
-    NavbarComponent,
-    TasksListComponent,
-    TasksDetailsComponent,
-    UserDetailsComponent,
-    ProfileComponent,
-    TasksDeleteComponent,
-    ProjectDeleteComponent,
-    ProjectEditComponent
+    DashboardComponent
   ],
   imports: [
-    MaterialModule,
+    TasksModule,
+    UserModule,
+    SharedModule,
+    BrowserModule,
     BrowserAnimationsModule,
-    BrowserModule,
     FormsModule,
-    HttpClientModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    BrowserModule,
+    MatDatepickerModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatDialogModule,
-    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -73,7 +42,6 @@ import { ProjectEditComponent } from './project/project-edit/project-edit.compon
         deps: [HttpClient]
       }
     }),
-    BrowserAnimationsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

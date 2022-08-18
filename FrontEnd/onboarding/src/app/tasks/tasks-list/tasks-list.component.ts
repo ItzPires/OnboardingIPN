@@ -67,7 +67,7 @@ export class TasksListComponent implements OnInit {
     var dialog = this.dialog.open(TasksDeleteComponent, {
       width: '250px',
       data: {
-        projectName: taskName,
+        taskName: taskName,
         id: id
       }
     });

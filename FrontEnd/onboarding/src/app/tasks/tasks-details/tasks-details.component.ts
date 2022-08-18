@@ -27,9 +27,11 @@ export class TasksDetailsComponent {
     });
 
     this.userRole = this.userService.getRole();
+
   }
 
   onSubmit(form: NgForm) {
+    this.task.state = Number(this.task.state);
     if (form.valid) {
       this.taskSerive.updateTask(this.data.id, this.task).subscribe(
         {

@@ -17,7 +17,7 @@ import { IUsers } from './IUsers';
   styleUrls: ['../common/styles.css']
 })
 export class DashboardComponent implements OnInit {
-  token: string | null | undefined;
+  token!: string;
   roleUser: string | null | undefined;
   states = States;
   projects: IProjectsID[] = [];
@@ -52,12 +52,7 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorProgrammers = true;},
       });
 
-      this.taskService.getTasks().subscribe({
-        next: (dataTasks: ITask[]) => {
-          this.tasks = dataTasks;
-        },
-        error: () => {this.errorTask = true;},
-      });
+      this.getAllTasks();
 
       this.taskService.getCalendar().subscribe({
         next: (dataTasks: ITask[]) => {
@@ -68,12 +63,7 @@ export class DashboardComponent implements OnInit {
     }
     else
     {
-      this.taskService.getMyTasks(this.token).subscribe({
-        next: (dataTasks: ITask[]) => {
-          this.tasks = dataTasks;
-        },
-        error: () => {this.errorTask = true;},
-      });
+      this.getMyTasks();
 
       this.userService.getUserStats().subscribe({
         next: (dataStats: IStats) => {
@@ -82,6 +72,24 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorTask = true;},
       });
     }
+  }
+
+  getAllTasks(): void {
+    this.taskService.getTasks().subscribe({
+      next: (dataTasks: ITask[]) => {
+        this.tasks = dataTasks;
+      },
+      error: () => {this.errorTask = true;},
+    });
+  }
+
+  getMyTasks(): void {
+    this.taskService.getMyTasks(this.token).subscribe({
+      next: (dataTasks: ITask[]) => {
+        this.tasks = dataTasks;
+      },
+      error: () => {this.errorTask = true;},
+    });
   }
 
   openDialogProgrammer(username: string): void {
@@ -95,6 +103,13 @@ export class DashboardComponent implements OnInit {
       width: '600px',
       data: { id: id }
     });
-  }
 
+    dialog.afterClosed().subscribe(
+      data => {
+        if(this.roleUser == 'Manager')
+          this.getAllTasks();
+        else
+          this.getMyTasks();
+    });
+  }
 }

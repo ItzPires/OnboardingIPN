@@ -45,8 +45,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   }
 
-  private getProject()
-  {
+  private getProject() {
     this.projectsService.getProjectByID(this.idProject).subscribe({
       next: (dataProjects: IProjectsID) => {
         this.project = dataProjects;
@@ -54,8 +53,7 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  private getTask()
-  {
+  private getTask() {
     this.taskService.getTasksByProject(this.idProject).subscribe({
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
@@ -65,17 +63,14 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
-  console.log("certo");
-    if (form.valid) {
-      this.project.state = Number(this.project.state);
-      this.projectsService.updateProject(Number(this.route.snapshot.paramMap.get('id')), this.project).subscribe(
-        {
-          error: (error) => console.log(error),
-          complete: () => this.router.navigate(['projects'])
-        }
-      );
-    }
+  onSubmit() {
+    this.project.state = Number(this.project.state);
+    this.projectsService.updateProject(Number(this.route.snapshot.paramMap.get('id')), this.project).subscribe(
+      {
+        error: (error) => console.log(error),
+        complete: () => this.router.navigate(['projects'])
+      }
+    );
   }
 
   openDialogNewTask(): void {
@@ -106,6 +101,19 @@ export class ProjectDetailsComponent implements OnInit {
     });
     dialog.afterClosed().subscribe(
       data => { if (data) { this.onDelete(id); } }
+    );
+  }
+
+  openDialogEditProject(projectName: string, id: number): void {
+    var dialog = this.dialog.open(TasksDeleteComponent, {
+      width: '250px',
+      data: {
+        taskName: projectName,
+        id: id
+      }
+    });
+    dialog.afterClosed().subscribe(
+      data => { if (data) { this.onSubmit() } }
     );
   }
 
