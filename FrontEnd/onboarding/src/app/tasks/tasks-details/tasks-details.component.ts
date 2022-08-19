@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { States } from 'src/app/project/common/states';
 import { UserService } from 'src/app/user/user.service';
 import { IComment } from '../IComment';
+import { ICommentUserString } from '../ICommentUserString';
 import { ITask } from '../ITask';
 import { TasksService } from '../tasks.service';
 
@@ -16,6 +17,12 @@ import { TasksService } from '../tasks.service';
 export class TasksDetailsComponent {
   task!: ITask;
   comments: IComment[] = [];
+  newComments: ICommentUserString = {
+    content: '',
+    date: new Date(),
+    taskId: 0,
+    WriterUserName: ''
+  };
   userRole: string | null | undefined;
   statesTask = States;
   statesTaskKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
@@ -45,6 +52,21 @@ export class TasksDetailsComponent {
         {
           error: (error) => console.log(error),
           complete: () => {this.dialogRef.close(); }
+        }
+      );
+    }
+  }
+
+  comment(form: NgForm) {
+    this.newComments.WriterUserName = this.userService.getMyUsername();
+    this.newComments.date = new Date();
+    this.newComments.taskId = this.data.id;
+
+    if (form.valid) {
+      this.taskSerive.newCommentary(this.newComments).subscribe(
+        {
+          error: (error) => console.log(error),
+          complete: () => { this.dialogRef.close(); }
         }
       );
     }

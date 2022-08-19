@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
 import {MatNativeDateModule} from '@angular/material/core';
 import { MaterialModule } from 'src/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
+
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,11 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatDialogModule,
     TranslateModule,
+    NgbPaginationModule
   ],
   exports: [
     NavbarComponent,
+    NgbPaginationModule
   ]
 })
 export class SharedModule { }

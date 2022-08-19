@@ -34,10 +34,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let project of projects; let i = index">
-                    <td *ngIf="i < 3">{{ project.name }}</td>
-                    <td *ngIf="i < 3">{{ project.budget }}€</td>
-                    <td *ngIf="i < 3">
+                  <tr *ngFor="let project of projects | slice: (pageProject - 1) * pageSize:pageProject * pageSize">
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.budget }}€</td>
+                    <td>
                       <span
                         *ngIf="project.state == 0"
                         class="badge bg-primary"
@@ -59,7 +59,7 @@
                         >{{ "states." + project.state | translate }}</span
                       >
                     </td>
-                    <td *ngIf="i < 3">
+                    <td >
                       <a [routerLink]="['/projects', project.id]"
                         ><button type="button" class="btn btn-success me-2">
                           {{ "dashboard.view" | translate }}
@@ -95,6 +95,11 @@
                   </tr>
                 </tbody>
               </table>
+              <ngb-pagination *ngIf="projects.length != 0 && errorProjects == false"
+              [(page)]="pageProject"
+              [pageSize]="pageSize"
+              [collectionSize]="projects.length"
+            ></ngb-pagination>
               <div
                 *ngIf="errorProjects == true"
                 class="alert alert-danger text-center"
@@ -135,12 +140,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let task of tasks; let i = index">
-                    <td *ngIf="i < 3">{{ task.name }}</td>
-                    <td *ngIf="i < 3">
+                  <tr *ngFor="let task of tasks | slice: (pageTask - 1) * pageSize:pageTask * pageSize">
+                    <td >{{ task.name }}</td>
+                    <td >
                       {{ task.project.name }}
                     </td>
-                    <td *ngIf="i < 3">
+                    <td >
                       <span *ngIf="task.state == 0" class="badge bg-primary">{{
                         "states." + task.state | translate
                       }}</span>
@@ -154,7 +159,7 @@
                         "states." + task.state | translate
                       }}</span>
                     </td>
-                    <td *ngIf="i < 3">
+                    <td >
                       <button
                         type="button"
                         class="btn btn-success me-2"
@@ -192,6 +197,11 @@
                   </tr>
                 </tbody>
               </table>
+              <ngb-pagination *ngIf="tasks.length != 0 && errorTask == false"
+              [(page)]="pageTask"
+              [pageSize]="pageSize"
+              [collectionSize]="tasks.length"
+            ></ngb-pagination>
               <div
                 *ngIf="errorTask == true"
                 class="alert alert-danger text-center"
@@ -218,7 +228,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let programmer of programmers">
+                  <tr *ngFor="let programmer of programmers | slice: (pageProgrammers - 1) * pageSize:pageProgrammers * pageSize">
                     <td>
                       {{ programmer.userName }}
                     </td>
@@ -250,6 +260,11 @@
                   </tr>
                 </tbody>
               </table>
+              <ngb-pagination *ngIf="programmers.length != 0 && errorProgrammers == false"
+              [(page)]="pageProgrammers"
+              [pageSize]="pageSize"
+              [collectionSize]="programmers.length"
+            ></ngb-pagination>
               <div
                 *ngIf="errorProgrammers == true"
                 class="alert alert-danger text-center"

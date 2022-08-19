@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { UserService } from "../user/user.service";
+import { IComment } from "./IComment";
+import { ICommentUserString } from "./ICommentUserString";
 import { ITask } from "./ITask";
 import { ITaskForm } from "./tasks-new/ITaskForm";
 
@@ -91,6 +93,16 @@ export class TasksService {
   public getCommentsByTask(idTask : number): Observable<any> {
     return this.http.get(
       'http://localhost:5000/api/Comment/' + idTask,
+      {
+        headers: this.header,
+      }
+    );
+  }
+
+  public newCommentary(CommentForm: ICommentUserString): Observable<any> {
+    return this.http.post(
+      'http://localhost:5000/api/Comment/Add',
+      CommentForm,
       {
         headers: this.header,
       }

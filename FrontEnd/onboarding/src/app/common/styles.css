@@ -1,3 +1,7 @@
+textarea {
+  resize: none;
+}
+
 .form-container{
   background-color: #fff;
   font-family: 'Titillium Web', sans-serif;
@@ -41,7 +45,6 @@
   color: #000;
   font-weight: 400;
   letter-spacing: 1px;
-  height: 40px;
   padding: 6px 12px;
   border-radius: 10px;
   box-shadow: none;

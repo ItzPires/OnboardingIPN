@@ -13,6 +13,7 @@ import { ProjectDetailsGuard } from './project/project-details/project-details.g
 import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   {
@@ -48,7 +49,7 @@ const routes: Routes = [
   {
     path: '**',
     canActivate: [UserGuard],
-    component: WelcomeComponent
+    component: ErrorComponent
   }
 ];
 

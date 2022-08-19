@@ -58,7 +58,10 @@
     "deleteProjectMsg": "Pretende eliminar o projeto: {{projectName}}?",
     "yes": "Sim",
     "no": "Não",
-    "calendar": "Calendário"
+    "calendar": "Calendário",
+    "commentarys": "Comentários",
+    "comment": "Comentar",
+    "newCommentary": "Novo comentário"
   },
   "states": {
     "0": "Por começar",

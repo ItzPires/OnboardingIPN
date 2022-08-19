@@ -61,30 +61,32 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> AddProject([FromBody] ProjectForm model)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
+                try
+                {
 
-                if (model == null) return BadRequest("Project object is null");
+                    if (model == null) return BadRequest("Project object is null");
 
-                string username = User.Identity.Name;
-                var user = _context.Users.SingleOrDefault(x => x.UserName == username);
-                if (user == null) return BadRequest("Is null");
+                    string username = User.Identity.Name;
+                    var user = _context.Users.SingleOrDefault(x => x.UserName == username);
+                    if (user == null) return BadRequest("Is null");
 
-                var project = _mapper.Map<Project>(model);
-                project.Manager = user;
+                    var project = _mapper.Map<Project>(model);
+                    project.Manager = user;
 
-                _context.Add(project);
-                _context.SaveChanges();
+                    _context.Add(project);
+                    _context.SaveChanges();
 
-                _context.Database.CommitTransaction();
+                    transaction.Commit();
 
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.ToString());
+                }
             }
         }
 
@@ -92,31 +94,32 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> DeleteProject(int id)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
-
-                var deleteProject = _context.Projects.Find(id);
-
-                if (deleteProject == null)
+                try
                 {
-                    _context.Database.CommitTransaction();
-                    return NotFound("Project Dont Exist");
+                    var deleteProject = _context.Projects.Find(id);
+
+                    if (deleteProject == null)
+                    {
+                        transaction.Rollback();
+                        return NotFound("Project Dont Exist");
+                    }
+
+                    deleteProject.isDeleted = true;
+
+                    _context.Projects.Update(deleteProject);
+                    _context.SaveChanges();
+
+                    transaction.Commit();
+
+                    return Ok();
                 }
-
-                deleteProject.isDeleted = true;
-
-                _context.Projects.Update(deleteProject);
-                _context.SaveChanges();
-
-                _context.Database.CommitTransaction();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.ToString());
+                }
             }
         }
 
@@ -139,33 +142,34 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> UpdateProject([FromBody] ProjectForm model, int id)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
+                try
+                {
+                    //verificacoes
+                    if (model == null) return BadRequest("Is null");
 
-                //verificacoes
-                if (model == null) return BadRequest("Is null");
+                    var oldTask = _context.Projects.Where(x => x.isDeleted == false).SingleOrDefault(x => x.Id == id);
+                    if (oldTask == null) return BadRequest("Is null");
 
-                var oldTask = _context.Projects.Where(x => x.isDeleted == false).SingleOrDefault(x => x.Id == id);
-                if (oldTask == null) return BadRequest("Is null");
+                    var newTask = _mapper.Map<Project>(model);
 
-                var newTask = _mapper.Map<Project>(model);
+                    oldTask.Name = newTask.Name;
+                    oldTask.Budget = newTask.Budget;
+                    oldTask.State = newTask.State;
 
-                oldTask.Name = newTask.Name;
-                oldTask.Budget = newTask.Budget;
-                oldTask.State = newTask.State;
+                    _context.Projects.Update(oldTask);
+                    _context.SaveChanges();
 
-                _context.Projects.Update(oldTask);
-                _context.SaveChanges();
+                    transaction.Commit();
 
-                _context.Database.CommitTransaction();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.ToString());
+                }
             }
         }
 
@@ -175,5 +179,27 @@ namespace API.Controllers
         {
             return _context.Projects.ToList().Count;
         }
+
+        /*
+        [HttpGet("ProgessProjects")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        public int GetProgessProjects()
+        {
+            var projects = _context.Projects.ToList();
+
+            for(int i = 0; i < projects.Count; i++)
+            {
+                var total = _context.Tasks.Where(x => x.ProjectId == projects[i].Id).Count();
+                var totalDone = _context.Tasks.Where(x => x.ProjectId == projects[i].Id && x.State == States.Done).Count();
+
+                int progess = totalDone * 100 / total;
+
+                var aa =
+                {
+                    "project": projects[i].Id,
+                    "progess": progess
+                };
+            }
+        }*/
     }
 }

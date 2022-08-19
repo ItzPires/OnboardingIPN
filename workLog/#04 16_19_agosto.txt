@@ -1,0 +1,18 @@
+16/08/2022
+Adição do README com os dados de instalação e de utilização da app
+Adição de alguns modals que faltavam
+Retoques no HTML no geral
+
+17/08/2022
+No FrontEnd, pretendia tornar os projects, tasks e assim em models mas dava erro
+
+18/08/2022
+Corrigi os erros de tornar as coisas em models
+Novo Routing
+Caça aos bugs
+Adição de Comentários as tasks
+
+19/08/2022
+Conclui a adição dos Comentários as tasks
+Refatorar Código - BackEnd e FrontEnd
+Caça aos bugs

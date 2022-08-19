@@ -69,33 +69,45 @@ namespace API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterForm model)
         {
-            var userExists = await _userManager.FindByEmailAsync(model.Email);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status406NotAcceptable, new Response { Status = "Error", Message = "User already exists!" });
-
-            User newUser = new()
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                Email = model.Email,
-                UserName = model.Username
-            };
+                try
+                {
+                    var userExists = await _userManager.FindByEmailAsync(model.Email);
+                    if (userExists != null)
+                        return StatusCode(StatusCodes.Status406NotAcceptable, new Response { Status = "Error", Message = "User already exists!" });
 
-            var result = await _userManager.CreateAsync(newUser, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = result.Errors.ToString() });
-            
-            if (!await _roleManager.RoleExistsAsync(Roles.Manager))
-                await _roleManager.CreateAsync(new IdentityRole(Roles.Manager));
-            if (!await _roleManager.RoleExistsAsync(Roles.Programmer))
-                await _roleManager.CreateAsync(new IdentityRole(Roles.Programmer));
+                    User newUser = new()
+                    {
+                        Email = model.Email,
+                        UserName = model.Username
+                    };
 
-            if (model.isManager)
-                await _userManager.AddToRoleAsync(newUser, Roles.Manager);
-            else
-                await _userManager.AddToRoleAsync(newUser, Roles.Programmer);
+                    var result = await _userManager.CreateAsync(newUser, model.Password);
+                    if (!result.Succeeded)
+                        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = result.Errors.ToString() });
 
-            _context.Add(newUser);
+                    if (!await _roleManager.RoleExistsAsync(Roles.Manager))
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Manager));
+                    if (!await _roleManager.RoleExistsAsync(Roles.Programmer))
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Programmer));
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+                    if (model.isManager)
+                        await _userManager.AddToRoleAsync(newUser, Roles.Manager);
+                    else
+                        await _userManager.AddToRoleAsync(newUser, Roles.Programmer);
+
+                    _context.Add(newUser);
+                    transaction.Commit();
+
+                    return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.ToString());
+                }
+            }
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

@@ -33,7 +33,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let task of tasks">
+                <tr *ngFor="let task of tasks | slice: (page - 1) * pageSize:page * pageSize">
                   <td>{{ task.name }}</td>
                   <td>
                     {{ task.project.name }}
@@ -60,6 +60,11 @@
                 </tr>
               </tbody>
             </table>
+            <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="tasks.length"
+          ></ngb-pagination>
           </div>
         </div>
       </div>

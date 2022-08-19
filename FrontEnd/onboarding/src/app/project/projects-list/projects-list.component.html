@@ -43,7 +43,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let project of projects">
+                  <tr *ngFor="let project of projects | slice: (page - 1) * pageSize:page * pageSize">
                     <td>
                         {{ project.name }}
                     </td>
@@ -83,6 +83,11 @@
                   </tr>
                 </tbody>
               </table>
+              <ngb-pagination
+              [(page)]="page"
+              [pageSize]="pageSize"
+              [collectionSize]="projects.length"
+            ></ngb-pagination>
               <div *ngIf="errorProjects == true" class="alert alert-danger text-center" role="alert">
                 Error Server
               </div>

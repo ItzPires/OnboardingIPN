@@ -49,7 +49,6 @@ export class TasksNewComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.newTask);
       this.newTask.state = 0;
       this.taskService.newTask(this.newTask).subscribe(
         {

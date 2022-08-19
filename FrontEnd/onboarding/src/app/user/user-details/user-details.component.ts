@@ -17,6 +17,8 @@ export class UserDetailsComponent {
   userRole!: string | null;
   userInfo!: IUsers;
   tasks: ITask[] = [];
+  page = 1;
+  pageSize = 5;
 
   constructor(public dialogRef: MatDialogRef<UserDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService, public dialog: MatDialog)
   {

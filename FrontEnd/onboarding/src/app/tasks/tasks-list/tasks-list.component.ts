@@ -18,6 +18,8 @@ export class TasksListComponent implements OnInit {
   errorTask: boolean = false;
   originalTasks: ITask[] = [];
   searchString: string = '';
+  page = 1;
+  pageSize = 5;
 
   constructor(private taskService: TasksService, private userService: UserService, public dialog: MatDialog) { }
 

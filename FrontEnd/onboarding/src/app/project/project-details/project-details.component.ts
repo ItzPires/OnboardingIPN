@@ -27,9 +27,8 @@ export class ProjectDetailsComponent implements OnInit {
   tasks: ITask[] = [];
   originalTasks: ITask[] = [];
   totalTasks!: number;
-  page: number = 1;
-  numberPages!: number;
-  tasksPerPage!: number;
+  page = 1;
+  pageSize = 10;
   searchString: string = '';
 
   constructor(private projectsService: ProjectsService, private userService: UserService, private taskService: TasksService, private route: ActivatedRoute, private router: Router, public dialog: MatDialog) { }
@@ -63,7 +62,7 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
     this.project.state = Number(this.project.state);
     this.projectsService.updateProject(Number(this.route.snapshot.paramMap.get('id')), this.project).subscribe(
       {
@@ -90,7 +89,6 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-
   openDialogDeleteTask(taskName: string, id: number): void {
     var dialog = this.dialog.open(TasksDeleteComponent, {
       width: '250px',
@@ -104,30 +102,14 @@ export class ProjectDetailsComponent implements OnInit {
     );
   }
 
-  openDialogEditProject(projectName: string, id: number): void {
-    var dialog = this.dialog.open(TasksDeleteComponent, {
-      width: '250px',
-      data: {
-        taskName: projectName,
-        id: id
-      }
-    });
-    dialog.afterClosed().subscribe(
-      data => { if (data) { this.onSubmit() } }
-    );
-  }
-
   openDialogTask(id: number): void {
     var dialog = this.dialog.open(TasksDetailsComponent, {
+      width: '600px',
       data: { id: id }
     });
     dialog.afterClosed().subscribe(
       data => { this.getTask(); }
     );
-  }
-
-  counter(i: number) {
-    return new Array(i);
   }
 
   onSearch(search: string): void {

@@ -1,8 +1,9 @@
 import { IUsers } from "../dashboard/IUsers";
 
-export interface  IComment{
+export interface  ICommentUserString{
   content: string;
   date: Date;
-  writer: IUsers;
+  taskId: number;
+  WriterUserName: string;
 }
 

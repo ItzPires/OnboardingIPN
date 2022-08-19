@@ -28,6 +28,10 @@ export class DashboardComponent implements OnInit {
   errorProjects: boolean = false;
   errorProgrammers: boolean = false;
   errorTask: boolean = false;
+  pageProject = 1;
+  pageTask = 1;
+  pageProgrammers = 1;
+  pageSize = 3;
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService,  public dialog: MatDialog) { }
 
@@ -36,7 +40,6 @@ export class DashboardComponent implements OnInit {
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser === 'Manager') {
-      while(this.token === undefined || this.token === null) {} //garanti que o token esteja definido - n muito correcto
 
       this.projectsService.getProjects().subscribe({
         next: (dataProjects: IProjectsID[]) => {

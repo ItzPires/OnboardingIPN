@@ -13,6 +13,8 @@ namespace API.Models
         [Required]
         public Task Task { get; set; }
         [Required]
+        public DateTime Date { get; set; }
+        [Required]
         public bool isDeleted { get; set; }
     }
 }

@@ -20,6 +20,8 @@ export class ProjectsListComponent implements OnInit {
   originalProjects: IProjectsID[] = [];
   errorProjects: boolean = false;
   searchString: string = '';
+  page = 1;
+  pageSize = 5;
 
   constructor(public projectsService: ProjectsService, private userService: UserService, public router: Router, public dialog: MatDialog) { }
 
@@ -43,13 +45,6 @@ export class ProjectsListComponent implements OnInit {
       }
     });
   }
-
-  /*
-  clickMethod(name: string) {
-    if(confirm("Are you sure to delete "+name)) {
-      console.log("Implement delete functionality here");
-    }
-  }*/
 
   openDialog(projectName: string, id: number): void {
     var dialog = this.dialog.open(ProjectDeleteComponent, {

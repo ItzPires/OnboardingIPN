@@ -93,7 +93,7 @@ namespace API.Controllers
 
         [HttpGet("{id}")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<IActionResult> GetTAskById(int id)
+        public async Task<IActionResult> GetTaskById(int id)
         {
             try
             {
@@ -110,36 +110,37 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> AddTask([FromBody] TaskForm model)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
+                try
+                {
+                    if (model == null) return BadRequest("Is null");
 
-                if (model == null) return BadRequest("Is null");
+                    var newTask = _mapper.Map<Task>(model);
 
-                var newTask = _mapper.Map<Task>(model);
+                    var project = _context.Projects.Find(model.IdProject);
+                    var programmer = _context.Users.FirstOrDefault(x => x.UserName == model.UsernameProgrammer);
 
-                var project = _context.Projects.Find(model.IdProject);
-                var programmer = _context.Users.SingleOrDefault(x => x.UserName == model.UsernameProgrammer);
+                    if (project == null) return BadRequest("A Is null");
+                    if (programmer == null) return BadRequest("B Is null");
 
-                if (project == null) return BadRequest("A Is null");
-                if (programmer == null) return BadRequest("B Is null");
+                    newTask.Project = project;
+                    newTask.Programmer = programmer;
+                    //newTask.ProgrammerUserName = model.UsernameProgrammer;
 
-                newTask.Project = project;
-                newTask.Programmer = programmer;
-                //newTask.ProgrammerUserName = model.UsernameProgrammer;
+                    //todo - ver se ficou ou não
+                    _context.Add(newTask);
+                    _context.SaveChanges();
 
-                //todo - ver se ficou ou não
-                _context.Add(newTask);
-                _context.SaveChanges();
+                    _context.Database.CommitTransaction();
 
-                _context.Database.CommitTransaction();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest("BackEnd: " + ex.Message);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest("BackEnd: " + ex.Message);
+                }
             }
         }
 
@@ -147,33 +148,34 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> UpdateTasks([FromBody] TaskFormUpdate model, int id)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
+                try
+                {
+                    //verificacoes
+                    if (model == null) return BadRequest("Is null");
 
-                //verificacoes
-                if (model == null) return BadRequest("Is null");
+                    var oldTask = _context.Tasks.Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).SingleOrDefault(x => x.Id == id);
+                    if (oldTask == null) return BadRequest("Is null");
 
-                var oldTask = _context.Tasks.Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).SingleOrDefault(x => x.Id == id);
-                if (oldTask == null) return BadRequest("Is null");
+                    var newTask = _mapper.Map<Task>(model);
 
-                var newTask = _mapper.Map<Task>(model);
+                    oldTask.Name = newTask.Name;
+                    oldTask.Deadline = newTask.Deadline;
+                    oldTask.State = newTask.State;
 
-                oldTask.Name = newTask.Name;
-                oldTask.Deadline = newTask.Deadline;
-                oldTask.State = newTask.State;
+                    _context.Tasks.Update(oldTask);
+                    _context.SaveChanges();
 
-                _context.Tasks.Update(oldTask);
-                _context.SaveChanges();
+                    _context.Database.CommitTransaction();
 
-                _context.Database.CommitTransaction();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest("BackEnd: " + ex.Message);
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest("BackEnd: " + ex.Message);
+                }
             }
         }
 
@@ -181,31 +183,32 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Database.BeginTransaction();
-
-                var deleteTask = _context.Tasks.Find(id);
-
-                if (deleteTask == null)
+                try
                 {
+                    var deleteTask = _context.Tasks.Find(id);
+
+                    if (deleteTask == null)
+                    {
+                        _context.Database.CommitTransaction();
+                        return NotFound("Project Dont Exist");
+                    }
+
+                    deleteTask.isDeleted = true;
+
+                    _context.Tasks.Update(deleteTask);
+                    _context.SaveChanges();
+
                     _context.Database.CommitTransaction();
-                    return NotFound("Project Dont Exist");
+
+                    return Ok();
                 }
-
-                deleteTask.isDeleted = true;
-
-                _context.Tasks.Update(deleteTask);
-                _context.SaveChanges();
-
-                _context.Database.CommitTransaction();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _context.Database.RollbackTransaction();
-                return BadRequest(ex.ToString());
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return BadRequest(ex.ToString());
+                }
             }
         }
 

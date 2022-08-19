@@ -12,6 +12,7 @@
           <form
             class="form-horizontal"
             #form="ngForm"
+            (ngSubmit)="onSubmit(form)"
           >
             <div class="form-group">
               <label>{{ "project.name" | translate }}</label>
@@ -62,8 +63,7 @@
               </div>
             </div>
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-primary"
-              (click)="openDialogEditProject(project.name, project.id)">
+              <button class="btn btn-primary">
                 {{ "dashboard.edit" | translate }}
               </button>
             </div>
@@ -101,7 +101,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let task of tasks">
+                <tr *ngFor="let task of tasks | slice: (page - 1) * pageSize:page * pageSize">
                   <td>
                     {{ task.name }}
                   </td>
@@ -141,31 +141,16 @@
                   </td>
                 </tr>
               </tbody>
-              <!--
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              -->
             </table>
+            <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [collectionSize]="tasks.length"
+          ></ngb-pagination>
           </div>
           <div class="d-flex flex-row-reverse">
             <button
               class="btn btn-primary add-new"
-              (click)="openDialogNewTask()"
             >
               {{ "dashboard.addNew" | translate }}
             </button>

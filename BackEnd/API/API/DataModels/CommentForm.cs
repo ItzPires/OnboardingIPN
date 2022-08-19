@@ -8,6 +8,8 @@ namespace API.DataModels
         [Required]
         public string? Content { get; set; }
         [Required]
+        public DateTime Date { get; set; }
+        [Required]
         public string WriterUserName { get; set; }
         [Required]
         public int TaskId { get; set; }
