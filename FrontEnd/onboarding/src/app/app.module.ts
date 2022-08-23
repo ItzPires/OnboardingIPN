@@ -20,6 +20,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { UserModule } from './user/user.module';
 import { ErrorComponent } from './error/error.component';
 import { AboutComponent } from './welcome/about/about.component';
+import { PricesComponent } from './welcome/prices/prices.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AboutComponent } from './welcome/about/about.component';
     WelcomeComponent,
     DashboardComponent,
     AboutComponent,
+    PricesComponent,
     ErrorComponent
   ],
   imports: [

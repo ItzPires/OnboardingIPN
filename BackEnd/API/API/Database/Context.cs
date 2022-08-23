@@ -1,7 +1,7 @@
-﻿using API.Models;
+﻿using API.Models.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Task = API.Models.Task;
+using Task = API.Models.Models.Task;
 
 namespace API.Database
 {

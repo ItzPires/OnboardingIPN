@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Types;
-using API.DataModels;
-using Task = API.Models.Task;
+using Task = API.Models.Models.Task;
 using Microsoft.AspNetCore.Identity;
-using API.Models;
+using API.Models.Dto;
+using API.Models.Models;
 
 namespace API.Controllers
 {
@@ -36,7 +36,7 @@ namespace API.Controllers
         {
             try
             {
-                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false).Where(x => x.Project.isDeleted == false).OrderBy(x => x.Project).ToList();
+                var tasks = _context.Tasks.Include(t => t.Programmer).Include(t => t.Project).Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.Project.Manager.UserName == User.Identity.Name).OrderBy(x => x.Project).ToList();
                 return Ok(_mapper.Map<TaskDto[]>(tasks));
             }
             catch (Exception ex)
@@ -239,7 +239,7 @@ namespace API.Controllers
             try
             {
 
-                return Ok(_context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false).OrderBy(x => x.Deadline));
+                return Ok(_context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.Project.Manager.UserName == User.Identity.Name).OrderBy(x => x.Deadline));
 
             }
             catch (Exception ex)

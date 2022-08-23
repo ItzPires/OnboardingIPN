@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
           error: (error) => {
             this.errorLogin = true;
             this.loading = false;
-            if(error.status === 0) this.errorMsg = "Server is not available";
-            else if (error.status === 401) this.errorMsg = "Invalid username or password";
-            else this.errorMsg = "Login Error";
+            if(error.status === 0) this.errorMsg = "serverDown";
+            else if (error.status === 401) this.errorMsg = "invalideUsername";
+            else this.errorMsg = "error";
           },
           complete: () => {
             this.loading = false;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.DataModels
+namespace API.Models.Dto
 {
     public class RegisterForm
     {

@@ -15,6 +15,7 @@ import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
 import { ErrorComponent } from './error/error.component';
 import { AboutComponent } from './welcome/about/about.component';
+import { PricesComponent } from './welcome/prices/prices.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
     path: 'about',
     canActivate: [UserGuard],
     component: AboutComponent
+  },
+  {
+    path: 'prices',
+    canActivate: [UserGuard],
+    component: PricesComponent
   },
   {
     path: '',

@@ -38,12 +38,7 @@
                     <td>{{ project.name }}</td>
                     <td>{{ project.budget }}€</td>
                     <td>
-                      <span [ngClass]="{
-                        'badge bg-primary': project.state === 0,
-                        'badge bg-warning': project.state === 1,
-                        'badge badge bg-success': project.state === 2,
-                        'badge bg-danger': project.state === 3
-                        }">{{ "states." + project.state | translate }}
+                      <span [ngClass]="badges[project.state]">{{ "states." + project.state | translate }}
                       </span>
                     </td>
                     <td >
@@ -54,7 +49,7 @@
                       >
                     </td>
                   </tr>
-                  <tr *ngIf="projects.length == 0 && errorProjects == false">
+                  <tr *ngIf="projects.length == 0 && errorProgrammers.error == false  && errorProgrammers.done == false">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
@@ -82,17 +77,17 @@
                   </tr>
                 </tbody>
               </table>
-              <ngb-pagination *ngIf="projects.length != 0 && errorProjects == false"
+              <ngb-pagination *ngIf="projects.length != 0 && errorProjects.error == false && errorProjects.done == true">
               [(page)]="pageProject"
               [pageSize]="pageSize"
               [collectionSize]="projects.length"
             ></ngb-pagination>
               <div
-                *ngIf="errorProjects == true"
+                *ngIf="errorProjects.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
-                Error Server
+              {{ "error.serverDown" | translate }}
               </div>
             </div>
           </form>
@@ -133,12 +128,7 @@
                       {{ task.project.name }}
                     </td>
                     <td >
-                      <span class="badge bg-default" [ngClass]="{
-                        'bg-primary': task.state === 0,
-                        'bg-warning': task.state === 1,
-                        'badge bg-success': task.state === 2,
-                        'bg-danger': task.state === 3
-                        }">{{ "states." + task.state | translate }}
+                      <span [ngClass]="badges[task.state]">{{"states." + task.state | translate }}
                       </span>
                     </td>
                     <td >
@@ -151,7 +141,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0 && errorTask == false">
+                  <tr *ngIf="tasks.length == 0 && errorTask.error == false  && errorTask.done == false">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
@@ -179,17 +169,17 @@
                   </tr>
                 </tbody>
               </table>
-              <ngb-pagination *ngIf="tasks.length != 0 && errorTask == false"
+              <ngb-pagination *ngIf="tasks.length != 0 && errorTask.error == false  && errorTask.done == true"
               [(page)]="pageTask"
               [pageSize]="pageSize"
               [collectionSize]="tasks.length"
             ></ngb-pagination>
               <div
-                *ngIf="errorTask == true"
+                *ngIf="errorTask.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
-                Error Server
+              {{ "error.serverDown" | translate }}
               </div>
             </div>
           </form>
@@ -197,7 +187,7 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-      <div class="col-md-5 mt-4 mb-5">
+      <div class="col-md-3 mt-4 mb-5">
         <div class="form-container">
           <h3 class="title">{{ "users.programmers" | translate }}</h3>
           <form class="form-horizontal" #form="ngForm">
@@ -225,7 +215,7 @@
                     </td>
                   </tr>
                   <tr
-                    *ngIf="programmers.length == 0 && errorProgrammers == false"
+                    *ngIf="programmers.length == 0 && errorProgrammers.error == false && errorProgrammers.done == false"
                   >
                     <td>
                       <span
@@ -242,30 +232,29 @@
                   </tr>
                 </tbody>
               </table>
-              <ngb-pagination *ngIf="programmers.length != 0 && errorProgrammers == false"
+              <ngb-pagination *ngIf="programmers.length != 0 && errorProgrammers.error == false && errorProgrammers.done == true"
               [(page)]="pageProgrammers"
               [pageSize]="pageSize"
               [collectionSize]="programmers.length"
             ></ngb-pagination>
               <div
-                *ngIf="errorProgrammers == true"
+                *ngIf="errorProgrammers.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
-                Error Server
+              {{ "error.serverDown" | translate }}
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div class="col-md-3 mt-4 mb-4">
+      <div class="col-md-5 mt-4 mb-4">
         <div class="form-container">
           <h3 class="title">{{ "dashboard.calendar" | translate }}</h3>
-          <mat-calendar></mat-calendar>
-          <!--
+          <!--<mat-calendar></mat-calendar>-->
           <form class="form-horizontal" #form="ngForm">
             <div class="form-group">
-              <div *ngFor="let task of calendar">
+              <div *ngFor="let task of calendar| slice: 0:pageSize">
                 <div class="form-group">
                   <a (click)="openDialogTask(task.id)">
                   <span class="form-control">
@@ -285,15 +274,14 @@
                 </div>
               </div>
               <div
-                *ngIf="errorTask == true"
+                *ngIf="errorTask.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
-                Error Server
+              {{ "error.serverDown" | translate }}
               </div>
             </div>
           </form>
-          -->
         </div>
       </div>
       <div class="col-md-4 mt-4">
@@ -360,12 +348,7 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                      <span class="badge bg-default" [ngClass]="{
-                        'bg-primary': task.state === 0,
-                        'bg-warning': task.state === 1,
-                        'badge bg-success': task.state === 2,
-                        'bg-danger': task.state === 3
-                        }">{{ "states." + task.state | translate }}
+                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>
@@ -378,7 +361,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="tasks.length == 0 && errorTask == false">
+                  <tr *ngIf="tasks.length == 0 && errorTask.error == false && errorTask.done == false">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
@@ -407,11 +390,11 @@
                 </tbody>
               </table>
               <div
-                *ngIf="errorTask == true"
+                *ngIf="errorTask.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
-                Error Server
+              {{ "error.serverDown" | translate }}
               </div>
             </div>
           </form>

@@ -1,7 +1,7 @@
 ﻿using API.Types;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Models
+namespace API.Models.Models
 {
     public class Project
     {

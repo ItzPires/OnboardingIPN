@@ -7,6 +7,7 @@ import { IProjectsID } from './IProjectsID';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectNewComponent } from '../project-new/project-new.component';
 import { ProjectDeleteComponent } from '../project-delete/project-delete.component';
+import { IResponse } from 'src/app/common/Iresponse';
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -18,7 +19,10 @@ export class ProjectsListComponent implements OnInit {
   states = States;
   projects: IProjectsID[] = [];
   originalProjects: IProjectsID[] = [];
-  errorProjects: boolean = false;
+  errorProjects: IResponse = {
+    error: false,
+    done: false
+  }
   searchString: string = '';
   page = 1;
   pageSize = 5;
@@ -34,7 +38,8 @@ export class ProjectsListComponent implements OnInit {
         this.projects = dataProjects;
         this.originalProjects = dataProjects;
       },
-      error: () => { this.errorProjects = true; },
+      error: () => { this.errorProjects.error = true; },
+      complete: () => { this.errorProjects.done = true; }
     });
   }
 
@@ -69,7 +74,8 @@ export class ProjectsListComponent implements OnInit {
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
         },
-        error: () => { this.errorProjects = true; },
+        error: () => { this.errorProjects.error = true; },
+        complete: () => { this.errorProjects.done = true; }
       });
     })
   }

@@ -1,6 +1,6 @@
 ﻿using API.Models;
 
-namespace API.DataModels
+namespace API.Models.Dto
 {
     public class ProjectDto
     {

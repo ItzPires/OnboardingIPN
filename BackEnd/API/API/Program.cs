@@ -1,5 +1,5 @@
 using API.Database;
-using API.Models;
+using API.Models.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

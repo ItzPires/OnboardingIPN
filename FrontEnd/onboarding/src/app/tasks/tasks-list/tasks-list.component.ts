@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IResponse } from 'src/app/common/Iresponse';
 import { Roles } from 'src/app/user/Roles';
 import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
@@ -16,12 +17,17 @@ import { TasksService } from '../tasks.service';
 export class TasksListComponent implements OnInit {
   tasks: ITask[] = [];
   roleUser = '';
-  errorTask: boolean = false;
+  errorTask: IResponse = {
+    error: false,
+    done: false,
+  }
   originalTasks: ITask[] = [];
   searchString: string = '';
   page = 1;
   pageSize = 5;
   Roles = Roles
+
+  badges = ["badge bg-primary", "badge bg-warning", "badge bg-success", "badge bg-danger"];
 
   constructor(private taskService: TasksService, private userService: UserService, public dialog: MatDialog) { }
 
@@ -44,7 +50,8 @@ export class TasksListComponent implements OnInit {
         this.tasks = dataTasks;
         this.originalTasks = this.tasks;
       },
-      error: () => {this.errorTask = true;},
+      error: () => {this.errorTask.error = true;},
+      complete: () => {this.errorTask.done = true;}
     });
   }
 
@@ -54,7 +61,8 @@ export class TasksListComponent implements OnInit {
         this.tasks = dataTasks;
         this.originalTasks = this.tasks;
       },
-      error: () => {this.errorTask = true;},
+      error: () => {this.errorTask.error = true;},
+      complete: () => {this.errorTask.done = true;}
     });
   }
 
@@ -65,7 +73,6 @@ export class TasksListComponent implements OnInit {
       }
     });
   }
-
 
   openDialog(taskName: string, id: number): void {
     var dialog = this.dialog.open(TasksDeleteComponent, {
@@ -105,7 +112,8 @@ export class TasksListComponent implements OnInit {
         next: (dataProjects: ITask[]) => {
           this.tasks = dataProjects;
         },
-        error: () => { this.errorTask = true; },
+        error: () => { this.errorTask.error = true; },
+        complete: () => { this.errorTask.done = true; }
       });
     })
   }

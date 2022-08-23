@@ -22,6 +22,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Nome do Projecto"
+                [(ngModel)]="project.name"
                 [value]="project.name"
                 [(ngModel)]="project.name"
               />
@@ -110,11 +111,11 @@
                   </td>
                   <td>{{ task.programmer.userName }}</td>
                   <td>
-                    <span class="badge bg-default" [ngClass]="{
-                      'bg-primary': task.state === 0,
-                      'bg-warning': task.state === 1,
-                      'badge bg-success': task.state === 2,
-                      'bg-danger': task.state === 3
+                    <span [ngClass]="{
+                      'badge badge bg-primary': task.state === 0,
+                      'badge badge bg-warning': task.state === 1,
+                      'badge badge bg-success': task.state === 2,
+                      'badge badge bg-danger': task.state === 3
                       }">{{ "states." + task.state | translate }}
                     </span>
                   </td>

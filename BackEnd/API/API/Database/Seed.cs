@@ -1,8 +1,7 @@
-﻿using API.DataModels;
-using API.Models;
+﻿using API.Models.Models;
 using API.Types;
 using Microsoft.AspNetCore.Identity;
-using Task = API.Models.Task;
+using Task = API.Models.Models.Task;
 
 namespace API.Database
 {

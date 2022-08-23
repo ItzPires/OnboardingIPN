@@ -59,12 +59,7 @@
                     </td>
                     <td>{{ task.programmer.userName }}</td>
                     <td>
-                      <span class="badge bg-default" [ngClass]="{
-                        'bg-primary': task.state === 0,
-                        'bg-warning': task.state === 1,
-                        'badge bg-success': task.state === 2,
-                        'bg-danger': task.state === 3
-                        }">{{ "states." + task.state | translate }}
+                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>
@@ -85,7 +80,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="originalTasks.length == 0 && errorTask == false">
+                  <tr *ngIf="originalTasks.length == 0 && errorTask.error == false && errorTask.done == false ">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
@@ -125,7 +120,7 @@
               [collectionSize]="tasks.length"
             ></ngb-pagination>
               <div
-                *ngIf="errorTask == true"
+                *ngIf="errorTask.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >
@@ -179,12 +174,7 @@
                       {{ task.project.name }}
                     </td>
                     <td>
-                      <span class="badge bg-default" [ngClass]="{
-                        'bg-primary': task.state === 0,
-                        'bg-warning': task.state === 1,
-                        'badge bg-success': task.state === 2,
-                        'bg-danger': task.state === 3
-                        }">{{ "states." + task.state | translate }}
+                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>
@@ -196,7 +186,7 @@
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="originalTasks.length == 0 && errorTask == false">
+                  <tr *ngIf="originalTasks.length == 0 && errorTask.error == false && errorTask.done == false">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
@@ -231,7 +221,7 @@
                 </tbody>
               </table>
               <div
-                *ngIf="errorTask == true"
+                *ngIf="errorTask.error == true"
                 class="alert alert-danger text-center"
                 role="alert"
               >

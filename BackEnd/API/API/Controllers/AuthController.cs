@@ -1,6 +1,6 @@
 ﻿using API.Database;
-using API.DataModels;
-using API.Models;
+using API.Models.Dto;
+using API.Models.Models;
 using API.Types;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

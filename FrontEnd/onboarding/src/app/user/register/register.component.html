@@ -99,8 +99,8 @@
                 }"
               />
               <span class="invalid-feedback">
-                <span *ngIf="passwordVerify.errors">
-                  {{ "register.passwordIsRequired" | translate }}
+                <span *ngIf="passwordVerify.errors || form.value.passwordVerify != form.value.password">
+                  {{ "register.passwordsDoNotMatch" | translate }}
                 </span>
               </span>
             </div>

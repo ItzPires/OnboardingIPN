@@ -1,6 +1,6 @@
 ﻿using API.Types;
 
-namespace API.DataModels
+namespace API.Models.Dto
 {
     public class TaskDto
     {

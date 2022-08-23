@@ -37,7 +37,8 @@
     "createAccount": "Create Account",
     "usernameIsRequired": "Username is required",
     "passwordIsRequired": "Password is required",
-    "emailIsRequired": "Email is required"
+    "emailIsRequired": "Email is required",
+    "passwordsDoNotMatch": "Passwords do not match"
   },
   "dashboard": {
     "projects": "Projects",
@@ -95,5 +96,24 @@
     "email": "Email",
     "role": "Role",
     "options": "Options"
+  },
+  "about": {
+    "about": "About",
+    "p1": " is a web platform that allows the management of projects and tasks associated with them, as well as assigning the tasks to a particular person. Platform users can be of one of two types:",
+    "p2": "Project managers have the ability to manage projects and tasks (create, list, view details, edit, and delete).",
+    "p3": "Developers have the ability to list the tasks associated with them, as well as to mark them as finished.",
+    "p4": "Each project has a name, an associate manager, and a budget. Each task has a name, a parent (a programmer), a deadline to be completed, a state, and a project to which it is associated."
+  },
+  "price": {
+    "free": "Free",
+    "price": "999€",
+    "forYou": "For You",
+    "forYourCompany": "For Your Company",
+    "prices": "Prices"
+  },
+  "error": {
+    "serverDown": "Server is down! Please try again later.",
+    "invalideUsername": "Invalid username or password",
+    "error": "Error"
   }
 }

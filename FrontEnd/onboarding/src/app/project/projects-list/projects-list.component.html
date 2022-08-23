@@ -10,13 +10,22 @@
               <h3 class="title">{{ "dashboard.projects" | translate }}</h3>
             </div>
             <div class="col-3">
-              <input class="form-control" name="search" type="text"
-                class="form-control" placeholder="Search"
-                [(ngModel)]="searchString" (keyup)="onSearch(searchString)" />
+              <input
+                class="form-control"
+                name="search"
+                type="text"
+                class="form-control"
+                placeholder="Search"
+                [(ngModel)]="searchString"
+                (keyup)="onSearch(searchString)"
+              />
             </div>
             <div class="col-2">
-              <button type="button" class="btn btn-primary"
-                (click)="newProject()">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="newProject()"
+              >
                 {{ "dashboard.addNew" | translate }}
               </button>
             </div>
@@ -34,61 +43,95 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="
-                    let project of projects
-                    | slice: (page - 1) * pageSize:page * pageSize
-                    ">
+                  <tr
+                    *ngFor="
+                      let project of projects
+                        | slice: (page - 1) * pageSize:page * pageSize
+                    "
+                  >
                     <td>
                       {{ project.name }}
                     </td>
                     <td>{{ project.budget }}€</td>
                     <td>
-                      <span class="badge bg-default" [ngClass]="{
-                        'bg-primary': project.state === 0,
-                        'bg-warning': project.state === 1,
-                        'badge bg-success': project.state === 2,
-                        'bg-danger': project.state === 3
-                        }">{{ "states." + project.state | translate }}
+                      <span
+                        class="badge bg-default"
+                        [ngClass]="{
+                          'bg-primary': project.state === 0,
+                          'bg-warning': project.state === 1,
+                          'badge bg-success': project.state === 2,
+                          'bg-danger': project.state === 3
+                        }"
+                        >{{ "states." + project.state | translate }}
                       </span>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', project.id]"><button
-                          type="button" class="btn btn-success me-2">
+                      <a [routerLink]="['/projects', project.id]"
+                        ><button type="button" class="btn btn-success me-2">
                           {{ "dashboard.view" | translate }}
-                        </button></a>
+                        </button></a
+                      >
                     </td>
                     <td>
-                      <button type="button" class="btn btn-outline-danger"
-                        (click)="openDialog(project.name, project.id)">
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger"
+                        (click)="openDialog(project.name, project.id)"
+                      >
                         {{ "dashboard.delete" | translate }}
                       </button>
                     </td>
                   </tr>
-                  <tr *ngIf="
-                    originalProjects.length == 0 && errorProjects == false
-                    ">
+                  <tr
+                    *ngIf="
+                      originalProjects.length == 0 &&
+                      errorProjects.error == false &&
+                      errorProjects.done == false
+                    "
+                  >
                     <td>
-                      <span class="spinner-grow spinner-grow-sm" role="status"></span>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
                     </td>
                     <td>
-                      <span class="spinner-grow spinner-grow-sm" role="status"></span>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
                     </td>
                     <td>
-                      <span class="spinner-grow spinner-grow-sm" role="status"></span>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
                     </td>
                     <td>
-                      <span class="spinner-grow spinner-grow-sm" role="status"></span>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
                     </td>
                     <td>
-                      <span class="spinner-grow spinner-grow-sm" role="status"></span>
+                      <span
+                        class="spinner-grow spinner-grow-sm"
+                        role="status"
+                      ></span>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <ngb-pagination [(page)]="page" [pageSize]="pageSize"
-                [collectionSize]="projects.length"></ngb-pagination>
-              <div *ngIf="errorProjects == true" class="alert alert-danger
-                text-center" role="alert">
+              <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="projects.length"
+              ></ngb-pagination>
+              <div
+                *ngIf="errorProjects.error == true"
+                class="alert alert-danger text-center"
+                role="alert"
+              >
                 Error Server
               </div>
             </div>
