@@ -14,6 +14,7 @@ import { ProjectsListComponent } from './projects-list/projects-list.component';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { ProjectsService } from './projects.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import { SharedModule } from '../shared/shared.module';
     ProjectDetailsComponent,
     ProjectsListComponent,
     ProjectNewComponent,
-  ]
+  ],
+  providers: [
+    ProjectsService
+  ],
 })
 export class ProjectModule { }
 

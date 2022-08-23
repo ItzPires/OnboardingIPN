@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Roles } from 'src/app/user/Roles';
 import { UserService } from 'src/app/user/user.service';
 import { ITask } from '../ITask';
 import { TasksDeleteComponent } from '../tasks-delete/tasks-delete.component';
@@ -20,13 +21,14 @@ export class TasksListComponent implements OnInit {
   searchString: string = '';
   page = 1;
   pageSize = 5;
+  Roles = Roles
 
   constructor(private taskService: TasksService, private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.roleUser = this.userService.getRole();
 
-    if(this.roleUser == 'Manager') {
+    if(this.roleUser == Roles.Manager) {
       this.getAllTasks();
     }
     else
@@ -47,7 +49,7 @@ export class TasksListComponent implements OnInit {
   }
 
   private getMyTasks(): void {
-    this.taskService.getMyTasks(this.userService.getToken()).subscribe({
+    this.taskService.getMyTasks().subscribe({
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
         this.originalTasks = this.tasks;
@@ -85,7 +87,7 @@ export class TasksListComponent implements OnInit {
     });
     dialog.afterClosed().subscribe(
       data => {
-        if(this.roleUser == 'Manager')
+        if(this.roleUser == Roles.Manager)
           this.getAllTasks();
         else
           this.getMyTasks();

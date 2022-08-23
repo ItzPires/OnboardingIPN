@@ -28,7 +28,7 @@ export class TasksNewComponent implements OnInit {
   projects: IProjectsID[] = [];
   programmers: IUsers[] = [];
 
-  constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, public projectsService: ProjectsService, private taskService: TasksService, private router: Router, private userService: UserService) { }
+  constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.token = this.userService.getToken();
@@ -40,7 +40,7 @@ export class TasksNewComponent implements OnInit {
       },
     });
 
-    this.userService.getProgrammers(this.token).subscribe({
+    this.userService.getUsers("programmers", this.token).subscribe({
       next: (dataProgrammers: IUsers[]) => {
         this.programmers = dataProgrammers;
       },

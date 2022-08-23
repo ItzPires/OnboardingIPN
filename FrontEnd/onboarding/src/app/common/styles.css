@@ -129,6 +129,10 @@ h3 {
   display: inline;
 }
 
+.no-shadow {
+  box-shadow: none;
+}
+
 @media only screen and (max-width:479px){
   .form-container .form-horizontal .form-group{ width: 100%; }
   .form-container .signin-link{

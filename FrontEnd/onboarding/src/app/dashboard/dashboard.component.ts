@@ -7,6 +7,7 @@ import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
 import { TasksDetailsComponent } from '../tasks/tasks-details/tasks-details.component';
 import { TasksService } from '../tasks/tasks.service';
+import { Roles } from '../user/Roles';
 import { UserDetailsComponent } from '../user/user-details/user-details.component';
 import { UserService } from '../user/user.service';
 import { IUsers } from './IUsers';
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit {
   pageTask = 1;
   pageProgrammers = 1;
   pageSize = 3;
+  Roles = Roles;
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService,  public dialog: MatDialog) { }
 
@@ -39,7 +41,7 @@ export class DashboardComponent implements OnInit {
     this.token = this.userService.getToken();
     this.roleUser = this.userService.getRole();
 
-    if(this.roleUser === 'Manager') {
+    if(this.roleUser === Roles.Manager) {
 
       this.projectsService.getProjects().subscribe({
         next: (dataProjects: IProjectsID[]) => {
@@ -48,7 +50,7 @@ export class DashboardComponent implements OnInit {
         error: () => {this.errorProjects = true;},
       });
 
-      this.userService.getProgrammers(this.token).subscribe({
+      this.userService.getUsers(Roles.Programmer, this.token).subscribe({
         next: (dataProgrammers: IUsers[]) => {
           this.programmers = dataProgrammers;
         },
@@ -87,7 +89,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getMyTasks(): void {
-    this.taskService.getMyTasks(this.token).subscribe({
+    this.taskService.getMyTasks().subscribe({
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
       },
@@ -109,7 +111,7 @@ export class DashboardComponent implements OnInit {
 
     dialog.afterClosed().subscribe(
       data => {
-        if(this.roleUser == 'Manager')
+        if(this.roleUser == Roles.Manager)
           this.getAllTasks();
         else
           this.getMyTasks();

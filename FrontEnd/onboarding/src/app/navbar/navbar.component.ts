@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ProfileComponent } from '../user/profile/profile.component';
+import { Roles } from '../user/Roles';
 import { UserService } from '../user/user.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { UserService } from '../user/user.service';
 export class NavbarComponent implements OnInit {
   userRole: string | undefined;
   language: string | null | undefined;
+  Roles = Roles;
 
   constructor (private userService : UserService, private router: Router, private translate: TranslateService, public dialog: MatDialog) {}
 

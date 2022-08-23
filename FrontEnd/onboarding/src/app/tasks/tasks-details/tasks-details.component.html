@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="col">
-          <div class="form-container" style="box-shadow: 0 0 0">
+          <div class="form-container no-shadow">
             <h3 *ngIf="task != null" class="title">{{ task.name }}</h3>
             <h3 *ngIf="task == null" class="title">Task</h3>
             <form
@@ -14,12 +14,12 @@
               <div class="form-group">
                 <label>{{ "task.name" | translate }}</label>
                 <span
-                  *ngIf="task != null && userRole != 'Manager'"
+                  *ngIf="task != null && userRole != Roles.Manager"
                   class="form-control"
                   >{{ task.name }}</span
                 >
                 <input
-                  *ngIf="task != null && userRole == 'Manager'"
+                  *ngIf="task != null && userRole == Roles.Manager"
                   name="name"
                   type="text"
                   class="form-control"
@@ -32,7 +32,7 @@
                 <label>{{ "task.deadline" | translate }}</label>
                 <div class="input-group mb-3">
                   <input
-                    *ngIf="task != null && userRole == 'Manager'"
+                    *ngIf="task != null && userRole == Roles.Manager"
                     name="deadline"
                     type="datetime-local"
                     class="form-control"
@@ -40,7 +40,7 @@
                     [(ngModel)]="task.deadline"
                   />
                   <span
-                    *ngIf="task != null && userRole != 'Manager'"
+                    *ngIf="task != null && userRole != Roles.Manager"
                     class="form-control"
                     >{{ task.name }}</span
                   >
@@ -74,7 +74,7 @@
   </div>
   <div class="row d-flex justify-content-center" *ngIf="comments">
     <div class="col">
-      <div class="form-container" style="box-shadow: 0 0 0">
+      <div class="form-container no-shadow">
         <h3 class="title">{{ "dashboard.commentarys" | translate }}</h3>
           <form
           class="form-horizontal"

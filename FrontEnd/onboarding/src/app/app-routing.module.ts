@@ -14,6 +14,7 @@ import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
 import { ErrorComponent } from './error/error.component';
+import { AboutComponent } from './welcome/about/about.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,11 @@ const routes: Routes = [
     path: 'dashboard',
     canActivate: [AuthGuard],
     component: DashboardComponent
+  },
+  {
+    path: 'about',
+    canActivate: [UserGuard],
+    component: AboutComponent
   },
   {
     path: '',

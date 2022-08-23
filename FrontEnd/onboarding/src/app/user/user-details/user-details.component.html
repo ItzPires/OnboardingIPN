@@ -39,18 +39,13 @@
                     {{ task.project.name }}
                   </td>
                   <td>
-                    <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                      "states." + task.state | translate
-                    }}</span>
-                    <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                      "states." + task.state | translate
-                    }}</span>
-                    <span *ngIf="task.state == 2" class="badge bg-success">{{
-                      "states." + task.state | translate
-                    }}</span>
-                    <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                      "states." + task.state | translate
-                    }}</span>
+                    <span class="badge bg-default" [ngClass]="{
+                      'bg-primary': task.state === 0,
+                      'bg-warning': task.state === 1,
+                      'badge bg-success': task.state === 2,
+                      'bg-danger': task.state === 3
+                      }">{{ "states." + task.state | translate }}
+                    </span>
                   </td>
                   <td>
                     <button type="button" class="btn btn-success me-2" (click)="openDialogTask(task.id)">

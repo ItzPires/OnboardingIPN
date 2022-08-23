@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TasksService } from './tasks.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     TasksListComponent,
     TasksDetailsComponent,
     TasksDeleteComponent,
-  ]
+  ],
+  providers: [
+    TasksService
+  ],
 })
 export class TasksModule { }

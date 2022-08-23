@@ -73,8 +73,9 @@ namespace API.Controllers
             {
                 try
                 {
-                    var userExists = await _userManager.FindByEmailAsync(model.Email);
-                    if (userExists != null)
+                    var userEmailExists = await _userManager.FindByEmailAsync(model.Email);
+                    var userUsernameExists = await _userManager.FindByNameAsync(model.Username);
+                    if (userEmailExists != null || userUsernameExists != null)
                         return StatusCode(StatusCodes.Status406NotAcceptable, new Response { Status = "Error", Message = "User already exists!" });
 
                     User newUser = new()

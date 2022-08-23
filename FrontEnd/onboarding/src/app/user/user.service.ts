@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUsers } from '../dashboard/IUsers';
+import { ApiService } from '../shared/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  header: HttpHeaders;
-
   constructor(private http: HttpClient, private cookie: CookieService)
   {
     this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() });
   }
+
+  private connectUrl = 'http://localhost:5000/api/Auth/';
+  header: HttpHeaders;
 
   private getHeader(token: string): HttpHeaders
   {
@@ -80,25 +82,16 @@ export class UserService {
       newUser.isManager = true;
     }
 
-    return this.http.post('http://localhost:5000/api/Auth/register', newUser);
+    return this.http.post(this.connectUrl + 'register', newUser);
   }
 
   public login(loginForm: IUser) : Observable<any> {
-    return this.http.post('http://localhost:5000/api/Auth/login', loginForm);
+    return this.http.post(this.connectUrl + 'login', loginForm);
   }
 
-   public getProgrammers(token: string): Observable<IUsers[]> {
+  public getUsers(roleOfUsers: string, token: string): Observable<IUsers[]> {
     return this.http.get<IUsers[]>(
-      "http://localhost:5000/api/Users/programmers",
-      {
-        headers: this.getHeader(token),
-      }
-    );
-  }
-
-  public getManagers(token: string): Observable<IUsers[]> {
-    return this.http.get<IUsers[]>(
-      "http://localhost:5000/api/Users/Managers",
+      'http://localhost:5000/api/Users/' + roleOfUsers,
       {
         headers: this.getHeader(token),
       }

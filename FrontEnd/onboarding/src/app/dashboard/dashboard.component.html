@@ -3,7 +3,7 @@
 <div class="form-bg">
   <div
     class="container"
-    *ngIf="roleUser != 'Programmer' && roleUser == 'Manager'"
+    *ngIf="roleUser != Roles.Programmer && roleUser == Roles.Manager"
   >
     <div class="row d-flex justify-content-center">
       <div class="col">
@@ -38,26 +38,13 @@
                     <td>{{ project.name }}</td>
                     <td>{{ project.budget }}€</td>
                     <td>
-                      <span
-                        *ngIf="project.state == 0"
-                        class="badge bg-primary"
-                        >{{ "states." + project.state | translate }}</span
-                      >
-                      <span
-                        *ngIf="project.state == 1"
-                        class="badge bg-warning"
-                        >{{ "states." + project.state | translate }}</span
-                      >
-                      <span
-                        *ngIf="project.state == 2"
-                        class="badge bg-success"
-                        >{{ "states." + project.state | translate }}</span
-                      >
-                      <span
-                        *ngIf="project.state == 3"
-                        class="badge bg-danger"
-                        >{{ "states." + project.state | translate }}</span
-                      >
+                      <span [ngClass]="{
+                        'badge bg-primary': project.state === 0,
+                        'badge bg-warning': project.state === 1,
+                        'badge badge bg-success': project.state === 2,
+                        'badge bg-danger': project.state === 3
+                        }">{{ "states." + project.state | translate }}
+                      </span>
                     </td>
                     <td >
                       <a [routerLink]="['/projects', project.id]"
@@ -146,18 +133,13 @@
                       {{ task.project.name }}
                     </td>
                     <td >
-                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 2" class="badge bg-success">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                        "states." + task.state | translate
-                      }}</span>
+                      <span class="badge bg-default" [ngClass]="{
+                        'bg-primary': task.state === 0,
+                        'bg-warning': task.state === 1,
+                        'badge bg-success': task.state === 2,
+                        'bg-danger': task.state === 3
+                        }">{{ "states." + task.state | translate }}
+                      </span>
                     </td>
                     <td >
                       <button
@@ -356,7 +338,7 @@
 
   <div
     class="container"
-    *ngIf="roleUser == 'Programmer' || roleUser != 'Manager'"
+    *ngIf="roleUser == Roles.Programmer || roleUser != Roles.Manager"
   >
     <div class="row d-flex justify-content-center">
       <div class="col">
@@ -378,18 +360,13 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                      <span *ngIf="task.state == 0" class="badge bg-primary">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 1" class="badge bg-warning">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 2" class="badge bg-success">{{
-                        "states." + task.state | translate
-                      }}</span>
-                      <span *ngIf="task.state == 3" class="badge bg-danger">{{
-                        "states." + task.state | translate
-                      }}</span>
+                      <span class="badge bg-default" [ngClass]="{
+                        'bg-primary': task.state === 0,
+                        'bg-warning': task.state === 1,
+                        'badge bg-success': task.state === 2,
+                        'bg-danger': task.state === 3
+                        }">{{ "states." + task.state | translate }}
+                      </span>
                     </td>
                     <td>
                       <button

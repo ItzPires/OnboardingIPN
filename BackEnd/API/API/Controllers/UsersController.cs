@@ -24,7 +24,7 @@ namespace API.Rest.Auth
         }
 
         [HttpGet]
-        [Route("programmers")]
+        [Route("Programmer")]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
         public async Task<IActionResult> GetProgrammers()
         {

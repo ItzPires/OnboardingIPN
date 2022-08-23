@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.loading = true;
     if (form.valid) {
+      this.loading = true;
       this.userService.registerUser(this.newUser).subscribe(
         {
           error: (error) => {
