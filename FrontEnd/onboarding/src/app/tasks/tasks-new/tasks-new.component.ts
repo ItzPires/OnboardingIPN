@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Cookies } from 'src/app/common/enums/Cookies';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { ProjectNewComponent } from 'src/app/project/project-new/project-new.component';
 import { IProjectsID } from 'src/app/project/projects-list/IProjectsID';
 import { ProjectsService } from 'src/app/project/projects.service';
+import { Roles } from 'src/app/user/Roles';
 import { UserService } from 'src/app/user/user.service';
 import { TasksService } from '../tasks.service';
 import { ITaskForm } from './ITaskForm';
@@ -28,10 +30,12 @@ export class TasksNewComponent implements OnInit {
   projects: IProjectsID[] = [];
   programmers: IUsers[] = [];
 
+  Cookies = Cookies;
+
   constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.token = this.userService.getToken();
+    this.token = this.userService.getCookie(Cookies.Token);
     this.roleUser = this.userService.getRole();
 
     this.projectsService.getProjects().subscribe({
@@ -40,7 +44,7 @@ export class TasksNewComponent implements OnInit {
       },
     });
 
-    this.userService.getUsers("programmers", this.token).subscribe({
+    this.userService.getUsers(Roles.Programmer).subscribe({
       next: (dataProgrammers: IUsers[]) => {
         this.programmers = dataProgrammers;
       },

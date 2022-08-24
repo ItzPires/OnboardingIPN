@@ -9,14 +9,14 @@
           role="alert"
           *ngIf="errorRegister"
         >
-          {{ errorMsg }}
+          {{ "error." + errorMsg | translate }}
         </div>
         <div class="form-container">
           <h3 class="title">{{ "register.register" | translate }}</h3>
           <form
             class="form-horizontal"
-            #form="ngForm"
-            (ngSubmit)="onSubmit(form)"
+            [formGroup]="newUser!"
+            (ngSubmit)="onSubmit()"
           >
             <div class="form-group">
               <label>{{ "register.username" | translate }}</label>
@@ -25,13 +25,14 @@
                 id="username"
                 name="username"
                 type="text"
-                #username="ngModel"
                 class="form-control"
                 placeholder="{{ 'register.username' | translate }}"
-                [(ngModel)]="newUser.username"
+                formControlName="username"
                 [ngClass]="{
                   'is-invalid':
-                    (username.touched || username.dirty) && !username.valid
+                    (newUser.get('username')!.touched ||
+                      newUser.get('username')!.dirty) &&
+                    !newUser.get('username')!.valid
                 }"
               />
               <span class="invalid-feedback">
@@ -45,21 +46,23 @@
                 id="email"
                 name="email"
                 type="email"
-                #email="ngModel"
                 class="form-control"
                 placeholder="{{ 'register.email' | translate }}"
-                [(ngModel)]="newUser.email"
+                formControlName="email"
                 [ngClass]="{
                   'is-invalid':
-                  (email.touched || email.dirty) && !isValidEmail(newUser.email)
+                    (newUser.get('email')!.touched ||
+                      newUser.get('email')!.dirty) &&
+                    !newUser.get('email')!.valid
                 }"
               />
               <span class="invalid-feedback">
-                <span *ngIf="email.errors">
+                <span *ngIf="!newUser.get('email')!.errors?.['email']">
                   {{ "register.emailIsRequired" | translate }}
                 </span>
               </span>
             </div>
+
             <div class="form-group">
               <label>{{ "register.password" | translate }}</label>
               <input
@@ -67,17 +70,18 @@
                 id="password"
                 name="password"
                 type="password"
-                #password="ngModel"
                 class="form-control"
                 placeholder="{{ 'register.password' | translate }}"
-                [(ngModel)]="newUser.password"
+                formControlName="password"
                 [ngClass]="{
                   'is-invalid':
-                    (password.touched || password.dirty) && !password.valid
+                    (newUser.get('password')!.touched ||
+                      newUser.get('password')!.dirty) &&
+                    !newUser.get('password')!.valid
                 }"
               />
               <span class="invalid-feedback">
-                <span *ngIf="password.errors">
+                <span *ngIf="newUser.get('password')!.errors">
                   {{ "register.passwordIsRequired" | translate }}
                 </span>
               </span>
@@ -86,24 +90,30 @@
               <label>{{ "register.password" | translate }}</label>
               <input
                 required
-                ngModel
-                #passwordVerify="ngModel"
-                id="passwordVerify"
-                name="passwordVerify"
+                id="confirmPassword"
+                name="confirmPassword"
                 type="password"
                 class="form-control"
-                placeholder="{{ 'register.password' | translate }}"
+                placeholder="{{ 'password' | translate }}"
+                formControlName="confirmPassword"
                 [ngClass]="{
                   'is-invalid':
-                  form.value.passwordVerify != form.value.password
+                    newUser.get('confirmPassword')!.value !=
+                    newUser.get('password')!.value
                 }"
               />
               <span class="invalid-feedback">
-                <span *ngIf="passwordVerify.errors || form.value.passwordVerify != form.value.password">
+                <span
+                  *ngIf="
+                    newUser.get('confirmPassword')!.value !=
+                    newUser.get('password')!.value
+                  "
+                >
                   {{ "register.passwordsDoNotMatch" | translate }}
                 </span>
               </span>
             </div>
+
             <div class="form-group">
               <label>{{ "register.role" | translate }}</label>
               <div class="row justify-content-center">
@@ -113,7 +123,7 @@
                       type="radio"
                       name="isManager"
                       value="false"
-                      [(ngModel)]="newUser.isManager"
+                      formControlName="isManager"
                     />
                     <label class="form-check-label m-2" for="inlineRadio1">{{
                       "register.programmer" | translate
@@ -126,7 +136,7 @@
                       type="radio"
                       name="isManager"
                       value="true"
-                      [(ngModel)]="newUser.isManager"
+                      formControlName="isManager"
                     />
                     <label class="form-check-label m-2" for="inlineRadio2">{{
                       "register.manager" | translate
@@ -141,7 +151,11 @@
                 "register.login" | translate
               }}</a></span
             >
-            <button *ngIf="!loading" class="btn signup">
+            <button
+              *ngIf="!loading"
+              class="btn signup"
+              [disabled]="newUser.invalid"
+            >
               {{ "register.createAccount" | translate }}
             </button>
             <button *ngIf="loading" class="btn signup" type="button" disabled>

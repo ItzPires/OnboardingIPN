@@ -55,13 +55,7 @@
                     <td>{{ project.budget }}€</td>
                     <td>
                       <span
-                        class="badge bg-default"
-                        [ngClass]="{
-                          'bg-primary': project.state === 0,
-                          'bg-warning': project.state === 1,
-                          'badge bg-success': project.state === 2,
-                          'bg-danger': project.state === 3
-                        }"
+                        [ngClass]="Badges[project.state]"
                         >{{ "states." + project.state | translate }}
                       </span>
                     </td>

@@ -4,12 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { ProjectsListComponent } from './project/projects-list/projects-list.component';
+import { HomeComponent } from './welcome/home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProjectDetailsComponent } from './project/project-details/project-details.component'
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
-import { ProjectDetailsGuard } from './project/project-details/project-details.guard';
 import { TaskGuard } from './tasks/tasks-new/task.guard';
 import { UserGuard } from './user/guards/user.guard';
 import { AuthGuard } from './user/guards/auth.guard';
@@ -56,7 +53,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [UserGuard],
-    component: WelcomeComponent
+    component: HomeComponent
   },
   {
     path: '**',

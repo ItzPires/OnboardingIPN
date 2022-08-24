@@ -1,4 +1,5 @@
-﻿using API.Models.Dto;
+﻿using API.Database;
+using API.Models.Dto;
 using API.Models.Models;
 using API.Types;
 using AutoMapper;
@@ -12,13 +13,16 @@ namespace API.Rest.Auth
     [ApiController]
     public class UsersController : ControllerBase
     {
+        public Context _context;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
         public UsersController(
+            Context context,
             UserManager<User> userManager,
            IMapper mapper)
         {
+            _context = context;
             _userManager = userManager;
             _mapper = mapper;
         }
@@ -87,6 +91,26 @@ namespace API.Rest.Auth
             catch (Exception ex)
             {
                 return BadRequest("BackEnd: " + ex.Message);
+            }
+        }
+
+        [HttpGet("Stats")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetMyStats()
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                int toStart = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.ToStart).Count();
+                int inWork = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.InWork).Count();
+                int done = _context.Tasks.Where(x => x.isDeleted == false && x.Project.isDeleted == false && x.ProgrammerId == user.Id && x.State == States.Done).Count();
+
+                return Ok(new StatsResponse { toStart = toStart, inWork = inWork, done = done });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
             }
         }
     }

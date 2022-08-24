@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { Badges } from 'src/app/common/enums/Badges';
 import { IUsers } from 'src/app/dashboard/IUsers';
 import { ITask } from 'src/app/tasks/ITask';
 import { TasksDetailsComponent } from 'src/app/tasks/tasks-details/tasks-details.component';
@@ -17,6 +17,7 @@ export class UserDetailsComponent {
   userRole!: string | null;
   userInfo!: IUsers;
   tasks: ITask[] = [];
+  Badges = Badges;
   page = 1;
   pageSize = 5;
 

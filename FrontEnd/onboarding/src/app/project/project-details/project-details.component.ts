@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Badges } from 'src/app/common/enums/Badges';
+import { Cookies } from 'src/app/common/enums/Cookies';
 import { ITask } from 'src/app/tasks/ITask';
 import { TasksDeleteComponent } from 'src/app/tasks/tasks-delete/tasks-delete.component';
 import { TasksDetailsComponent } from 'src/app/tasks/tasks-details/tasks-details.component';
 import { TasksNewComponent } from 'src/app/tasks/tasks-new/tasks-new.component';
 import { TasksService } from 'src/app/tasks/tasks.service';
 import { UserService } from 'src/app/user/user.service';
-import { States } from '../common/states';
+import { States } from '../../common/enums/states';
 import { IProjectsID } from '../projects-list/IProjectsID';
 import { ProjectsService } from '../projects.service';
 
@@ -30,11 +32,13 @@ export class ProjectDetailsComponent implements OnInit {
   page = 1;
   pageSize = 10;
   searchString: string = '';
+  Cookies = Cookies;
+  Badges = Badges;
 
   constructor(private projectsService: ProjectsService, private userService: UserService, private taskService: TasksService, private route: ActivatedRoute, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.token = this.userService.getToken();
+    this.token = this.userService.getCookie(Cookies.Token);
     this.roleUser = this.userService.getRole();
     this.idProject = Number(this.route.snapshot.paramMap.get('id'));
 

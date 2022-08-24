@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IUserRegister } from './register/IUserRegister';
 import { IUser } from './common/IUser';
 import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -11,52 +10,41 @@ import { ApiService } from '../shared/api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends ApiService<IUser> {
 
-  constructor(private http: HttpClient, private cookie: CookieService)
-  {
-    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getToken() });
-  }
-
-  private connectUrl = 'http://localhost:5000/api/Auth/';
+  token = "token";
+  languade = "language";
   header: HttpHeaders;
 
-  private getHeader(token: string): HttpHeaders
-  {
-    return new HttpHeaders({ 'Authorization': 'Bearer ' + token });
+  constructor(http: HttpClient, private cookie: CookieService) {
+    const projectsUrl = 'Users';
+    super(http, projectsUrl);
+
+    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getCookie(this.Cookies.Token) });
   }
 
   //cookies
-  public setSession(token: string): void {
-    this.cookie.set('token', token, 0.125);
+  public setCookie(token: string, value: string): void {
+    this.cookie.set(token, value, 0.125);
   }
 
-  public logout(): void {
-    this.cookie.delete('token');
+  public getCookie(token: string): string {
+    return this.cookie.get(token);
   }
 
-  public getToken(): string {
-    return this.cookie.get('token');
-  }
-
-  public setLanguage(language: string): void {
-    this.cookie.set('language', language, 0.125);
-  }
-
-  public getLanguage():  string | null | undefined {
-    return this.cookie.get('language');
+  public deleteCookie(token: string): void {
+    this.cookie.delete(token);
   }
 
   //jwt
   private decodedToken(): any {
-    const token = this.getToken() || '';
+    const tokenVar = this.getCookie(this.token) || '';
     const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(token);
+    const decodedToken = helper.decodeToken(tokenVar);
 
-    if(helper.isTokenExpired(token))
-    {
-      this.logout();
+    if (helper.isTokenExpired(tokenVar)) {
+      this.deleteCookie(tokenVar);
       return '';
     }
 
@@ -75,44 +63,19 @@ export class UserService {
     return decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
   }
 
-  public registerUser(registerForm: IUserRegister) : Observable<any> {
-    var newUser = {"username": registerForm.username, "password": registerForm.password, "email": registerForm.email, "isManager": false};
 
-    if(registerForm.isManager === 'true'){
-      newUser.isManager = true;
-    }
+  //REST API
 
-    return this.http.post(this.connectUrl + 'register', newUser);
-  }
-
-  public login(loginForm: IUser) : Observable<any> {
-    return this.http.post(this.connectUrl + 'login', loginForm);
-  }
-
-  public getUsers(roleOfUsers: string, token: string): Observable<IUsers[]> {
-    return this.http.get<IUsers[]>(
-      'http://localhost:5000/api/Users/' + roleOfUsers,
-      {
-        headers: this.getHeader(token),
-      }
-    );
+  public getUsers(roleOfUsers: string): Observable<IUsers[]> {
+    return this.getSpecific(roleOfUsers, this.header);
   }
 
   public getUserDetails(username: string): any {
-    return this.http.get<IUsers>(
-      "http://localhost:5000/api/Users/Info/" + username,
-      {
-        headers: this.header,
-      }
-    );
+    return this.getSpecific("Info/" + username, this.header);
   }
 
   public getUserStats(): any {
-    return this.http.get<IUsers>(
-      "http://localhost:5000/api/Tasks/Stats/",
-      {
-        headers: this.header,
-      }
-    );
+    return this.getSpecific("Stats", this.header);
   }
+
 }

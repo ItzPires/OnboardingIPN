@@ -114,6 +114,7 @@
   "error": {
     "serverDown": "Server is down! Please try again later.",
     "invalideUsername": "Invalid username or password",
+    "userExists": "User already exists",
     "error": "Error"
   }
 }

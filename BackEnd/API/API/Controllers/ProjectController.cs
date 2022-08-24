@@ -69,7 +69,7 @@ namespace API.Controllers
                     if (model == null) return BadRequest("Project object is null");
 
                     string username = User.Identity.Name;
-                    var user = _context.Users.SingleOrDefault(x => x.UserName == username);
+                    var user = _context.Users.FirstOrDefault(x => x.UserName == username);
                     if (user == null) return BadRequest("Is null");
 
                     var project = _mapper.Map<Project>(model);

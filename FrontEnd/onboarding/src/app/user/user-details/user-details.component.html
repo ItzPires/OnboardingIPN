@@ -39,12 +39,7 @@
                     {{ task.project.name }}
                   </td>
                   <td>
-                    <span class="badge bg-default" [ngClass]="{
-                      'bg-primary': task.state === 0,
-                      'bg-warning': task.state === 1,
-                      'badge bg-success': task.state === 2,
-                      'bg-danger': task.state === 3
-                      }">{{ "states." + task.state | translate }}
+                    <span [ngClass]="Badges[task.state]">{{ "states." + task.state | translate }}
                     </span>
                   </td>
                   <td>

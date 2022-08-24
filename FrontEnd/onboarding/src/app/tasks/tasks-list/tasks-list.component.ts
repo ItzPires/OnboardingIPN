@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Badges } from 'src/app/common/enums/Badges';
 import { IResponse } from 'src/app/common/Iresponse';
 import { Roles } from 'src/app/user/Roles';
 import { UserService } from 'src/app/user/user.service';
@@ -25,9 +26,8 @@ export class TasksListComponent implements OnInit {
   searchString: string = '';
   page = 1;
   pageSize = 5;
-  Roles = Roles
-
-  badges = ["badge bg-primary", "badge bg-warning", "badge bg-success", "badge bg-danger"];
+  Roles = Roles;
+  Badges = Badges;
 
   constructor(private taskService: TasksService, private userService: UserService, public dialog: MatDialog) { }
 

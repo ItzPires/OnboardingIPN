@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ApiService } from "../shared/api.service";
@@ -11,30 +11,34 @@ import { IProjectsID } from "./projects-list/IProjectsID";
 })
 export class ProjectsService extends ApiService<IProjects> {
 
-  constructor(userService: UserService, http: HttpClient) {
+  header: HttpHeaders;
+
+  constructor(userService: UserService,  http: HttpClient) {
     const projectsUrl = 'Project';
-    super(userService, http, projectsUrl);
+    super(http, projectsUrl);
+
+    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + userService.getCookie(this.Cookies.Token) });
   }
 
   public getProjects(): Observable<IProjectsID[]> {
-    return this.getSpecific('GetManagerProjects');
+    return this.getSpecific('GetManagerProjects', this.header);
   }
 
   public getProjectByID(idProject: number): Observable<IProjectsID> {
-    return this.getById(idProject);
+    return this.getById(idProject, this.header);
   }
 
   public updateProject(projectId: number, projectForm: IProjects): Observable<IProjectsID> {
-    return this.update(projectId, projectForm);
+    return this.update(projectId, projectForm, this.header);
   }
 
   public newProject(projectForm: IProjects): Observable<IProjectsID> {
-    return this.post(projectForm);
+    return this.post(projectForm, "Add", this.header);
 
   }
 
   public deleteProject(projectId: number): Observable<IProjectsID> {
-    return this.delete(projectId);
+    return this.delete(projectId, this.header);
   }
 
 }

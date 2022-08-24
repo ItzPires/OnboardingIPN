@@ -38,7 +38,7 @@
                     <td>{{ project.name }}</td>
                     <td>{{ project.budget }}€</td>
                     <td>
-                      <span [ngClass]="badges[project.state]">{{ "states." + project.state | translate }}
+                      <span [ngClass]="Badges[project.state]">{{ "states." + project.state | translate }}
                       </span>
                     </td>
                     <td >
@@ -128,7 +128,7 @@
                       {{ task.project.name }}
                     </td>
                     <td >
-                      <span [ngClass]="badges[task.state]">{{"states." + task.state | translate }}
+                      <span [ngClass]="Badges[task.state]">{{"states." + task.state | translate }}
                       </span>
                     </td>
                     <td >
@@ -348,7 +348,7 @@
                     <td>{{ task.name }}</td>
                     <td>{{ task.project.name }}</td>
                     <td>
-                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
+                       <span [ngClass]="Badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>

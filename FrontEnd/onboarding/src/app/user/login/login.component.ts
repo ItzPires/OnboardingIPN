@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Cookies } from 'src/app/common/enums/Cookies';
+import { AuthService } from '../auth.service';
 import { IUser } from '../common/IUser';
 import { UserService } from '../user.service';
 
@@ -14,13 +16,14 @@ export class LoginComponent implements OnInit {
   errorLogin: boolean | undefined;
   loading: boolean = false;
   errorMsg: string = "";
+  Cookies = Cookies;
 
   user: IUser = {
     username: '',
     password: ''
   };
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -28,9 +31,9 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       this.loading = true;
-      this.userService.login(this.user).subscribe(
+      this.authService.login(this.user).subscribe(
         {
-          next: (value) => { this.userService.setSession(value.token); },
+          next: (value) => { this.userService.setCookie(Cookies.Token, value.token); },
           error: (error) => {
             this.errorLogin = true;
             this.loading = false;

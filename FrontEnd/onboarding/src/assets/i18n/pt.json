@@ -114,6 +114,7 @@
   "error": {
     "serverDown": "O servidor está em baixo! Tente novamente mais tarde.",
     "invalideUsername": "O nome de utilizador ou email não é válido",
+    "userExists": "O utilizador já existe",
     "error": "Erro"
   }
 }

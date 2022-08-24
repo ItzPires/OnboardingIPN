@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPost("Add")]
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = Roles.Manager)]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> AddComment([FromBody] CommentForm model)
         {
             using (var transaction = _context.Database.BeginTransaction())

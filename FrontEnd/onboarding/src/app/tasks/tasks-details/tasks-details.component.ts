@@ -2,7 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { States } from 'src/app/project/common/states';
+import { IUsers } from 'src/app/dashboard/IUsers';
+import { States } from 'src/app/common/enums/states';
 import { CommentsService } from 'src/app/shared/comments.service';
 import { Roles } from 'src/app/user/Roles';
 import { UserService } from 'src/app/user/user.service';
@@ -18,6 +19,7 @@ import { TasksService } from '../tasks.service';
 })
 export class TasksDetailsComponent {
   task!: ITask;
+  programmers: IUsers[] = [];
   comments: IComment[] = [];
   newComments: ICommentUserString = {
     content: '',
@@ -29,9 +31,9 @@ export class TasksDetailsComponent {
   statesTask = States;
   statesTaskKeys = Object.keys(States).filter((k) => !isNaN(Number(k))).map(Number);
   Roles = Roles;
+  errorMsg: string = "";
 
-  constructor(public dialogRef: MatDialogRef<TasksDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: number }, private taskSerive: TasksService, private commentsService: CommentsService, private userService: UserService)
-  {
+  constructor(public dialogRef: MatDialogRef<TasksDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { id: number }, private taskSerive: TasksService, private commentsService: CommentsService, private userService: UserService) {
     this.taskSerive.getTaskByID(data.id).subscribe({
       next: (dataTask: ITask) => {
         this.task = dataTask;
@@ -44,6 +46,13 @@ export class TasksDetailsComponent {
       }
     });
 
+    this.userService.getUsers(Roles.Programmer).subscribe({
+      next: (dataProgrammers: IUsers[]) => {
+        this.programmers = dataProgrammers;
+      },
+      error: () => { console.log('error') },
+    });
+
     this.userRole = this.userService.getRole();
 
   }
@@ -53,8 +62,12 @@ export class TasksDetailsComponent {
     if (form.valid) {
       this.taskSerive.updateTask(this.data.id, this.task).subscribe(
         {
-          error: (error) => console.log(error),
-          complete: () => {this.dialogRef.close(); }
+          error: (error) => {
+            if (error.status === 0) this.errorMsg = "serverDown";
+            else if (error.status === 401) this.errorMsg = "invalideUsername";
+            else this.errorMsg = "error";
+          },
+          complete: () => { this.dialogRef.close(); }
         }
       );
     }

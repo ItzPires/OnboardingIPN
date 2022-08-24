@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { WelcomeComponent } from './welcome/welcome.component';
+import { HomeComponent } from './welcome/home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { SharedModule } from './shared/shared.module';
@@ -26,7 +26,7 @@ import { PricesComponent } from './welcome/prices/prices.component';
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
+    HomeComponent,
     DashboardComponent,
     AboutComponent,
     PricesComponent,

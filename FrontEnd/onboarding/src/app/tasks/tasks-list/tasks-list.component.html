@@ -59,7 +59,7 @@
                     </td>
                     <td>{{ task.programmer.userName }}</td>
                     <td>
-                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
+                       <span [ngClass]="Badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>
@@ -174,7 +174,7 @@
                       {{ task.project.name }}
                     </td>
                     <td>
-                       <span [ngClass]="badges[task.state]">{{ "states." + task.state | translate }}
+                       <span [ngClass]="Badges[task.state]">{{ "states." + task.state | translate }}
                       </span>
                     </td>
                     <td>

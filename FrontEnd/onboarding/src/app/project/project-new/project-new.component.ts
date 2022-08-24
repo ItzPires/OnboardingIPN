@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IProjects } from '../common/IProjects';
-import { States } from '../common/states';
+import { States } from '../../common/enums/states';
 import { ProjectsService } from '../projects.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class ProjectNewComponent {
     budget: 0,
     state: 0
   };
+  errorMsg: string = "";
 
   constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, private projectService: ProjectsService) { }
 
@@ -26,7 +27,11 @@ export class ProjectNewComponent {
       this.newProject.state = Number(this.newProject.state);
       this.projectService.newProject(this.newProject).subscribe(
         {
-          error: (error) => console.log(error),
+          error: (error) => {
+            if (error.status === 0) this.errorMsg = "serverDown";
+            else if (error.status === 401) this.errorMsg = "invalideUsername";
+            else this.errorMsg = "error";
+          },
           complete: () => {    this.dialogRef.close(); }
         }
       );

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Badges } from '../common/enums/Badges';
+import { Cookies } from '../common/enums/Cookies';
 import { IResponse } from '../common/Iresponse';
 import { IStats } from '../common/IStats';
-import { States } from '../project/common/states';
+import { States } from '../common/enums/states';
 import { IProjectsID } from '../project/projects-list/IProjectsID';
 import { ProjectsService } from '../project/projects.service';
 import { ITask } from '../tasks/ITask';
@@ -44,13 +46,13 @@ export class DashboardComponent implements OnInit {
   pageProgrammers = 1;
   pageSize = 3;
   Roles = Roles;
-
-  badges = ["badge bg-primary", "badge bg-warning", "badge bg-success", "badge bg-danger"];
+  Cookies = Cookies;
+  Badges = Badges;
 
   constructor(public projectsService: ProjectsService, private taskService: TasksService, private userService: UserService,  public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.token = this.userService.getToken();
+    this.token = this.userService.getCookie(Cookies.Token);
     this.roleUser = this.userService.getRole();
 
     if(this.roleUser === Roles.Manager) {
@@ -63,7 +65,7 @@ export class DashboardComponent implements OnInit {
         complete: () => { this.errorProjects.done = true; }
       });
 
-      this.userService.getUsers(Roles.Programmer, this.token).subscribe({
+      this.userService.getUsers(Roles.Programmer).subscribe({
         next: (dataProgrammers: IUsers[]) => {
           this.programmers = dataProgrammers;
         },

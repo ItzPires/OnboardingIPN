@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { UserService } from '../user.service';
 import { IUserRegister } from './IUserRegister';
 
@@ -11,37 +12,43 @@ import { IUserRegister } from './IUserRegister';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router,) { }
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder,) { }
   errorRegisterPromise!: Promise<boolean>;
   errorRegister: boolean = false;
   loading: boolean = false;
   errorMsg: string = "";
 
-  newUser: IUserRegister = {
-    username: '',
-    password: '',
-    email: '',
-    isManager: "false"
-  };
+  newUser!: FormGroup;
 
 
   ngOnInit(): void {
+    this.newUser = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/), Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      isManager: ['false', [Validators.required]]
+    }, {
+      validators: this.password.bind(this)
+    });
   }
 
-  public isValidEmail(email: string): boolean {
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+  password(formGroup: FormGroup) {
+    var password = formGroup.get('password');
+    var confirmPassword = formGroup.get('confirmPassword');
+    return password?.value == confirmPassword?.value ? null : { passwordNotMatch: true };
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
+  onSubmit() {
+    if (this.newUser.valid) {
       this.loading = true;
-      this.userService.registerUser(this.newUser).subscribe(
+      this.authService.register(this.newUser.value as IUserRegister).subscribe(
         {
           error: (error) => {
             this.loading = false;
             this.errorRegister = true;
-            if (error.status === 0) this.errorMsg = "Server is not available";
-            else if (error.status === 406) this.errorMsg = "Username already exists.";
+            if (error.status === 0) this.errorMsg = "serverDown";
+            else if (error.status === 406) this.errorMsg = "userExists";
           },
           complete: () => {
             this.loading = false;

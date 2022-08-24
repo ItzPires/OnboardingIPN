@@ -1,68 +1,65 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserService } from '../user/user.service';
+import { Cookies } from '../common/enums/Cookies';
 
 export class ApiService<T> {
 
   apiProvider = 'http://localhost:5000/api/';
 
-  header: HttpHeaders;
+  Cookies = Cookies;
 
-  constructor(private userService: UserService, protected http: HttpClient, private api: string)
-  {
-    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.userService.getToken() });
-  }
+  constructor(protected http: HttpClient, private api: string) { }
 
-  public getAll(): Observable<any> {
+  public getAll(header: HttpHeaders): Observable<any> {
     return this.http.get<T[]>(
       this.apiProvider + this.api + '/All',
       {
-        headers: this.header,
+        headers: header,
       }
     );
   }
 
-  public getById(id: number): Observable<any> {
+  public getById(id: number | string, header: HttpHeaders): Observable<any> {
     return this.http.get(
       this.apiProvider + this.api + "/" + id,
       {
-        headers: this.header,
+        headers: header,
       }
     );
   }
 
-  public getSpecific(url: string): Observable<any> {
+  public getSpecific(url: string, header: HttpHeaders): Observable<any> {
     return this.http.get<T[]>(
       this.apiProvider + this.api + "/" + url,
       {
-        headers: this.header,
+        headers: header,
       }
     );
   }
 
-  public post(object: any): Observable<any> {
+  public post(object: any, url: string, header: HttpHeaders): Observable<any> {
     return this.http.post(
-      this.apiProvider + this.api + "/Add",
+      this.apiProvider + this.api + "/" + url,
       object,
       {
-        headers: this.header,
+        headers: header,
       }
     );
   }
 
-  public update(id: number, object: T): Observable<any> {
+  public update(id: number, object: T, header: HttpHeaders): Observable<any> {
     return this.http.put(
       this.apiProvider + this.api + '/Update/' + id,
       object,
       {
-        headers: this.header,
+        headers: header,
       }
     );
   }
 
-  public delete(id: number): Observable<any> {
-    return this.http.delete(this.apiProvider + this.api, {
-      headers: this.header,
+  public delete(id: number, header: HttpHeaders): Observable<any> {
+    return this.http.delete(this.apiProvider + this.api + "/" + id, {
+      headers: header,
     });
   }
 

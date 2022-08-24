@@ -1,13 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/user/user.service';
-import { States } from '../common/states';
+import { States } from '../../common/enums/states';
 import { ProjectsService } from '../projects.service';
 import { IProjectsID } from './IProjectsID';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectNewComponent } from '../project-new/project-new.component';
 import { ProjectDeleteComponent } from '../project-delete/project-delete.component';
 import { IResponse } from 'src/app/common/Iresponse';
+import { Cookies } from 'src/app/common/enums/Cookies';
+import { Badges } from 'src/app/common/enums/Badges';
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
@@ -26,11 +28,13 @@ export class ProjectsListComponent implements OnInit {
   searchString: string = '';
   page = 1;
   pageSize = 5;
+  Cookies = Cookies;
+  Badges = Badges;
 
   constructor(public projectsService: ProjectsService, private userService: UserService, public router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.token = this.userService.getToken();
+    this.token = this.userService.getCookie(Cookies.Token);
     this.roleUser = this.userService.getRole();
 
     this.projectsService.getProjects().subscribe({

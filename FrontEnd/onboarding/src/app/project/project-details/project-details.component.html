@@ -111,12 +111,7 @@
                   </td>
                   <td>{{ task.programmer.userName }}</td>
                   <td>
-                    <span [ngClass]="{
-                      'badge badge bg-primary': task.state === 0,
-                      'badge badge bg-warning': task.state === 1,
-                      'badge badge bg-success': task.state === 2,
-                      'badge badge bg-danger': task.state === 3
-                      }">{{ "states." + task.state | translate }}
+                    <span [ngClass]="Badges[task.state]">{{ "states." + task.state | translate }}
                     </span>
                   </td>
                   <td>
@@ -147,6 +142,7 @@
           <div class="d-flex flex-row-reverse">
             <button
               class="btn btn-primary add-new"
+              (click)="openDialogNewTask()"
             >
               {{ "dashboard.addNew" | translate }}
             </button>
