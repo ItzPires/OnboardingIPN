@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col">
-        <div class="alert alert-danger text-center" role="alert" *ngIf="errorMsg != ''">
-          {{ "error." + errorMsg| translate }}
+        <div class="alert alert-danger text-center" role="alert" *ngIf="errorMsg.error">
+          {{ "error." + errorMsg.status | translate }}
         </div>
         <div class="form-container no-shadow">
           <h3 class="title">{{ "dashboard.newProject" | translate }}</h3>

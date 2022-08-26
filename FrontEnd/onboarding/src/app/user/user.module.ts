@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
+import { ProgrammerDetailsComponent } from './programmer-details/programmer-details.component';
 import { RegisterComponent } from './register/register.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
@@ -15,7 +15,7 @@ import { UserRoutingModule } from './user-routing.module';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    UserDetailsComponent,
+    ProgrammerDetailsComponent,
     ProfileComponent,
   ],
   imports: [
@@ -29,7 +29,7 @@ import { UserRoutingModule } from './user-routing.module';
   exports: [
     LoginComponent,
     RegisterComponent,
-    UserDetailsComponent,
+    ProgrammerDetailsComponent,
     ProfileComponent,
   ]
 })

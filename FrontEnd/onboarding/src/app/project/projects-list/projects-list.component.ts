@@ -23,7 +23,8 @@ export class ProjectsListComponent implements OnInit {
   originalProjects: IProjectsID[] = [];
   errorProjects: IResponse = {
     error: false,
-    done: false
+    done: false,
+    status: -1
   }
   searchString: string = '';
   page = 1;
@@ -42,7 +43,10 @@ export class ProjectsListComponent implements OnInit {
         this.projects = dataProjects;
         this.originalProjects = dataProjects;
       },
-      error: () => { this.errorProjects.error = true; },
+      error: (error) => {
+        this.errorProjects.error = true;
+        this.errorProjects.status = error.status;
+      },
       complete: () => { this.errorProjects.done = true; }
     });
   }
@@ -78,7 +82,10 @@ export class ProjectsListComponent implements OnInit {
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
         },
-        error: () => { this.errorProjects.error = true; },
+        error: (error) => {
+          this.errorProjects.error = true;
+          this.errorProjects.status = error.status;
+        },
         complete: () => { this.errorProjects.done = true; }
       });
     })

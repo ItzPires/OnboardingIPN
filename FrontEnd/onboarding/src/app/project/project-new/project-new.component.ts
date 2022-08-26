@@ -4,10 +4,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { IProjects } from '../common/IProjects';
 import { States } from '../../common/enums/states';
 import { ProjectsService } from '../projects.service';
+import { IResponse } from 'src/app/common/Iresponse';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
+  templateUrl: './project-new.component.html',
   styleUrls: ['../../common/styles.css']
 })
 export class ProjectNewComponent {
@@ -18,21 +19,33 @@ export class ProjectNewComponent {
     budget: 0,
     state: 0
   };
-  errorMsg: string = "";
+  errorMsg: IResponse = {
+    error: false,
+    done: false,
+    status: 0
+  }
 
   constructor(public dialogRef: MatDialogRef<ProjectNewComponent>, private projectService: ProjectsService) { }
 
   onSubmit(form: NgForm) {
+    this.errorMsg = {
+      error: false,
+      done: false,
+      status: 0
+    };
+
     if (form.valid) {
       this.newProject.state = Number(this.newProject.state);
       this.projectService.newProject(this.newProject).subscribe(
         {
           error: (error) => {
-            if (error.status === 0) this.errorMsg = "serverDown";
-            else if (error.status === 401) this.errorMsg = "invalideUsername";
-            else this.errorMsg = "error";
+            this.errorMsg.error = true;
+            this.errorMsg.status = error.status;
           },
-          complete: () => {    this.dialogRef.close(); }
+          complete: () => {
+            this.errorMsg.done = true;
+            this.dialogRef.close();
+          }
         }
       );
     }

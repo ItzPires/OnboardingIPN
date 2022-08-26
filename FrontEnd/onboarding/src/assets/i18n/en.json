@@ -74,7 +74,8 @@
     "name": "Name",
     "budget": "Budget",
     "status": "Status",
-    "options": "Options"
+    "options": "Options",
+    "withoutProjects": "Without Projects"
   },
   "task": {
     "name": "Name",
@@ -83,7 +84,8 @@
     "status": "Status",
     "options": "Options",
     "myTasks": "My Tasks",
-    "deadline": "Deadline"
+    "deadline": "Deadline",
+    "withoutTask": "Without Tasks"
   },
   "users": {
     "programmers": "Programmers",
@@ -115,6 +117,10 @@
     "serverDown": "Server is down! Please try again later.",
     "invalideUsername": "Invalid username or password",
     "userExists": "User already exists",
-    "error": "Error"
+    "error": "Error",
+    "0": "Server is down! Please try again later.",
+    "400": "Error: Bad request",
+    "401": "Not Authorized",
+    "403": "Error: Please Refresh the page"
   }
 }

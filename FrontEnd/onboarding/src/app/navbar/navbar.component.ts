@@ -38,7 +38,8 @@ export class NavbarComponent implements OnInit {
   {
     this.userService.deleteCookie(Cookies.Token);
     this.userRole = undefined;
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
+    localStorage.clear();
   }
 
   changeSiteLanguage(language: string): void {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/Iw+UQQL+3qzS8CZOhtEVLt+kgr8EZyUR1mhIWTeZBFi5ZL/r10NeXRtFIY6Rtp6jYpEsN53XTqRC3HED3WhtQ==",
+  "dgSpecHash": "gMHPqHG3RQj8PPKtoeWZHESqM5anPfTVX9Wx+5437uJ/M7eytF9tN1MQpURqjevI274IZPCvz1JPCvRbBM3BsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires\\BackEnd\\API\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Pires\\Desktop\\Pgp_Samuel_Pires-1\\BackEnd\\API\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pires\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\Pires\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",

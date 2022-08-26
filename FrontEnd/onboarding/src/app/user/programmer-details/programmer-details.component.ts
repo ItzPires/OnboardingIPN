@@ -9,10 +9,10 @@ import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-programmer-details',
-  templateUrl: './user-details.component.html',
+  templateUrl: './programmer-details.component.html',
   styleUrls: ['../../common/styles.css']
 })
-export class UserDetailsComponent {
+export class ProgrammerDetailsComponent {
   userName: string = "";
   userRole!: string | null;
   userInfo!: IUsers;
@@ -21,7 +21,7 @@ export class UserDetailsComponent {
   page = 1;
   pageSize = 5;
 
-  constructor(public dialogRef: MatDialogRef<UserDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService, public dialog: MatDialog)
+  constructor(public dialogRef: MatDialogRef<ProgrammerDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { user: string }, private userService: UserService, private taskService: TasksService, public dialog: MatDialog)
   {
     this.userName = data.user;
 

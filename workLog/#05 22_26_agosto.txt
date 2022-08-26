@@ -1,0 +1,32 @@
+22/08/2022
+Alterações Propostas - Melhorar o código
+Enum Roles
+Garantia de Username único
+Serviço Central
+
+23/08/2022
+Alterações Propostas - Melhorar o código
+Algumas msg de erro que faltavam
+Organização backEnd
+Página de About e Price
+Correção de Bugs nas tabelas
+Diferença entre campos editáveis e não editáveis
+
+24/08/2022
+Alterações Propostas - Melhorar o código
+Organização FrontEnd
+Badges Corrigidos - Substituição do monte de ngIfs
+Alteração no service AuthService e UserService - Centralização
+Botões com loading até obter uma resposta
+2 Palavras-passe para validar
+Correção do Email - regex
+
+25/08/2022
+Alterações Propostas - Melhorar o código
+Correção de Bug de Cookies - ia buscar o cookie do user antigo
+Paginação tabela de Tasks - faltava
+
+26/08/2022
+Alterações Propostas - Melhorar o código
+Novas msg de Erro conforme a resposta do server - (400, 401...)
+Correção de msg de tabelas vazias quando acontecia erro

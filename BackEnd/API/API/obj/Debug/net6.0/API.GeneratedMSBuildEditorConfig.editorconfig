@@ -1,9 +1,9 @@
 is_global = true
 build_property.RootNamespace = API
 build_property.RootNamespace = API
-build_property.ProjectDir = C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API\
+build_property.ProjectDir = C:\Users\Pires\Desktop\Pgp_Samuel_Pires-1\BackEnd\API\API\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Pires\Desktop\Pgp_Samuel_Pires\BackEnd\API\API
+build_property.MSBuildProjectDirectory = C:\Users\Pires\Desktop\Pgp_Samuel_Pires-1\BackEnd\API\API
 build_property._RazorSourceGeneratorDebug = 

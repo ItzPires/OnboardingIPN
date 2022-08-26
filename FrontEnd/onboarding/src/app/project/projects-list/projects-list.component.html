@@ -18,14 +18,13 @@
                 placeholder="Search"
                 [(ngModel)]="searchString"
                 (keyup)="onSearch(searchString)"
-              />
+                />
             </div>
             <div class="col-2">
               <button
                 type="button"
                 class="btn btn-primary"
-                (click)="newProject()"
-              >
+                (click)="newProject()">
                 {{ "dashboard.addNew" | translate }}
               </button>
             </div>
@@ -45,88 +44,84 @@
                 <tbody>
                   <tr
                     *ngFor="
-                      let project of projects
-                        | slice: (page - 1) * pageSize:page * pageSize
-                    "
-                  >
+                    let project of projects
+                    | slice: (page - 1) * pageSize:page * pageSize
+                    ">
                     <td>
                       {{ project.name }}
                     </td>
                     <td>{{ project.budget }}€</td>
                     <td>
                       <span
-                        [ngClass]="Badges[project.state]"
-                        >{{ "states." + project.state | translate }}
+                        [ngClass]="Badges[project.state]">{{ "states." +
+                        project.state | translate }}
                       </span>
                     </td>
                     <td>
-                      <a [routerLink]="['/projects', project.id]"
-                        ><button type="button" class="btn btn-success me-2">
+                      <a [routerLink]="['/projects', project.id]"><button
+                          type="button" class="btn btn-success me-2">
                           {{ "dashboard.view" | translate }}
-                        </button></a
-                      >
+                        </button></a>
                     </td>
                     <td>
                       <button
                         type="button"
                         class="btn btn-outline-danger"
-                        (click)="openDialog(project.name, project.id)"
-                      >
+                        (click)="openDialog(project.name, project.id)">
                         {{ "dashboard.delete" | translate }}
                       </button>
                     </td>
                   </tr>
                   <tr
                     *ngIf="
-                      originalProjects.length == 0 &&
-                      errorProjects.error == false &&
-                      errorProjects.done == false
-                    "
-                  >
+                    originalProjects.length == 0 &&
+                    errorProjects.error == false &&
+                    errorProjects.done == false
+                    ">
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
+                        role="status"></span>
                     </td>
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
+                        role="status"></span>
                     </td>
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
+                        role="status"></span>
                     </td>
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
+                        role="status"></span>
                     </td>
                     <td>
                       <span
                         class="spinner-grow spinner-grow-sm"
-                        role="status"
-                      ></span>
+                        role="status"></span>
                     </td>
                   </tr>
                 </tbody>
               </table>
               <ngb-pagination
+                *ngIf="errorProjects.done == true && projects.length != 0"
                 [(page)]="page"
                 [pageSize]="pageSize"
-                [collectionSize]="projects.length"
-              ></ngb-pagination>
+                [collectionSize]="projects.length"></ngb-pagination>
               <div
                 *ngIf="errorProjects.error == true"
                 class="alert alert-danger text-center"
-                role="alert"
-              >
-                Error Server
+                role="alert">
+                {{ "error." + errorProjects.status | translate }}
+              </div>
+              <div
+                *ngIf="errorProjects.done == true && errorProjects.error == false && projects.length == 0"
+                class="alert alert-warning text-center"
+                role="alert">
+                {{ "project.withoutProjects" | translate }}
               </div>
             </div>
           </form>

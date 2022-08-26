@@ -21,6 +21,7 @@ export class TasksListComponent implements OnInit {
   errorTask: IResponse = {
     error: false,
     done: false,
+    status: -1
   }
   originalTasks: ITask[] = [];
   searchString: string = '';
@@ -50,7 +51,10 @@ export class TasksListComponent implements OnInit {
         this.tasks = dataTasks;
         this.originalTasks = this.tasks;
       },
-      error: () => {this.errorTask.error = true;},
+      error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
       complete: () => {this.errorTask.done = true;}
     });
   }
@@ -61,7 +65,10 @@ export class TasksListComponent implements OnInit {
         this.tasks = dataTasks;
         this.originalTasks = this.tasks;
       },
-      error: () => {this.errorTask.error = true;},
+      error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
       complete: () => {this.errorTask.done = true;}
     });
   }

@@ -74,7 +74,8 @@
     "name": "Nome",
     "budget": "Orçamento",
     "status": "Estado",
-    "options": "Opções"
+    "options": "Opções",
+    "withoutProjects": "Sem Projetos"
   },
   "task": {
     "name": "Nome",
@@ -83,7 +84,8 @@
     "status": "Estado",
     "options": "Opções",
     "myTasks": "Tarefas",
-    "deadline": "Data Limite"
+    "deadline": "Data Limite",
+    "withoutTask": "Sem Tarefas"
   },
   "users": {
     "programmers": "Programadores",
@@ -115,6 +117,10 @@
     "serverDown": "O servidor está em baixo! Tente novamente mais tarde.",
     "invalideUsername": "O nome de utilizador ou email não é válido",
     "userExists": "O utilizador já existe",
-    "error": "Erro"
+    "error": "Erro",
+    "0": "O servidor está em baixo! Por favor, tente mais tarde.",
+    "400": "Erro: Mau pedido",
+    "401": "Não Autorizado",
+    "403": "Erro: Por favor, refresque a página"
   }
 }

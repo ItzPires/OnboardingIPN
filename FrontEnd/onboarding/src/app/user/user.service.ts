@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IUsers } from '../dashboard/IUsers';
 import { ApiService } from '../shared/api.service';
+import { IStats } from '../common/IStats';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,10 @@ export class UserService extends ApiService<IUser> {
 
   token = "token";
   languade = "language";
-  header: HttpHeaders;
 
   constructor(http: HttpClient, private cookie: CookieService) {
     const projectsUrl = 'Users';
     super(http, projectsUrl);
-
-    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + this.getCookie(this.Cookies.Token) });
   }
 
   //cookies
@@ -34,6 +32,11 @@ export class UserService extends ApiService<IUser> {
 
   public deleteCookie(token: string): void {
     this.cookie.delete(token);
+  }
+
+  //http
+  public getHeader(): HttpHeaders {
+    return new HttpHeaders({ 'Authorization': 'Bearer ' + this.getCookie(this.Cookies.Token) });
   }
 
   //jwt
@@ -67,15 +70,15 @@ export class UserService extends ApiService<IUser> {
   //REST API
 
   public getUsers(roleOfUsers: string): Observable<IUsers[]> {
-    return this.getSpecific(roleOfUsers, this.header);
+    return this.getSpecific(roleOfUsers, this.getHeader());
   }
 
   public getUserDetails(username: string): any {
-    return this.getSpecific("Info/" + username, this.header);
+    return this.getSpecific("Info/" + username, this.getHeader());
   }
 
-  public getUserStats(): any {
-    return this.getSpecific("Stats", this.header);
+  public getUserStats(): Observable<IStats> {
+    return this.getSpecific("Stats", this.getHeader());
   }
 
 }

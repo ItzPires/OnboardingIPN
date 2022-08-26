@@ -11,7 +11,7 @@ import { ITask } from '../tasks/ITask';
 import { TasksDetailsComponent } from '../tasks/tasks-details/tasks-details.component';
 import { TasksService } from '../tasks/tasks.service';
 import { Roles } from '../user/Roles';
-import { UserDetailsComponent } from '../user/user-details/user-details.component';
+import { ProgrammerDetailsComponent } from '../user/programmer-details/programmer-details.component';
 import { UserService } from '../user/user.service';
 import { IUsers } from './IUsers';
 
@@ -31,15 +31,18 @@ export class DashboardComponent implements OnInit {
   stats!: IStats;
   errorProjects: IResponse = {
     error: false,
-    done: false
+    done: false,
+    status: 0
   }
   errorProgrammers: IResponse = {
     error: false,
-    done: false
+    done: false,
+    status: 0
   }
   errorTask: IResponse = {
     error: false,
-    done: false
+    done: false,
+    status: 0
   }
   pageProject = 1;
   pageTask = 1;
@@ -61,7 +64,10 @@ export class DashboardComponent implements OnInit {
         next: (dataProjects: IProjectsID[]) => {
           this.projects = dataProjects;
         },
-        error: () => {this.errorProjects.error = true;},
+        error: (error) => {
+          this.errorProjects.error = true;
+          this.errorProjects.status = error.status;
+        },
         complete: () => { this.errorProjects.done = true; }
       });
 
@@ -69,7 +75,10 @@ export class DashboardComponent implements OnInit {
         next: (dataProgrammers: IUsers[]) => {
           this.programmers = dataProgrammers;
         },
-        error: () => {this.errorProgrammers.error = true;},
+        error: (error) => {
+          this.errorProgrammers.error = true;
+          this.errorProgrammers.status = error.status;
+        },
         complete: () => { this.errorProgrammers.done = true; }
       });
 
@@ -79,7 +88,10 @@ export class DashboardComponent implements OnInit {
         next: (dataTasks: ITask[]) => {
           this.calendar = dataTasks;
         },
-        error: () => {this.errorTask.error = true;},
+        error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
         complete: () => { this.errorTask.done = true; }
       });
     }
@@ -91,7 +103,10 @@ export class DashboardComponent implements OnInit {
         next: (dataStats: IStats) => {
           this.stats = dataStats;
         },
-        error: () => {this.errorTask.error = true;},
+        error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
         complete: () => { this.errorTask.done = true; }
       });
     }
@@ -102,7 +117,10 @@ export class DashboardComponent implements OnInit {
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
       },
-      error: () => {this.errorTask.error = true;},
+      error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
       complete: () => { this.errorTask.done = true; }
     });
   }
@@ -112,13 +130,16 @@ export class DashboardComponent implements OnInit {
       next: (dataTasks: ITask[]) => {
         this.tasks = dataTasks;
       },
-      error: () => {this.errorTask.error = true;},
+      error: (error) => {
+        this.errorTask.error = true;
+        this.errorTask.status = error.status;
+      },
       complete: () => { this.errorTask.done = true; }
     });
   }
 
   openDialogProgrammer(username: string): void {
-    var dialog = this.dialog.open(UserDetailsComponent, {
+    var dialog = this.dialog.open(ProgrammerDetailsComponent, {
       data: { user: username }
     });
   }

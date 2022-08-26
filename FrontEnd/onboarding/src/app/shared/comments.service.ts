@@ -10,22 +10,18 @@ import { ApiService } from './api.service';
 })
 export class CommentsService extends ApiService<ICommentUserString> {
 
-  header: HttpHeaders;
-
-  constructor(userService: UserService, http: HttpClient) {
+  constructor(private userService: UserService, http: HttpClient) {
     const commentUrl = 'Comment';
     super(http, commentUrl);
-
-    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + userService.getCookie(this.Cookies.Token) });
   }
 
 
   public newCommentary(CommentForm: ICommentUserString): Observable<ICommentUserString> {
-    return this.post(CommentForm, "Add", this.header);
+    return this.post(CommentForm, "Add", this.userService.getHeader());
   }
 
 
   public getCommentsByTask(idTask : number): Observable<any> {
-    return this.getById(idTask, this.header);
+    return this.getById(idTask, this.userService.getHeader());
   }
 }

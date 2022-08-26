@@ -11,34 +11,31 @@ import { IProjectsID } from "./projects-list/IProjectsID";
 })
 export class ProjectsService extends ApiService<IProjects> {
 
-  header: HttpHeaders;
-
-  constructor(userService: UserService,  http: HttpClient) {
+  constructor(private userService: UserService,  http: HttpClient) {
     const projectsUrl = 'Project';
     super(http, projectsUrl);
 
-    this.header = new HttpHeaders({ 'Authorization': 'Bearer ' + userService.getCookie(this.Cookies.Token) });
   }
 
   public getProjects(): Observable<IProjectsID[]> {
-    return this.getSpecific('GetManagerProjects', this.header);
+    return this.getSpecific('GetManagerProjects', this.userService.getHeader());
   }
 
   public getProjectByID(idProject: number): Observable<IProjectsID> {
-    return this.getById(idProject, this.header);
+    return this.getById(idProject, this.userService.getHeader());
   }
 
   public updateProject(projectId: number, projectForm: IProjects): Observable<IProjectsID> {
-    return this.update(projectId, projectForm, this.header);
+    return this.update(projectId, projectForm, this.userService.getHeader());
   }
 
   public newProject(projectForm: IProjects): Observable<IProjectsID> {
-    return this.post(projectForm, "Add", this.header);
+    return this.post(projectForm, "Add", this.userService.getHeader());
 
   }
 
   public deleteProject(projectId: number): Observable<IProjectsID> {
-    return this.delete(projectId, this.header);
+    return this.delete(projectId, this.userService.getHeader());
   }
 
 }
